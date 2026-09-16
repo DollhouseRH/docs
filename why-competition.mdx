@@ -1,0 +1,84 @@
+---
+title: "Why a competition"
+description: "Where Dollhouse came from, what went wrong on Infinite Family, and why the chain is not first-come-first-served."
+---
+
+## Where this came from
+
+Dollhouse started as an answer to a project called **Infinite Family**, which launched on Robinhood Chain in September 2026.
+
+Infinite Family's core idea is genuinely good, and Dollhouse keeps it: a straight recursive chain where each coin is paired against the one before it, so buying downstream creates real demand upstream. The project's own brief says the recursive reserve demand is "one of the most interesting parts of the design and MUST NOT casually be replaced."
+
+What Dollhouse changed is everything around that idea.
+
+## What went wrong there
+
+These were checked directly on-chain on 2026-09-10, when the protocol was about two hours old.
+
+<Accordion title="Fees compounded with every hop">
+Each pool in the chain charged its own 1% fee. Buying the first link cost about 1%, the fifth about 5%, the tenth about 10%, before price impact. Add an undisclosed ~4% toll on the way in through a third-party token and buying link #9 from ETH cost roughly **13% one way**.
+
+The deeper the chain got, the worse it was to trade, so the chain punished its own growth.
+</Accordion>
+
+<Accordion title="'Anyone can launch' was not true">
+The launch function required an off-chain signature from a `launchSigner` key the team controlled and could rotate. The contract owner also held a kill switch over launches, a launch fee dial, and a pool-share dial, all set to zero at the time, none of them time-locked.
+
+The head of the chain therefore advanced only when the team's key allowed it. The current head at the time of the review had been launched by that same privileged address.
+</Accordion>
+
+<Accordion title="Anyone who did get through became the next link automatically">
+There was no quality test at all. Pressing Launch made your coin the next reserve asset for everybody who came after you. A bad link did not just lose money; it became infrastructure.
+</Accordion>
+
+<Accordion title="The chain was dead within hours">
+By depth 9, the on-chain reads were stark. Link #1's pool against genesis held $543.95 of liquidity. Four consecutive pairs had null liquidity and zero volume. Two links were not indexed at all. Meanwhile side pools quoted against ETH existed and bypassed the chain entirely.
+
+Genesis itself had fallen 87.6% in an hour.
+</Accordion>
+
+<Accordion title="The source code could not be read">
+The block explorer was behind Cloudflare and no verified source was available. Ownership was a plain two-step owner with no timelock above every dial.
+</Accordion>
+
+## Why a market competition, and not "just launch"
+
+The chain is not a leaderboard. The head coin **becomes the money** for the next generation. Everyone who buys after you has to hold it.
+
+So the question is: who decides which coin gets that job?
+
+**Option A: whoever launches first.** That is Infinite Family. It makes canonical status a race for the fastest bot, and it puts an untested coin in charge of everyone else's liquidity.
+
+**Option B: a team allowlist.** That is what Infinite Family actually did behind the permissionless label. It is not permissionless, and it makes the chain a business relationship.
+
+**Option C: the market decides.** That is Dollhouse. Anyone can enter. Everyone can buy. The coin with the most sustained buying over the round wins, and it also has to clear a minimum bar of real absorbed capital. Rounds are fifteen minutes at first, doubling every two rounds up to twelve hours, and support is measured over the closing window (the last fifteen minutes of the round). See [how a round works](/how-a-round-works).
+
+Option C is the only one that is open to everybody *and* applies a test.
+
+## Why the extra bar
+
+A competition on its own only picks a relative winner. The best of a bad round is still bad.
+
+So the winner must also absorb an average of **0.15% of the parent coin's supply** across the closing window: the last fifteen minutes of the round. If nobody clears it, there is **no winner** and the chain does not advance. The bar then decays 10% per failed round, down to a quarter of its starting value, and resets the moment somebody wins.
+
+Design decision: the bar exists to get quality coins onto the launchpad and into the chain, not coins that are only testing the mechanism.
+
+## Why the competition is good for the parent
+
+Every candidate is priced in the head coin, including the ones that lose.
+
+So even a round with no winner still pulls real buying into the head. Ten candidates competing for spot #18 means ten markets all denominated in #17. The head gets an entire season of child activity instead of being replaced by a single random launch.
+
+## What "sustainable" means here, and what it does not
+
+**It means the protocol does not need ever-rising taxes to work.** The 1% is flat at any depth. That was the core redesign principle.
+
+**It means nobody can withdraw the pool.** Liquidity is locked at launch with no exit function.
+
+**It means the developer is paid from activity**, publicly, at a fixed 20% of the fee, and nothing else. See [Tokenomics](/tokenomics).
+
+**It does not mean any coin appreciates.** It does not mean the chain keeps growing. It does not mean a round will happen tomorrow.
+
+<Warning>
+Two honest limits on the quality filter. First, the bar is cheap to clear once the chain is a few links deep, under $1 from the third generation on, so from there the forfeited bond is the main deterrent left. Second, the score can be bought: winning a round costs a small fraction of the capital cycled, and that capital can be taken straight back out. The competition filters out coins that nobody will fund; it does not filter out coins that somebody funded on purpose.
+</Warning>

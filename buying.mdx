@@ -1,0 +1,67 @@
+---
+title: "Buying"
+description: "How to buy any coin in the chain, what you pay, and what to watch out for."
+---
+
+## Before you start
+
+You need a wallet on Robinhood Chain with $DOLL for the trade and ETH for gas. If you do not have $DOLL yet, get it on Pons first. See [Wallet setup](/wallet-setup).
+
+## Buying a coin
+
+<Steps>
+  <Step title="Pick the coin">
+    Any coin in the chain, or any candidate in a live round. Losing coins from past rounds are still tradable too.
+  </Step>
+  <Step title="Enter an amount in $DOLL">
+    The router works out the path for you: $DOLL down the chain to the coin you asked for. To buy $DOLL itself with ETH, use Pons. The site links there.
+  </Step>
+  <Step title="Check the quote">
+    You will see the fee and the expected amount received before you confirm. Set your slippage.
+  </Step>
+  <Step title="Confirm">
+    One transaction. Your $DOLL crosses every family pool on the way to your coin.
+  </Step>
+</Steps>
+
+## What you pay
+
+**1% on the way in**, charged once on the $DOLL side of link one's pool. Once, regardless of how deep the coin is.
+
+**7.5 basis points per hop** between family pools. Buying the third coin in the chain crosses three family pools, so about 0.225% in hop fees.
+
+**Price impact**, which is usually the largest cost on a deep route. It grows fast with depth: a ten-link route already carries a real effective loss on a constant-size trade, and a hundred-link route is far worse.
+
+**Gas**, which is cheap on Robinhood Chain.
+
+## Buying during a round
+
+Buying a candidate during its round is also **how you vote for it**. Rounds are fifteen minutes at first, doubling every two rounds up to twelve hours. The score is the average amount of parent coin its pool absorbed over the **closing window** (the last fifteen minutes of the round), so money that stays in counts; money that touches and leaves barely counts at all. See [how a round works](/how-a-round-works).
+
+<Warning>
+The first 3 seconds of a candidate's trading carry a tax starting at 99% and falling to 1%. Do not buy in the opening seconds unless you understand exactly what you are paying. Assume bots are there.
+</Warning>
+
+## What you actually own
+
+An ordinary ERC-20 token, in your wallet, that you can sell at any time. There is no lock-up, no unlock schedule and no sell tax on any coin.
+
+Its market is the pool against its parent coin. That pool's liquidity is permanent and cannot be withdrawn by anyone.
+
+## Things worth knowing before you buy
+
+<Warning>
+**A coin's price depends on its parent's price.** If the coin above yours falls 50% against $DOLL, your coin falls with it in $DOLL terms even if nothing happens in its own market. This is not a side effect; it is how the chain works.
+</Warning>
+
+<Warning>
+**Winning a spot in the chain guarantees nothing.** Canonical status is not a safety review, an endorsement or a promise of volume. A canonical coin can go to zero.
+</Warning>
+
+<Warning>
+**Taking a spot in the chain is cheap for someone with capital.** A spot in the chain can be bought by someone with enough capital, and that capital can be withdrawn afterwards. This is disclosed, not fixed. Do not read "it won the round" as "real people bought it."
+</Warning>
+
+## Nothing here is a recommendation
+
+Dollhouse is a mechanism, not an investment product. Prices can go to zero. Only spend what you are willing to lose entirely.

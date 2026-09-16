@@ -1,0 +1,119 @@
+---
+title: "Tokenomics"
+description: "Every number: supply, the entrance coin, the fee split, the hop fee, and the bond."
+---
+
+## Supply
+
+Every candidate coin on Dollhouse has a fixed supply of **1,000,000,000 tokens**. It is minted once at launch. There is no mint function afterwards.
+
+$DOLL is not launched by Dollhouse, so its supply and allocation are decided entirely by Pons, not by this protocol. See [The $DOLL coin](/the-genesis-coin).
+
+## Where the supply goes
+
+**Candidate coins: 100% into the locked pool.** No creator allocation, no team allocation, no reserve, no airdrop. Everything is liquidity from the first second.
+
+There is no pre-allocation anywhere in Dollhouse. Early buyers get $DOLL at the Pons open like everyone else, and there is no unlock contract on any coin.
+
+## The trading fee
+
+**1%, charged once on the $DOLL side of link one's pool, in both directions.** Once on the way in, once on the way out. It does not increase with depth and it is not charged on family-to-family pools.
+
+There is no sell tax. Buys and sells pay the same 1%.
+
+**7.5 basis points (0.075%) per family-to-family hop**, paid in the parent coin, which goes into that parent's reinforcement budget.
+
+**The snipe tax:** on a candidate's first 3 seconds of trading, a tax starting at 99% and falling to 1%. Second by second in practice it works out to roughly 99%, 66%, 34%, then zero from +3 seconds. On a new round-one pool, the edge fee is suppressed for that same 3-second window and the snipe tax applies instead, so the two never stack past 100%. See [Risks](/risks).
+
+## How the 1% is split
+
+| Share | Recipient | Delivered as |
+|---|---|---|
+| 40% | Creator | $DOLL, pull-claimed |
+| 20% | Developer | $DOLL, pull-claimed |
+| 20% | Ancestor sleeve: every earlier coin | Locked buy-side liquidity, never cash |
+| 20% | Immediate parent reinforcement | Locked buy-side liquidity, never cash |
+
+**The season split.** During a round, a candidate's attributed trades split the 40% creator share **50/50**: 20% of the fee to the candidate's creator, 20% to the creator of the head coin the round is priced in. After the round ends, 100% of the creator share on that coin goes to its own creator.
+
+## How ancestors are paid
+
+The ancestor share is divided among all earlier coins by a U-shaped weight: oldest coins highest, middle coins lowest, newest coins in between.
+
+$DOLL is always worth exactly **2x the newest link**, by construction, and never more. There is no fixed floor on $DOLL's own share, so it shrinks as the chain grows: 34.5% of the ancestor sleeve at 5 links, 0.24% at 1,000 links.
+
+The money is never paid out as cash. It buys parent tokens and locks them as a permanent bid under the ancestor's pool, and a volunteer keeper does the conversion for a 1% bounty. Draws are capped at 10% of an entitlement per 24 hours and 2% of the active liquidity range per call. Generation 0 and 1's pots deploy as locked $DOLL buy support under link one directly; deeper generations go through the conversion above.
+
+How much $DOLL a deployment spends is worked out along the chain, each step taken at the lowest of the current price, the 30-minute average and the 7-day average. Where the bid is then placed is decided by the receiving pool itself: its current price has to be within about 3% of its own 30-minute average before anything is placed, and the bid sits immediately beneath its live price.
+
+## Where a generation's purse goes
+
+A generation is the winner of a round plus every coin that lost the same round. The generation's share of later fees, its **purse**, is not divided between them.
+
+All of it is locked as bid liquidity **under the coin that won the round**, at every deployment, forever. There is nothing measured afterwards, nothing to rank and nothing to claim: the round decides it, and the round is over.
+
+It is locked as a **permanent buy wall under that coin**: a standing bid from just under the current price down to about 6% below it, never withdrawn, which the coin's own holders can sell into at any time. Each deployment is capped at 2% of the pool's depth, and at most 10% of that round's accrued share may be deployed per 24 hours.
+
+That is how the reinforcement share, 20% of every fee, has always worked. Sending the whole generation's share to the round winner extends the same rule from 20% of the fee to 40% of it. Keeping value on the main line of the chain, in buy-side form, is the intent.
+
+Coins that lost the round keep their own pools and their own creator fees, and they trade forever. They receive no purse.
+
+Why it works this way, and what it costs, is on [Intentional choices](/intentional-choices).
+
+## The bond
+
+Entering a round requires a refundable bond, paid in $DOLL: approve the token, then register.
+
+On mainnet the bond is flat: the same amount at every chain depth, spam resistance only. It is set at deployment from $DOLL's graduated Pons price, to roughly twenty dollars at launch. Testnet uses a smaller, depth-scaled schedule instead, to exercise that path of the contract.
+
+| | Base | Schedule |
+|---|---|---|
+| Testnet | a small amount of MockDoll | doubles every 4 links, capped at a fixed ceiling |
+| Mainnet | a flat amount in $DOLL, set at deployment to roughly twenty dollars at launch | flat: no doubling |
+
+The round pins its bond when it opens, and every candidate stores what it paid, so the refund and the forfeit always use the actual amount posted.
+
+**Winners get the whole bond back.** Only losers forfeit, and those forfeited bonds become locked $DOLL buy support under link one.
+
+<Note>
+The bond is refundable capital, not a price. An earlier version of our own documentation described a "non-refundable bond floor" for winners. That was false and an auditor called it out. Previously, mainnet was also planned to double with depth; that was replaced with a flat mainnet bond, since only failed and spam entries were ever meant to be priced by it, not a successful launch.
+</Note>
+
+## The curves
+
+Every candidate coin sells its supply along a fixed multi-range curve, set in the contract, identical in shape for every coin. The four ranges take 20%, 25%, 35% and 20% of the supply on sale, across valuation bands that run from one thousandth of the parent's supply value up to 100x it, with the last range as a tail.
+
+$DOLL's own curve was Pons's, not Dollhouse's: it ran on Pons's bonding curve and graduated into a Uniswap v4 pool under Pons's hook before Dollhouse ever adopted it. See [The $DOLL coin](/the-genesis-coin).
+
+By the time a winning coin has cleared the bar, roughly 38% of its supply has been sold with about 11% of embedded backing.
+
+## What the developer can and cannot do
+
+<Accordion title="Can">
+- Claim their own accrued 20% fee share, in $DOLL, to an address they choose.
+- Transfer the developer fee address on a public 7-day delay.
+</Accordion>
+
+<Accordion title="Cannot">
+- Remove liquidity from any pool. No such function exists, for anyone.
+- Change the fee, the split, the curve, the threshold, the round timings or the bond.
+- Choose or overturn a round's winner.
+- Rewrite the chain's history. Every canonical entry is write-once.
+- Pause trading, blacklist an address, or freeze a balance.
+- Mint more of any coin.
+- Take anything from a candidate coin's supply. Candidates have no allocation at all.
+</Accordion>
+
+<Warning>
+One more disclosure on the developer address. The fee ledger is a single balance, so whatever has already accrued is claimable by whoever holds the developer role **at claim time**. Transferring the role hands over the unclaimed balance too.
+</Warning>
+
+## The steward
+
+A separate address, the **steward**, has exactly two powers and no others: announce a sunset that names a successor deployment, and cancel that announcement before it takes effect. It cannot touch a pool, a price, a fee, a winner or a balance.
+
+On mainnet the steward is planned as a **single cold hardware-wallet signer**, not a multisig. Design decision: a multisig plus a separate cold developer address is more operational weight than a project of this size warrants. The compensation is the 7-day delayed transfer path on the role.
+
+<Warning>
+A single signer is a single point of failure. If that key is lost, the sunset path is gone forever. If it is stolen, the thief gets 7 days of public notice before they hold the role, and the sunset switch itself is a serious power. See [Risks](/risks).
+</Warning>

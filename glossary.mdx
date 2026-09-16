@@ -1,0 +1,126 @@
+---
+title: "Glossary"
+description: "Every term on this site, defined in one line."
+---
+
+## The chain
+
+**$DOLL**: the entrance coin, link zero, adopted from Pons rather than launched by Dollhouse. The outermost nesting doll, and the only coin with no Dollhouse pool of its own.
+
+**Chain**: the single line of coins, each one paired against the one before it.
+
+**Parent**: the coin your coin is priced in. **Child**: a coin priced in yours.
+
+**Head**: the newest coin in the chain; the coin the current round's candidates are priced in.
+
+**Canonical**: holding a numbered spot in the chain. It is a position, not an endorsement.
+
+**Link**: one coin's position in the chain, counted from $DOLL at 0.
+
+**Generation**: a round's winner together with every coin that lost that round. A generation shares one purse.
+
+**Ancestors**: every coin above yours in the chain, all the way to $DOLL.
+
+**Trunk**: the one canonical line, as opposed to the losing side branches.
+
+## Rounds
+
+**Round**: a timed competition for the next spot in the chain. 15 minutes at first, doubling every two rounds up to a 12-hour cap.
+
+**Candidate**: a coin entered into a round.
+
+**Registration**: the window before trading during which coins can enter a round. A fifth of the round's trading time, never under 3 minutes or over 1 hour.
+
+**Late entry**: entering a round after trading has started, allowed only on rounds of an hour or more and only during the first third of trading. Scored over the same closing window as every other coin; the only handicap is having less time to build support before that window arrives.
+
+**Voting**: buying a candidate during a round. Your buys are your votes.
+
+**Score**: a candidate's market cap (net parent coin its pool absorbed), averaged over the round's **closing window**: the last fifteen minutes of the round. The same window applies to every candidate regardless of when it entered.
+
+**Closing window**: the trailing slice of the round over which every candidate's score is averaged: the last fifteen minutes of the round, whatever the round's length. Time-averaging over this window, not the whole round, is what makes a single block of buying unable to decide the result by itself.
+
+**Threshold**: the minimum score needed to win at all: an average of 0.15% of the parent's supply. It decays 10% per failed round to a floor of a quarter, and resets on a win.
+
+**Nominal end**: the round's public end time, known in advance. Nothing after it ever counts.
+
+**True end**: the moment the round actually stopped counting: a random point inside the 3 minutes before the nominal end, revealed only afterwards.
+
+**drand**: the public randomness beacon, run by the League of Entropy and not controlled by Dollhouse, that produces the random draw for the true end. Dollhouse uses drand's `evmnet` beacon specifically, because its signatures can be checked with a precompile this chain actually has; the contract verifies the signature itself, on-chain, with no vendor and no trusted relayer, anyone can pass the value along once the beacon has produced it. If nobody does within 30 minutes, the round settles at its nominal end instead, with no randomness for that round.
+
+**Submission window**: the 5 minutes after the bell during which anyone can submit scores on-chain.
+
+**Finalize**: the permissionless call that crowns the winner, refunds its bond and forfeits the losers'.
+
+**Bond**: the refundable deposit for entering a round. Returned in full on a win, forfeited on a loss.
+
+**Season cut**: the half of the creator share that goes to the head coin's creator during a round.
+
+**Purse**: a generation's accrued share of the ancestor sleeve. Locked, in full, as bid liquidity under the coin that won that round. Coins that lost the round receive none of it.
+
+**Trailing support**: how much parent coin is sitting in a coin's pool, time-weighted over a recent window. The same measurement the round is scored with, left running after the round.
+
+## Fees and money
+
+**Edge fee / the 1%**: the protocol fee charged on the $DOLL side of link one's pool, in both directions, once per crossing.
+
+**Hop fee**: 7.5 basis points (0.075%) charged in the parent coin on each family-to-family trade.
+
+**Basis point (bp)**: one hundredth of a percent. 7.5 bps = 0.075%.
+
+**Snipe tax**: a tax on a candidate's first 3 seconds of trading, starting at 99% and falling to 1%.
+
+**Fee split**: 40% creator, 20% developer, 20% ancestors, 20% parent reinforcement.
+
+**Ancestor sleeve**: the 20% set aside for earlier coins, spent as locked buy support rather than paid as cash.
+
+**Reinforcement**: the 20% set aside to deepen the immediate parent's liquidity, also as locked buy support.
+
+**Keeper**: a volunteer who converts those entitlements into locked liquidity for a 1% bounty. Anyone can be one.
+
+**Bounty**: the keeper's payment: 1% of what is deployed, capped at 20% of the $DOLL the call consumes. A minimum floor applies from the second generation on; the self-funded link-one deployment, where the keeper brings no capital, pays the plain 1% with no floor.
+
+**Claim**: pulling your accrued $DOLL out of the fee ledger. Nothing is ever pushed to you.
+
+## Mechanics
+
+**Locked liquidity**: pool liquidity that no function can remove, by anyone, ever.
+
+**Curve**: the fixed price ladder along which a coin's supply is sold. Identical in shape for every coin.
+
+**Pool**: the market where a coin trades against its parent. Built on Uniswap v4.
+
+**Hook**: the contract attached to every pool that charges the fees and records the scores.
+
+**Router**: the convenience contract that walks a multi-coin path in one transaction. It has no fee privileges.
+
+**Slippage**: the difference between the quoted price and the filled price; you set your own tolerance.
+
+**Price impact**: how much your own trade moves the price. On deep routes this is the main cost, not the fees.
+
+**TWAP**: a time-weighted average price, used to stop bids being priced off a momentary spike.
+
+**Embedded backing**: the parent coin sitting in a child's pool, handed back to sellers as the price falls.
+
+## Roles and upgrades
+
+**Creator**: whoever launched a coin; receives 40% of the fee on it.
+
+**Developer**: the address that receives 20% of the fee, in $DOLL.
+
+**Steward**: a separate address whose only powers are to announce and to cancel a sunset.
+
+**Sunset**: the steward's one-time announcement that a successor deployment takes over new rounds and future edge fees after a 7-day delay.
+
+**Successor / continuation**: a later deployment that adopts the existing chain rather than starting a new one.
+
+**Role transfer delay**: the 7-day public wait between announcing and executing a change of steward or developer address.
+
+## Chain and tooling
+
+**Robinhood Chain**: the network Dollhouse runs on. Mainnet is chain 4663; testnet is chain 46630.
+
+**Testnet**: a practice network where the coins are worthless. Our testnet entrance token is a placeholder called MockDoll, standing in for $DOLL.
+
+**ERC-20**: the ordinary token standard every Dollhouse coin uses.
+
+**Gas**: the network fee for a transaction, paid in ETH.

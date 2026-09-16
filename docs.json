@@ -1,0 +1,64 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Dollhouse",
+  "description": "Dollhouse is a launchpad where every new coin is born inside the one before it, like nesting dolls.",
+  "colors": {
+    "primary": "#8A8A8A",
+    "light": "#FFFFFF",
+    "dark": "#0A0A0A"
+  },
+  "appearance": {
+    "default": "dark"
+  },
+  "navigation": {
+    "groups": [
+      {
+        "group": "Start here",
+        "pages": [
+          "introduction",
+          "why-dollhouse",
+          "how-a-round-works",
+          "the-chain"
+        ]
+      },
+      {
+        "group": "The economics",
+        "pages": [
+          "the-flywheel",
+          "why-competition",
+          "intentional-choices",
+          "tokenomics",
+          "the-genesis-coin"
+        ]
+      },
+      {
+        "group": "Using Dollhouse",
+        "pages": [
+          "buying",
+          "selling",
+          "launching-a-coin",
+          "earnings",
+          "wallet-setup"
+        ]
+      },
+      {
+        "group": "Trust & safety",
+        "pages": [
+          "risks",
+          "audits",
+          "contracts",
+          "faq",
+          "glossary"
+        ]
+      }
+    ]
+  },
+  "navbar": {
+    "primary": {
+      "type": "button",
+      "label": "Read the risks",
+      "href": "/risks"
+    }
+  }
+}

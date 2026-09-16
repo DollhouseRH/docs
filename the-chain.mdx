@@ -1,0 +1,72 @@
+---
+title: "The chain"
+description: "Parent and child, what 'priced in the coin before it' means, and what canonical does and does not guarantee."
+---
+
+## One line, not a tree
+
+Dollhouse has exactly one chain.
+
+```
+(ETH on Pons) → $DOLL → #1 → #2 → #3 → #4 → ...
+```
+
+There is always one head, the newest coin in the chain, and exactly one next spot open. Every round competes for that one spot.
+
+A branching family tree was considered and rejected: branches split attention, and a branch nobody watches leaves its holders with nothing downstream.
+
+## Every coin is paired with its parent
+
+This is the part that makes Dollhouse different from a normal launchpad.
+
+Coin #3's pool does not hold $DOLL. It holds **#2**. Coin #2's pool holds **#1**. Coin #1's pool holds **$DOLL**. There is no pool in Dollhouse that holds ETH: $DOLL is adopted, not minted here, and its own ETH market sits on Pons, outside the chain.
+
+So "priced in the coin before it" is literal. #3's price is quoted in #2, and #2's price is quoted in #1.
+
+## Why that links liquidity
+
+**To buy a child you must first hold its parent.** You get $DOLL on Pons, then inside Dollhouse $DOLL buys #1, #1 buys #2, #2 buys #3. Every one of those coin-to-coin trades is a real trade on a real pool.
+
+**A child's pool holds its parent permanently.** When a coin's curve sells its supply, what comes back into the pool is parent coin, and that parent coin is locked there forever. A successful child becomes a permanent holder of its parent.
+
+**Prices propagate.** When a child market moves, arbitrage pushes the change back up through the parent markets.
+
+Fee sharing alone cannot reproduce any of this. That is why coins are paired against each other instead of each holding its own plain ETH pool.
+
+## The cost of depth
+
+Being deep in the chain has a real price, and it is not the fee.
+
+The 1% is charged once. The per-hop pool fee is 7.5 basis points, so a ten-link route pays about 1.75% in total fees and a hundred-link route about 8.5%.
+
+**Price impact is the real problem.** On a constant-size trade, the effective loss on a full-line route grows fast with depth, real at ten links and severe at a hundred.
+
+Each new link has also measured out at roughly **5–8% of its parent's value** in $DOLL terms. The chain shrinks in $DOLL terms as it grows.
+
+<Warning>
+A deployment can set a permanent depth cap at launch, so the chain stays inside the range the design was tested for. The cap is fixed at deploy and can never be raised.
+</Warning>
+
+## What "canonical" means
+
+A coin is **canonical** if it holds a numbered spot in the chain.
+
+Canonical means exactly three things:
+
+1. Its number and its parent are written on-chain, once, and can never be rewritten.
+2. Coins in the following round are priced in it while it is the head.
+3. It receives a share of the ancestor payouts on everything launched after it, forever.
+
+<Warning>
+**Canonical status guarantees nothing else.** It is not an endorsement, not a safety review, not a promise of volume, and not a promise of price. A canonical coin can fall to zero the day after it wins, and its own price still depends on the price of its parent.
+</Warning>
+
+## What canonical status costs to take
+
+This is disclosed openly because it is uncomfortable.
+
+Winning a round is a **capital-rental auction**. You can cycle money through your own candidate, win, and take the money back out. That costs a small fraction of the capital cycled and reliably captures the slot at a strong edge over the honest leader's absorption.
+
+It gets cheaper with depth: clearing the minimum bar costs roughly $100 at generation 1, $7 at generation 2, and under $1 from generation 3 onward. From there, the forfeited bond is the main remaining deterrent: a flat amount on mainnet, the same at every depth.
+
+There is no fix for this that the project was willing to ship: every structural fix (a sunk cost, a sell lock, a seasoning period) was rejected as hostile to ordinary users. So it is disclosed instead.

@@ -1,0 +1,143 @@
+---
+title: "Intentional choices"
+description: "Four design decisions that surprise people: what we chose, why, what it means for you, and what we gave up."
+---
+
+Some of the rules on Dollhouse look strange at first glance. None of them are accidents. This page lists the ones people ask about most, and is honest about what each one costs.
+
+Every rule here is a fixed number in the contracts. Nobody can change any of them. See the last section.
+
+## 1. The purse goes to the coin that won the round
+
+### What we chose
+
+Every coin in the chain earns a share of the fees paid by everything launched after it. That money is called the **purse**.
+
+Each round's share of later fees is locked as liquidity **under the coin that won it**. All of it, forever, with nothing measured afterwards and nothing to claim. There is no ranking, no scoreboard and no split.
+
+### What the purse actually is
+
+It is a **permanent buy wall under the coin that won the round**. The money buys that coin's parent token and locks it as a standing bid, from just under the current price down to about 6% below it. It is never taken back out. And it is a bid, not a lock-up: the coin's own holders can sell into it, at those prices, whenever they want to.
+
+It is deliberately slow. Each deployment can be at most 2% of the depth of the pool it goes into, and at most 10% of what that round's share has collected can be deployed in any 24 hours. It is support, not a lever anyone can pull on the price.
+
+None of this is new. The reinforcement share, 20% of every fee, has been placed exactly this way since the first version. Making the purse uncontested extends the same rule from 20% of the fee to 40%. Keeping the value on the chain, in that form, is the point of the change.
+
+Two other things work the same way, and always have:
+
+- **Pairing rights.** The round winner becomes the coin the next generation is priced in, and that locks the moment the round is finalised. There is no steal window, ever. The chain is a straight line of round winners and nothing moves back up it.
+- **The season cut.** The head coin's creator keeps the half of the creator share earned during the round it hosts. That is settled and untouchable.
+
+### Why
+
+**It keeps the value on the chain.** Every coin launched later is priced through the winner of each earlier round. Liquidity locked under those winners is liquidity that every deeper coin trades against. Liquidity locked under a coin that lost its round sits on a branch that nothing else routes through, and the chain as a whole is thinner for it.
+
+**It is one sentence.** "Each round's share of later fees is locked as liquidity under the coin that won it." Nothing about windows, averages, staleness or who refreshed a scoreboard last. A rule you have to read twice is a rule people trade against without understanding.
+
+**A coin that gets dumped is its own community's to revive.** An earlier design redirected the purse away from a winner that was sold off, towards a sibling that held support. That penalty sounds fair, and it moves money off the chain at exactly the moment the chain needs depth. A coin whose holders have walked away is far more likely to be taken over and brought back by people who want it than to be fixed by sending its fee share somewhere else.
+
+### What it means for you
+
+If you hold a round winner, its position in the chain and its share of later fees are both permanent. Nothing that happens afterwards moves them.
+
+If you hold a coin that lost a round, it is a real coin: its pool stays open forever, it trades, and its creator keeps the creator share of its own fees. What it does not have is a claim on the chain's fee stream. If you want it to be worth something, that is a job for its holders, not for the protocol.
+
+If you are a creator, the round is the whole contest. Win it and the purse is yours.
+
+### The trade-off we accepted
+
+**A winner that is dumped keeps its purse anyway.** There is no penalty for a coin that wins a round and is then sold off. Its share of later fees is still locked under it. We chose a rule that keeps value on the chain over a rule that punishes a bad outcome.
+
+**A sibling that grows far past the winner earns nothing from the chain.** It can be the biggest coin of its generation and still receive no purse. It trades, it keeps its own creator fees, and it has no claim on anything upstream.
+
+**We gave up something real.** The earlier, contested purse had a measurable dump penalty: a winner that dumped hard usually lost the lead. That protection is gone on purpose. It also removed an attack, though: parked capital could buy purse share by moving a ranking, which is not possible when there is no ranking to move.
+
+<Warning>
+The purse is a rule about where fee-funded buy support is placed. It is not income, not a dividend and not a promise of anything. Every coin involved can still go to zero.
+</Warning>
+
+## 2. Rounds get longer as the chain grows
+
+### What we chose
+
+Round length is decided by the round number and nothing else. It starts at 15 minutes and doubles every two rounds, capped at 12 hours. Registration is a fifth of the trading time, with a 3-minute floor and a 1-hour cap.
+
+| Round | Trading time | Registration | Late entry |
+|---|---|---|---|
+| 1–2 | 15 minutes | 3 minutes | no |
+| 3–4 | 30 minutes | 6 minutes | no |
+| 5–6 | 1 hour | 12 minutes | first 20 minutes |
+| 7–8 | 2 hours | 24 minutes | first 40 minutes |
+| 9–10 | 4 hours | 48 minutes | first 80 minutes |
+| 11–12 | 8 hours | 1 hour | first 2 hours 40 minutes |
+| 13 and after | 12 hours | 1 hour | first 4 hours |
+
+From round 5 on, once a round lasts an hour or more, a coin can still enter **after trading has started**, during the first third of the round. Its pool opens the moment it registers, and its own 3-second snipe tax starts from that moment. The bond is the same as everyone else's.
+
+### Why
+
+The first rounds are 15 minutes because the whole system has to be *visibly* working within about twenty minutes of the first person showing up. Nobody watches an empty page for twelve hours to find out whether a launchpad functions. Attention in this market moves fast, and the early cadence is built around that.
+
+Later rounds are long because a mature chain has more coins, more candidates and people in every time zone, and a 15-minute round would hand the chain to whoever happened to be awake. Longer rounds also mean a longer season cut for the head coin.
+
+Late entry exists because registration alone gets absurd on a long round: a 5-minute sign-up window in front of a 12-hour round would shut out good coins for no reason.
+
+### What it means for you
+
+Early on, rounds are fast and frequent. Later, a round is something you can plan around, and you know exactly how long it will be before it opens, because the schedule is a fixed table.
+
+If you enter late, the scoring does not punish you. Design decision: **having less time to market a token and find buyers is the time penalty.** The coin with the highest market cap at the end wins: measured as an average over the **closing window** (the last fifteen minutes of the round), the same window for every coin regardless of when it entered. A late entrant is not scored more leniently; it just has less time to build up to that window. The window is a flat fifteen minutes on every round rather than a fraction of the round's length: the random end already removes the last-seconds game, and a raider who pumps into the window still has to exit into the market it just pumped.
+
+### The trade-off we accepted
+
+**Whoever leads for most of the round can still lose at the end.** The winner is the highest market cap at the end. Money that arrives late but stays for the closing window counts in full. A challenger who arrives at the start of the closing window with money equal to the leader's, and holds it, tends to beat a leader who is still spreading its buys out, in short and long rounds alike. The random end does not change that; it only makes last-second spikes far less reliable. This is the rule working as designed, not a loophole: to win, be the highest at the end and hold it.
+
+Design decision: **the time average is only a defence against manipulation.** It is not there to reward endurance over the whole round: it exists so that a single block of buying can't decide the round by itself. The defences against a late raid are the random end (nobody knows the true closing moment in advance), the fact that capital has to be **held**, not flashed, through that window, and the leading coin's own community having time to respond and defend. Longer rounds have longer closing windows, which gives defenders more time to react, so the safe tuning direction, if this needs adjusting, is up.
+
+**The chain gets slower as it grows.** At 12-hour rounds the chain can add at most two links a day. That is deliberate, a deep chain should not be extended casually, but it does mean less frequent action.
+
+## 3. The round ends at a random moment
+
+### What we chose
+
+Every round has a **nominal end**: a public time, known from the moment the round opens. Nothing that happens after it counts.
+
+The **true end** is a random moment inside the last 3 minutes before it. Nobody knows it, including us, until after the nominal end has passed. Scores are then measured as of that true end.
+
+The randomness comes from **drand**, a public randomness beacon run by the League of Entropy. At the nominal end the round pins a drand round number that has not happened yet. When that beacon value is published, anyone can relay it to the contract, which checks its signature on-chain before using it. The value cannot be guessed in advance and cannot be faked.
+
+<Note>
+**Status: verified on this chain, not yet live.** We confirmed that drand's `evmnet` beacon can be checked on-chain here: its signatures are BN254 points, and Robinhood Chain has the pairing precompile needed to verify them (the alternative beacon, `quicknet`, needs a precompile this chain does not have, which is why we did not pick it). The contract that does this verification, checking the beacon's signature itself, not trusting a message about it, is written and tested against real, live beacon values, with no vendor and no third party in between: anyone can relay the value once it exists. It has not yet run on a public deployment. [Contracts](/contracts) is the source of truth for what is actually deployed, and will say so the day it does.
+</Note>
+
+### Why
+
+Sniping the last second of a fixed-end round is close to free money: buy at the very end, be counted in the score, sell straight after. It turns a whole contest into a one-second auction.
+
+A random end makes that a gamble. If you buy in the last 3 minutes, you do not know whether the round has already ended. Your money may be spent supporting a coin after the moment that counted.
+
+It has to be a *public* beacon rather than something we generate, because a contract cannot keep a secret: anything the chain can work out before the end can be read before the end by anyone willing to look. **Dollhouse does not control drand and cannot influence it.**
+
+### What it means for you
+
+Buy early and hold if you want your support to count. There is no reliable way to time the bell.
+
+The published end time is the last moment that can *ever* count, not the moment that will count.
+
+### The trade-off we accepted
+
+**We depend on the beacon being relayed.** If nobody relays the drand value within the timeout, the round finalises at the nominal end instead, with no randomness for that round. The round always finalises; it never hangs. On a short round, a random end sharply cuts a last-second sniper's odds of flipping the outcome, and spreading the same buy over the closing minutes instead of dropping it all at once cuts those odds further still. On a long round the random end makes little measurable difference either way; there simply isn't enough time left in the closing minutes of a long round for it to matter.
+
+**It is an outside dependency.** drand is public, verifiable and not run by us, which is exactly why we chose it, and it also means its liveness is not something we control.
+
+## 4. Nobody can change any of this
+
+Every number on this page (the duration table, the registration times, the late-entry window, the 3-minute random-end band, the relay timeout) is a constant written into the contracts when they are deployed.
+
+There is no dial, no admin function and no governance vote that can move any of them. The developer cannot change them. The steward cannot change them. They cannot be changed for a particular round, a particular coin or a particular person.
+
+The only thing anybody can do about a rule they dislike is not play.
+
+<Note>
+The full decision record for each choice is in `docs/MECHANISM_v3.md` in the repository. See [Risks](/risks) for what each of these choices can cost you.
+</Note>

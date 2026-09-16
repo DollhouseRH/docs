@@ -1,0 +1,58 @@
+---
+title: "The $DOLL coin"
+description: "The honest case for the genesis coin, followed by the honest case against it."
+---
+
+## What $DOLL is
+
+$DOLL is not launched by Dollhouse. It is created on **Pons**, a separate launchpad on Robinhood Chain: a bonding curve that graduates into a Uniswap v4 pool quoted in ETH, under Pons's own hook and locked by Pons's own locker. Dollhouse **adopts** that token as its entrance coin once, as part of the one-time deployment step, with the attribution fixed at deployment, so whoever finishes deploying the contracts, the outcome is identical, and there is nothing to race for. There is no Dollhouse-run curve for $DOLL, no insider allocation on it, and no unlock contract; early buyers get it at the Pons open like everyone else.
+
+Name: **Dollhouse**. Symbol: **$DOLL**. Supply: 1,000,000,000. It is the outermost nesting doll: link zero, the coin every other coin is ultimately priced against. It has no pool inside Dollhouse itself; its market is the one it graduated into on Pons.
+
+<Note>
+The testnet deployments used a placeholder token in place of $DOLL, called **MockDoll**. Mainnet will adopt the real **$DOLL** from Pons. Nothing is deployed on mainnet yet.
+</Note>
+
+## Why it is structurally different from the other coins
+
+**It is the door.** Every trade that brings $DOLL into the chain, or takes it back out at link one, is where the 1% edge fee is charged, in both directions. There is no other entrance inside Dollhouse. Getting ETH into $DOLL itself, or out of it, happens on Pons and is outside Dollhouse's accounting entirely.
+
+**Every round's demand flows down through it.** To buy a candidate you need the head coin. To get the head coin you need its parent. Follow that all the way up and you are buying $DOLL. A round that pulls meaningful head-coin demand pulls it through here.
+
+**Ancestor payouts weight it highest.** $DOLL sits at the oldest end of the U-shaped weight curve and receives exactly **2x the newest link's share** of the ancestor sleeve, permanently, at every depth.
+
+**Losers' bonds land under it.** Bonds are posted in $DOLL. Every forfeited bond is delivered as locked $DOLL buy support underneath link one when the round closes; if that delivery ever fails, the round still closes and the bond is delivered later, by anyone. So are the edge fees $DOLL's own crossings earn.
+
+**Its liquidity can never be pulled, but Dollhouse does not control it.** $DOLL's pool lives on Pons, locked by Pons's locker under Pons's own rules; Dollhouse has no allocation of its own on $DOLL and no function that touches that pool.
+
+## What that adds up to, in measured terms
+
+Over 20 generations at $250,000 of edge volume per round, the model puts a meaningful amount of ancestor sleeve plus forfeited bonds under $DOLL as locked bid liquidity.
+
+That is real and it is modest. It is delivered as protocol-owned buy support, not as a payout to holders.
+
+## Now the counter-case
+
+<Warning>
+**$DOLL can go to zero.** It is a meme coin on a launchpad. Locked liquidity means the pool keeps bidding all the way down; it does not put a floor under the price. Nothing here is a promise of value, appreciation or income.
+</Warning>
+
+**The support arrives slowly and can be released on the way down.** Ancestor bids are rate-limited to 10% of an entitlement per 24 hours and 2% of a range per call. Reinforcement arrives slowly and is not a shock absorber; it barely changes the depth of a large dump. And a locked bid that gets hit is spent, the curve hands its holdings back to sellers as the price falls. It is not a ratchet.
+
+**The payouts depend on volunteers.** Converting the ancestor sleeve into locked bids is done by keepers for a bounty, and at measured sizes keepers **lose money** doing it. If nobody calls, an entitlement simply sits there.
+
+**Pons is a hard dependency for getting in or out.** Dollhouse never mints or prices $DOLL itself; the only way to convert ETH into $DOLL, or back, is Pons's own pool. If Pons is unavailable, the chain still runs internally, but it has no door.
+
+**Genesis's share shrinks as the chain grows.** By design there is no genesis floor. Its cut of the ancestor sleeve is 34.5% at 5 links and 0.24% at 1,000.
+
+**Everything upstream depends on activity downstream.** If rounds stop happening, the flywheel stops. There is no treasury, no buyback, and no subsidy to restart it.
+
+**The chain loses $DOLL value with depth.** Each link has measured at roughly 5–8% of its parent's value, so deep coins are small in $DOLL terms and the demand they push upward is correspondingly small.
+
+**The upgrade switch is a real risk to $DOLL specifically.** Link one's pool is the one that charges the 1% edge fee. If a sunset takes effect, that fee is booked by a successor deployment instead. See [Risks](/risks).
+
+## How to think about it
+
+$DOLL's case is structural, not promissory: it is the entrance, it is weighted highest in the payouts, and its liquidity cannot be removed.
+
+Whether any of that translates into price depends entirely on whether people keep launching and trading here. Nobody, including the developer, can make that happen.

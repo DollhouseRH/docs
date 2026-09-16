@@ -1,0 +1,29 @@
+---
+title: "Contracts"
+description: "Deployed addresses. Mainnet is not deployed."
+---
+
+## Mainnet
+
+<Warning>
+**Not deployed yet.** The official $DOLL contract and every protocol contract will be published here at launch. Until then, no address using our name is official.
+</Warning>
+
+## Testnet
+
+We run development deployments on testnet (chain 46630) to exercise the protocol before launch. Testnet coins are worthless; the entrance token used there is a placeholder called **MockDoll**, standing in for $DOLL. We do not publish testnet contract or wallet addresses here, because our testnet deployer address is linked to other addresses we control. See the [audits](/audits) page for how to verify our work without them.
+
+What has been exercised on testnet so far:
+
+- **Rounds**: the factory, round manager, hook, locker, fee vault, bid deployer, router, lens, and token implementation contracts, running full entrance-token and candidate-token round cycles.
+- **Handover**: a live cross-version handover between older and newer bytecode, carried out on an earlier testnet run.
+- **Keeper paths**: the keeper-triggered round-advance and round-close flows.
+- **Drand-verified endings**: round endings verified against `DrandSource`, the randomness source contract that checks drand signatures using the `BN254` pairing/hash-to-curve library (compiled directly into `DrandSource`, not deployed separately).
+
+Run 5 predates the adaptive round schedule, the random end and the purse rule (Mechanism v3). Run 6 added all three and ran live: 5 drand-verified random ends, all in range. Run 7 followed with a keeper running unattended for the first time, driving 3 full rounds to a crowned head with no reverted transactions. Purse deployment under the current rule has not yet been exercised by an automated keeper on a live chain; see [Audits](/audits) for the open item.
+
+On testnet, the steward and developer roles are held by the deployer address. On mainnet they will be separate: a single cold Ledger signer as steward, and a deliberate developer address the deploy script refuses to leave unset.
+
+<Warning>
+Fake tokens copying a chain's names are common on Robinhood Chain. Always check the address against our published record (see [audits](/audits) for how), never the ticker.
+</Warning>

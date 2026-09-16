@@ -1,0 +1,58 @@
+---
+title: "Selling"
+description: "How to sell, what it costs, and what the locked liquidity does on the way down."
+---
+
+## You can always sell
+
+There is no sell tax, no lock-up, no cooldown and no seasoning period on any coin in Dollhouse. Buys and sells pay the same 1%.
+
+Design decision: there is no sell lock, and there never will be.
+
+## Selling a coin
+
+<Steps>
+  <Step title="Pick the coin and the amount">
+    You can sell back to $DOLL, or stop part-way and hold the parent coin instead.
+  </Step>
+  <Step title="Check the quote">
+    The route runs back up the chain: your coin into its parent, its parent into its parent, and finally into $DOLL. Selling $DOLL itself for ETH happens on Pons.
+  </Step>
+  <Step title="Confirm">
+    One transaction.
+  </Step>
+</Steps>
+
+## What you pay
+
+**1% on the way out**, charged once on the $DOLL side of link one's pool. This is the same 1% as on the way in, charged once each direction, not per hop.
+
+**7.5 basis points per family hop** on the way back up.
+
+**Price impact**, which again is the bigger number on a deep route.
+
+If you sell only as far as the parent coin and hold it, you pay the hop fees and no 1% at all, because your money never left link one.
+
+## Who is buying
+
+The pool is. Every coin's liquidity is locked permanently, so the curve keeps bidding all the way down and cannot be withdrawn mid-fall.
+
+As the price falls, the pool hands back the parent coin it absorbed on the way up. That is a real bid, and it is also the only one you are guaranteed.
+
+<Warning>
+Locked liquidity is not a floor. A curve that bids all the way down still lets the price fall a long way. A dump of half the free float takes a link down hard even with reinforcement running, and the protocol has **no pause, no circuit breaker and no rescue**.
+</Warning>
+
+## Selling a loser
+
+A coin that lost its round stays tradable forever. The router still walks the path through the coin it was paired with during its round.
+
+Its creator still collects the creator share on those trades, at 100% after the round is over.
+
+<Warning>
+After a round ends, a loser's market is thinner than a canonical coin's, and its route is only supported through the parent it was registered against. Expect worse execution than on the trunk.
+</Warning>
+
+## One mechanical detail
+
+Fees are charged on the amount you **requested**, not on the amount that actually filled. If a route only fills half your order, you still pay the fee on the whole request. Size your orders accordingly.

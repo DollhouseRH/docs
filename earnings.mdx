@@ -1,0 +1,56 @@
+---
+title: "Earnings"
+description: "Who gets paid on Dollhouse, how much, in what form, and how they claim it."
+---
+
+## Everything is paid from the 1% fee
+
+There is one revenue source: the 1% charged when $DOLL crosses link one, in either direction. Nobody is paid from a treasury, an emission or a token unlock.
+
+## Creators
+
+**40% of the 1% fee** on your coin. That is $4,000 for every $1,000,000 of volume.
+
+Paid in **$DOLL**. It accrues to a ledger and you claim it whenever you want, to any address you choose.
+
+You keep earning whether your coin won its round or lost it. Fees credited to a losing candidate during its round are never clawed back.
+
+The claim right is transferable. Transferring it moves the future stream only; anything already accrued stays claimable by you.
+
+## The head coin's creator: the season cut
+
+While your coin is the head of the chain, every candidate in the round below is priced in it.
+
+You take **half of the creator share** on all attributed candidate trading in that round, 20% of the fee. That runs for the whole round, which is fifteen minutes at first and doubles every two rounds up to twelve hours, and stops when a new head is crowned.
+
+This is why the first rounds were extended from ten minutes to fifteen, and why rounds get longer as the chain grows.
+
+## The developer
+
+**20% of the 1% fee**, in $DOLL, uncapped and ongoing. At the modelled volumes that is about $10,000 across 20 generations.
+
+There is no other developer income and no pre-allocation. Early buyers get $DOLL at the Pons open like everyone else, and there is no insider bag on any candidate coin.
+
+## Earlier coins in the chain
+
+**20% of the fee** is split among every earlier coin, weighted so the oldest end gets the most, the middle gets the least, and $DOLL always gets exactly 2x the newest link.
+
+This is **never paid as cash to anybody**. It is converted into parent tokens and locked as a permanent bid under the ancestor's pool.
+
+## Keepers
+
+The conversion above does not happen by itself. A volunteer, a keeper, supplies the parent tokens and is paid in $DOLL at the chain's own prices plus a **1% bounty**, capped at 20% of the $DOLL the call consumes. Anyone can be a keeper. The protocol itself never swaps.
+
+<Warning>
+At the sizes measured so far, keepers **lose money**: gas ran about 215x the bounty at the first generation, and the bounty was tiny at the eighth. Until volumes are much larger, keeper calls must be funded by someone who wants them to happen, or they will not happen and entitlements will sit unspent.
+</Warning>
+
+## Winning creators, one more time
+
+A winner's bond is refunded **in full**, at the amount actually posted. It is capital returned, not a reward.
+
+Losers forfeit theirs into the locked buy support under link one.
+
+## How to claim
+
+Every payout above is **pull-based**: the contract holds it under your address and you call a claim function to move it. Nothing is ever pushed to you unasked, and nothing can be claimed by anyone else.

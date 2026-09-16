@@ -1,0 +1,136 @@
+---
+title: "FAQ"
+description: "Short answers to the questions people ask first."
+---
+
+<Accordion title="Is this a ponzi?">
+No, in the specific sense that nobody is paid out of later entrants' deposits. There is one revenue source, a 1% fee on trades, and it is split by a fixed rule between the creator, the developer, earlier coins and the parent coin's liquidity. There is no yield, no staking reward, no emission and no promise of return.
+
+But be honest about what it is: a meme-coin launchpad with a reflexive mechanic. Coins here are worth what someone will pay. Most will go to zero. The project's own brief states the design "should NOT depend on deceiving later entrants or on unsustainable ever-increasing transaction taxes": the flat 1% and the locked liquidity are how that is enforced.
+</Accordion>
+
+<Accordion title="Can the team rug?">
+They cannot remove liquidity. No pool has a withdrawal function, for anyone, and every coin's supply goes into its pool at launch.
+
+They cannot change the fee, the split, the curve, the timings, the bond, or a round's result. They cannot pause trading, mint tokens, blacklist you or freeze your balance.
+
+What they do have: 20% of the fee, and a steward key whose only powers are to announce and cancel a sunset. Read [Tokenomics](/tokenomics) and [Risks](/risks) for the details, including what that sunset switch actually does.
+</Accordion>
+
+<Accordion title="What is 'voting' here?">
+Buying. During a round, **your buys are your votes**. There is no ballot, no governance token and no poll. The candidate whose pool absorbed the most parent coin, averaged over its own trading window, wins. Selling takes your vote back.
+</Accordion>
+
+<Accordion title="What if nobody enters a round?">
+Nothing happens. Rounds are opened by the first person who enters a coin, so the chain just waits. Existing coins keep trading normally.
+</Accordion>
+
+<Accordion title="What if a round runs but nobody is good enough?">
+There is no winner. The chain does not advance, every bond in that round is forfeited into the buy support under link one, in $DOLL, and the minimum bar drops 10% for the next attempt, down to a floor of a quarter of the starting bar. It resets to full as soon as somebody wins.
+</Accordion>
+
+<Accordion title="Why 1%?">
+Because the fee has to stay flat no matter how deep the chain gets, and 1% is easy to say and competitive with other launchpads. The alternative, the model Dollhouse was built to replace, charged a fee at every hop, so buying the ninth link cost roughly 13% one way and the chain punished its own growth.
+</Accordion>
+
+<Accordion title="Why 15 minutes?">
+Design decision: rounds are short, 10 to 15 minutes, because attention in this market moves fast, and the round has to hold it.
+
+It started at 10 minutes and was extended to 15 because the head coin's creator earns a season cut for the whole window: "can we extend that window to 15 minutes? it will make better income then."
+
+15 minutes is the length of the *first* rounds only. Rounds double every two rounds up to a 12-hour cap. See "Why do rounds get longer?" above.
+</Accordion>
+
+<Accordion title="Can a loser ever win anything later?">
+Yes. Losing the round is final for the chain, a loser never becomes canonical, but it is not final for the money.
+
+A generation's share of the ancestor fees, the **purse**, is locked as liquidity under the **coin that won that round**. All of it, decided by the round and by nothing afterwards. A coin that lost the round keeps its own pool and its own creator fees and trades forever, but it has no claim on the chain's fee stream.
+
+What a loser can never get is pairing rights. Those lock with the winner at finalisation and never move. See [Intentional choices](/intentional-choices).
+</Accordion>
+
+<Accordion title="Why does the round end at a random time?">
+Because a fixed bell makes the last second the only second that matters. Buy at the end, get counted, sell straight after.
+
+Every round has a public **nominal end**, and the **true end** is a random moment inside the last 3 minutes before it. Nothing after the nominal end counts. The random draw comes from **drand**, a public randomness beacon that Dollhouse does not run or control, verified on-chain after the fact, so nobody, including us, can know the true end in advance.
+
+The practical effect: buying in the final 3 minutes is a gamble, because the round may already have ended. If the beacon is not relayed in time, the round simply ends at the nominal time with no randomness that round.
+</Accordion>
+
+<Accordion title="Why do rounds get longer?">
+The first rounds are 15 minutes because the system has to be visibly working within about twenty minutes of the first person arriving. Later rounds are longer because a mature chain has more candidates and people in every time zone, and a 15-minute round would hand the chain to whoever happened to be awake.
+
+The schedule is fixed by round number: 15 minutes, doubling every two rounds, capped at 12 hours. Registration is a fifth of trading time, between 3 minutes and 1 hour. Nobody can change it for any round. The full table is on [Intentional choices](/intentional-choices).
+</Accordion>
+
+<Accordion title="Is late entry unfair?">
+Late entry only exists on rounds of an hour or more, and only during the first third of trading. A late entrant's pool opens when it registers, its own 3-second snipe tax applies from that moment, and it posts the same bond as everybody else.
+
+There is **no separate scoring rule** for entering late. The coin with the highest market cap at the end wins, measured as an average over the **closing window** (the last fifteen minutes of the round), and that window is the same for every coin, whether it entered at the start or late. Design decision: having less time to market a token and find buyers *is* the time penalty. A late entrant simply has less time to build up support before that same window is measured.
+
+The honest trade-off is not really about late entry at all: the winner is the highest market cap at the end, and money that arrives late but stays for the closing window counts in full. See "Can I lead the whole round and still lose?" below.
+
+Once registration has closed and, on a long round, the late-entry window has also closed, entry into that round is shut. A registration sent after both windows reverts; nothing is queued for later. The next coin entered after the round finalizes opens the following round instead.
+</Accordion>
+
+<Accordion title="Can I lead the whole round and still lose?">
+Yes. The winner is the highest market cap at the end. Money that arrives late but stays for the closing window counts in full. A challenger who arrives at the start of the closing window with money equal to the leader's, and holds it, tends to beat a leader who is still spreading its buys out. The random end does not change that; it only makes last-second spikes far less reliable. This is the rule working as designed, not a loophole: to win, be the highest at the end and hold it.
+</Accordion>
+
+<Accordion title="What is the bond?">
+A refundable deposit in $DOLL that you approve and post to enter a round. It is **returned in full if you win** and forfeited if you lose.
+
+On mainnet it is a flat amount, set at deployment to roughly twenty dollars, the same at every depth: spam resistance only, not a price. Because clearing the minimum bar gets very cheap deeper in the chain, the forfeited bond is the main deterrent against spam entries there.
+
+A forfeited bond is delivered to the locked buy support under link one as part of the round closing. If that delivery ever fails, an unusual state on the token's side, for instance, the round still closes normally, and the bond is delivered there later by anyone. Closing the round never depends on that delivery succeeding.
+</Accordion>
+
+<Accordion title="Can I sell a loser?">
+Yes, forever. A losing coin's pool stays open and routable through the coin it was paired with during its round, and its creator keeps earning the creator share on it. Expect thinner liquidity and worse execution than on the trunk.
+</Accordion>
+
+<Accordion title="Do I have to hold every coin above the one I want?">
+No. Your wallet only holds the coin you bought. The router does the intermediate steps inside one transaction: your ETH becomes $DOLL, then #1, then #2, and so on, in a single click.
+</Accordion>
+
+<Accordion title="What does 'canonical' actually get me?">
+A numbered spot in the chain, written on-chain and never rewritten; the next round's candidates priced in your coin while you are the head; and a permanent share of the ancestor payouts on everything launched after you.
+
+It does not get you a price, volume, an endorsement or a safety review.
+</Accordion>
+
+<Accordion title="Can someone just buy the win?">
+Yes, and this is disclosed rather than fixed. A spot in the chain can be bought by someone with enough capital, at a small cost against the leader's own absorption, and that capital can be withdrawn afterwards.
+
+Every structural fix (a sunk cost, a sell lock, a seasoning period) was rejected as hostile to ordinary users, so the mitigation is telling you about it.
+</Accordion>
+
+<Accordion title="What is the snipe tax?">
+A tax on buying a candidate in its first 3 seconds: 99% at the open, falling to 1%. Second by second it lands near 99%, 66%, 34%, then zero.
+
+It makes being first in the block nearly worthless, but it does not stop bots. The opening sweeper still takes most of the first second's fills, and stays profitable on steep curves. Assume a bot is ahead of you at the open.
+</Accordion>
+
+<Accordion title="Is there a sell tax or a lock-up?">
+No. No sell tax, no lock-up, no cooldown, no seasoning. Buys and sells both pay the same 1% at the $DOLL edge. Design decision: there is never a sell lock.
+</Accordion>
+
+<Accordion title="What happens if the developer disappears?">
+The protocol keeps running. Nothing in it requires the developer to act: rounds open on demand, scores are submitted by anyone, finalisation is permissionless, claims are pull-based and liquidity is locked.
+
+Unclaimed developer fees would simply sit there, claimable by whoever holds the developer role.
+</Accordion>
+
+<Accordion title="Is the code audited?">
+Not by a paid third-party firm. It has had an AI design audit, an AI pre-audit review and two AI final audits; all findings were fixed, and the fixed code has not been independently re-reviewed. See [Audits](/audits).
+</Accordion>
+
+<Accordion title="Can I add a website, X account, description or artwork to my coin?">
+Yes, on Dollhouse, at no cost. The fields are optional and you can set or change them any time after launch, from your coin's page, by signing with the wallet that created the coin. You can hand editing rights to another wallet, and for a community takeover of an abandoned coin, the Dollhouse account on X can reassign editing rights on request.
+
+None of this is on-chain. The contracts and any screener see only the token, the pool and the bond; project links are presentation on Dollhouse, not part of the mechanism.
+</Accordion>
+
+<Accordion title="Where can I trade this today?">
+Nowhere on mainnet: Dollhouse is **not deployed on chain 4663**. There is a testnet deployment on chain 46630 with worthless test coins. Addresses are on [Contracts](/contracts).
+</Accordion>

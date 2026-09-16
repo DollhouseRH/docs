@@ -1,0 +1,78 @@
+---
+title: "How a round works"
+description: "Registration, a timed competition, a random bell, a score, and a winner, step by step."
+---
+
+## The shape of a round
+
+A round decides which coin gets the next spot in the chain.
+
+It runs on demand: the first person to enter a coin opens the round. Nobody has to schedule it.
+
+<Steps>
+  <Step title="Someone enters a coin">
+    A creator registers a coin and posts a refundable bond. This opens the round if one is not already open.
+  </Step>
+  <Step title="Registration">
+    Anyone else can enter a coin into the same round. Entry is open to everyone and there is no cap on how many coins join. The window is 3 minutes on the earliest rounds and grows with the round length, up to 1 hour.
+  </Step>
+  <Step title="Competition">
+    All candidate pools open and trade against the same coin: the current head of the chain. You can buy and sell freely the whole time.
+
+    The round's length depends only on its number. It starts at **15 minutes** and doubles every two rounds, capped at 12 hours. The full table is on [Intentional choices](/intentional-choices).
+  </Step>
+  <Step title="Late entry: long rounds only">
+    Once a round lasts an hour or more, a coin can still enter after trading has started, during the **first third** of the round. Its pool opens the moment it registers and its own 3-second snipe tax starts then. There is no scoring penalty for entering late: the penalty is having less time to find buyers.
+
+    Once registration has closed and, on a long round, the late-entry window has also closed, entry into that round is shut: a registration sent after both windows reverts. Nothing is queued. The next coin entered after this round finalizes opens the following round instead.
+  </Step>
+  <Step title="The bell rings at a random moment">
+    The round has a public **nominal end**. The **true end** is a random moment inside the last 3 minutes before it, drawn from drand's public `evmnet` beacon after the fact, verified on-chain by the contract itself, with no vendor in between, and anyone can relay the value once it exists. Nothing after the nominal end ever counts. If nobody relays a verifiable beacon value within 30 minutes, the round settles at the nominal end instead, with no randomness for that round. It never hangs waiting on the beacon.
+  </Step>
+  <Step title="Scores">
+    The coin with the highest market cap at the true end wins, but market cap is measured as an average over the **closing window**, the last fifteen minutes of the round, so a single block of buying can't decide it. Every candidate is scored over the same closing window, regardless of when it entered. Anyone can submit a score during the 5-minute submission window that follows.
+  </Step>
+  <Step title="The winner becomes the parent">
+    The highest-scoring candidate that also clears the minimum bar wins. It becomes the new head, and every coin in the next round is priced in it. That pairing right **locks at finalisation**. There is no steal window and nothing ever moves back up the chain.
+  </Step>
+</Steps>
+
+## Your buys are your votes
+
+There is no ballot. **Buying a candidate during a round is how you vote for it**, and selling takes your vote back.
+
+The score is time-weighted over the closing window, so money that sits in a coin through that window counts far more than money that touches it for a second. On a 15-minute round, one second of buying contributes 1/900th of itself to the average.
+
+That is why a last-minute pump does not work by itself; it has to be **held** through the whole closing window, not flashed. A late spike alone does not top a round, and with the bell now falling at a random moment in the final 3 minutes, a late buy may land after the moment that counted. That said, a coin pumped and held through the closing window plus the random final 3 minutes can still overtake a leader that led for the rest of the round; the random end, the need to hold capital rather than flash it, and the leader's community's time to respond are the defences against that.
+
+## The minimum bar
+
+Winning the round is not enough. The leader also has to clear a threshold: an average absorption of **0.15% of the parent coin's supply** across its window.
+
+If nobody clears it, the round ends with **no winner**, everyone's bond is forfeited, and the bar drops 10% for the next round, down to a floor of a quarter of the starting bar. It resets to the full bar as soon as somebody wins.
+
+## The snipe tax, in one line
+
+For the first 3 seconds of a candidate's trading, a tax on buys starts at 99% and falls to 1%, which makes being first in the block almost worthless.
+
+<Warning>
+The snipe tax prices sniping; it does not stop it. Assume a bot is ahead of you at the open.
+</Warning>
+
+## What happens to losers
+
+A losing coin is not deleted and not frozen.
+
+**It keeps trading forever.** Its pool stays open and routable against the coin it was paired with during the round.
+
+**It keeps its own fees, but not the purse.** A losing coin's pool stays open forever and its creator keeps the creator share of its own trades. The generation's share of ancestor fees, the purse, is locked under the coin that won the round and is not shared. See [Intentional choices](/intentional-choices).
+
+**Its creator keeps earning.** Fees credited during the round are never clawed back, and after the round 100% of the creator share on that coin goes to its own creator.
+
+**It loses its bond.** Every losing candidate's bond is forfeited, and those bonds become locked $DOLL buy-side liquidity under link one.
+
+**It never joins the chain.** No future coin will be priced in it, and that cannot change afterwards.
+
+<Note>
+A coin that wins is not "safe" and a coin that loses is not "dead." Both statements are about the chain, not about price.
+</Note>

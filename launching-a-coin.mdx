@@ -1,0 +1,82 @@
+---
+title: "Launching a coin"
+description: "Enter a coin into a round: what it costs, what you get, and what happens if you lose."
+---
+
+## What launching means here
+
+You are not listing a coin. You are entering it into a competition for the next spot in the chain.
+
+Anyone can enter. There is no allowlist, no approval and no signature from a team wallet.
+
+## The steps
+
+<Steps>
+  <Step title="Name your coin">
+    Name, symbol and a metadata link. That is the whole configuration: you do not choose the supply, the curve, the fee or the pairing, because they are identical for every coin.
+  </Step>
+  <Step title="Post the bond">
+    A refundable deposit in $DOLL: approve it, then register. On mainnet it is a flat amount, set at deployment to roughly twenty dollars at launch, the same at every chain depth. Testnet uses a smaller, depth-scaled schedule instead. Registration checks the bond against the amount you were shown and refuses to charge more, so an approval left over from an earlier round can never be silently charged a bigger bond.
+  </Step>
+  <Step title="Register">
+    If no round is open, your registration opens one. Registration then stays open for a window that scales with the round's length: 3 minutes on the earliest rounds, growing up to 1 hour on the longest. On a round of an hour or more you can also enter later, as a late entrant, during the first third of trading, once registration has closed. Once both windows have passed, entry into that round is shut: registering then reverts, and nothing is queued. The next coin entered after the round finalizes opens the following one instead.
+  </Step>
+  <Step title="Trade until the round closes">
+    Fifteen minutes at first, doubling every two rounds up to twelve hours. See [how a round works](/how-a-round-works). All candidate pools open together. Your coin's entire 1,000,000,000 supply is in its pool, priced in the current head coin. Buyers vote with their buys.
+  </Step>
+  <Step title="Scores and the result">
+    Scores freeze at the bell. Anyone can submit them during the following 5 minutes. The top scorer that also clears the minimum bar wins.
+  </Step>
+  <Step title="If you win">
+    Your coin becomes the new head. Your bond is refunded in full. Every candidate in the next round is priced in your coin, and you take half of the creator share on all of that round's candidate trading.
+  </Step>
+  <Step title="If you lose">
+    Your bond is forfeited into the buy support under link one, in $DOLL. Your coin keeps trading forever and you keep the creator share on it, but it does not join the chain.
+  </Step>
+</Steps>
+
+## What it costs
+
+| Item | Cost |
+|---|---|
+| Listing fee | None |
+| Your token allocation | None: 100% of the supply goes into the locked pool |
+| Bond | Refunded on a win, forfeited on a loss |
+| Gas | Cheap on Robinhood Chain |
+| Seed liquidity | None. The supply is the sell side; ETH comes from buyers |
+
+## What you earn
+
+**40% of the 1% fee on your coin, forever.** That is $4,000 per $1,000,000 of trading volume. Fees are held in $DOLL and you pull them whenever you like.
+
+**During your own round you get half of it**, the other half goes to the creator of the head coin your round is priced in. After the round, you get all of it.
+
+**If you win, you get a season.** While your coin is the head, you take half of the creator share on every attributed candidate trade in the next round.
+
+The creator claim right is transferable. Note that transferring it moves the future stream; what has already accrued stays claimable by you.
+
+## Project links
+
+Every coin can show a website, an X account, a description and artwork on Dollhouse, at no cost. The fields are optional: you can set them after launch, or leave them blank and fill them in later, from your coin's page.
+
+You edit them by signing with the wallet that created the coin. You can hand editing rights to another wallet if you want someone else to manage them, or if the coin changes hands. For a community takeover of a coin whose creator has walked away, the Dollhouse account on X can reassign editing rights on request.
+
+None of this lives on-chain and none of it feeds the round: the contracts and any screener reading them see only the token, the pool and the bond. Project links are presentation on Dollhouse, not part of the mechanism.
+
+## Honest expectations
+
+<Warning>
+**Most coins will lose.** Only one candidate per round joins the chain, and a round with no qualifying leader crowns nobody, in which case every bond in it is forfeited.
+</Warning>
+
+<Warning>
+**A round can be bought.** A spot in the chain can be bought by someone with enough capital, and that capital can be withdrawn afterwards. If someone with a large balance wants the slot, they will get it. This is disclosed, not fixed.
+</Warning>
+
+<Warning>
+**Winning changes nothing about your coin's price.** Canonical status is a position in the chain, not an endorsement or a guarantee.
+</Warning>
+
+<Note>
+Creator earnings are linear in trading volume. At the modelled $250,000 of edge volume per round, a winning creator took about $1,000 per launch. No volume means no earnings.
+</Note>
