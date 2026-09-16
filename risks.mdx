@@ -15,7 +15,7 @@ This page lists every risk our own audits told us to disclose. Nothing here is h
 
 **A coin's price depends on its parent's price.** Coins are priced in the coin above them, so a fall upstream drags every coin below it down in $DOLL terms, regardless of what happens in their own markets.
 
-**Each new link is worth much less than the one before it.** Measured at roughly **5–8% of its parent's value** in $DOLL terms. The chain shrinks in $DOLL terms as it grows.
+**Each new link is worth much less than the one before it.** Measured at roughly **5–8% of its parent's value** in \$DOLL terms. The chain shrinks in \$DOLL terms as it grows.
 
 **There is no pause, no circuit breaker and no rescue.** If a coin collapses, nothing intervenes. A dump of half the free float took a modelled link down 74.6% with reinforcement running.
 
@@ -33,7 +33,7 @@ This page lists every risk our own audits told us to disclose. Nothing here is h
 
 **A spot in the chain is cheap to buy.** Capture costs a small fraction of the capital cycled and succeeds reliably, at a strong edge over the honest leader's absorption. The capital can then be withdrawn. This was an accepted design decision: every structural fix was rejected as hostile to normal users.
 
-**And it gets cheaper with depth.** Clearing the minimum bar costs roughly $100 at the first generation, $7 at the second, and **under $1 from the third**. From there the forfeited bond is the main remaining deterrent: a flat amount on mainnet, not one that grows with depth.
+**And it gets cheaper with depth.** Clearing the minimum bar costs roughly \$100 at the first generation, \$7 at the second, and **under \$1 from the third**. From there the forfeited bond is the main remaining deterrent: a flat amount on mainnet, not one that grows with depth.
 
 **A round can end with no winner.** If nobody clears the bar, nobody is crowned and **every** bond in the round is forfeited.
 
@@ -87,13 +87,13 @@ This page lists every risk our own audits told us to disclose. Nothing here is h
 
 ## Entrance risks
 
-**Pons is a hard external dependency for getting in or out.** Dollhouse does not mint or price $DOLL; it adopts a token that already exists on Pons, a separate launchpad. The chain works internally without Pons, trading, rounds, claims and locked liquidity all keep functioning, but Pons is the only door between ETH and $DOLL. If Pons is unavailable, nothing else can substitute for it.
+**Pons is a hard external dependency for getting in or out.** Dollhouse does not mint or price \$DOLL; it adopts a token that already exists on Pons, a separate launchpad. The chain works internally without Pons, trading, rounds, claims and locked liquidity all keep functioning, but Pons is the only door between ETH and \$DOLL. If Pons is unavailable, nothing else can substitute for it.
 
 **The whole design depends on $DOLL behaving like a plain token.** Every bond, fee and payout assumes the adopted entrance token is an ordinary ERC-20: no pause, no blacklist, no fee on transfer, no transfer hooks, and no way for anybody to upgrade its logic later. This was checked against the actual Pons launch token source, not just assumed: it mints once, overrides no transfer path, and its supply can only fall, through holder burns. Adoption itself cannot verify a token's *future* behavior on chain, and a later deployment could in principle be pointed at a different token that does not hold to this.
 
 **Deploy-time constants are set against a price that is hours old, and cannot change.** The bond and the keeper-bounty floor are sized from $DOLL's graduated Pons price at deploy time. Both are immutable once deployed. If the price has moved a great deal by the time mainnet actually launches, the only fix is a continuation deployment with new constants. Nothing about a live deployment can be adjusted.
 
-**The vault's $DOLL balance can be inflated by donation.** Anyone can send $DOLL directly to the fee vault outside the normal fee path. Solvency is checked as an inequality, the vault's balance is never required to equal its ledgers exactly, only to cover them, so a donation cannot break accounting. Nothing in the vault is ever sweepable by anyone, including the developer or the steward.
+**The vault's \$DOLL balance can be inflated by donation.** Anyone can send \$DOLL directly to the fee vault outside the normal fee path. Solvency is checked as an inequality, the vault's balance is never required to equal its ledgers exactly, only to cover them, so a donation cannot break accounting. Nothing in the vault is ever sweepable by anyone, including the developer or the steward.
 
 **The edge fee is briefly suppressed at the open of a new round-one pool.** For the first 3 seconds after a round-one candidate's pool opens, it is both an edge pool (which would normally charge 1%) and inside its own snipe-tax window (up to 99%). Charging both at once would push the combined rate over 100%, so the edge fee is suppressed for that 3-second window and the snipe tax applies instead. The result is a small, bounded loss of edge-fee revenue on new round-one pools, not a security issue.
 

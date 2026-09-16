@@ -7,7 +7,7 @@ description: "Every number: supply, the entrance coin, the fee split, the hop fe
 
 Every candidate coin on Dollhouse has a fixed supply of **1,000,000,000 tokens**. It is minted once at launch. There is no mint function afterwards.
 
-$DOLL is not launched by Dollhouse, so its supply and allocation are decided entirely by Pons, not by this protocol. See [The $DOLL coin](/the-genesis-coin).
+\$DOLL is not launched by Dollhouse, so its supply and allocation are decided entirely by Pons, not by this protocol. See [The \$DOLL coin](/the-genesis-coin).
 
 ## Where the supply goes
 
@@ -40,7 +40,7 @@ There is no sell tax. Buys and sells pay the same 1%.
 
 The ancestor share is divided among all earlier coins by a U-shaped weight: oldest coins highest, middle coins lowest, newest coins in between.
 
-$DOLL is always worth exactly **2x the newest link**, by construction, and never more. There is no fixed floor on $DOLL's own share, so it shrinks as the chain grows: 34.5% of the ancestor sleeve at 5 links, 0.24% at 1,000 links.
+\$DOLL is always worth exactly **2x the newest link**, by construction, and never more. There is no fixed floor on \$DOLL's own share, so it shrinks as the chain grows: 34.5% of the ancestor sleeve at 5 links, 0.24% at 1,000 links.
 
 The money is never paid out as cash. It buys parent tokens and locks them as a permanent bid under the ancestor's pool, and a volunteer keeper does the conversion for a 1% bounty. Draws are capped at 10% of an entitlement per 24 hours and 2% of the active liquidity range per call. Generation 0 and 1's pots deploy as locked $DOLL buy support under link one directly; deeper generations go through the conversion above.
 
@@ -83,7 +83,7 @@ The bond is refundable capital, not a price. An earlier version of our own docum
 
 Every candidate coin sells its supply along a fixed multi-range curve, set in the contract, identical in shape for every coin. The four ranges take 20%, 25%, 35% and 20% of the supply on sale, across valuation bands that run from one thousandth of the parent's supply value up to 100x it, with the last range as a tail.
 
-$DOLL's own curve was Pons's, not Dollhouse's: it ran on Pons's bonding curve and graduated into a Uniswap v4 pool under Pons's hook before Dollhouse ever adopted it. See [The $DOLL coin](/the-genesis-coin).
+\$DOLL's own curve was Pons's, not Dollhouse's: it ran on Pons's bonding curve and graduated into a Uniswap v4 pool under Pons's hook before Dollhouse ever adopted it. See [The \$DOLL coin](/the-genesis-coin).
 
 By the time a winning coin has cleared the bar, roughly 38% of its supply has been sold with about 11% of embedded backing.
 
