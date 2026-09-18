@@ -21,14 +21,14 @@ The striking part: that effect is nearly the same whether 5 candidates compete o
 
 ## Step two: the fee split
 
-Traders pay **1%** on the $DOLL side of link one's pool, in both directions: once on the way in, once on the way out. Nothing is charged on that 1% for going deeper.
+Traders pay **1%** on the \$DOLL side of link one's pool, in both directions: once on the way in, once on the way out. Nothing is charged on that 1% for going deeper.
 
 That 1% is split, by a constant in the contract:
 
 | Share | Who gets it | Form |
 |---|---|---|
-| **40%** | The coin's creator | $DOLL, claimable |
-| **20%** | The developer | $DOLL, claimable |
+| **40%** | The coin's creator | \$DOLL, claimable |
+| **20%** | The developer | \$DOLL, claimable |
 | **20%** | Every earlier coin in the chain | Locked buy-side liquidity under those coins |
 | **20%** | The immediate parent's liquidity | Locked buy-side liquidity under the parent |
 
@@ -59,9 +59,9 @@ The bid deployer emits four events, and the Treasury page on the app (`/treasury
 | Event | What it records |
 |---|---|
 | `PurseDeployed` | A generation's share of later trades, locked as parent tokens under the coin that won its round. Carries the destination coin, so the deployment has nothing to choose. |
-| `AncestorDeployed` | The ETH leg of the same call: how much ETH the keeper spent, and the bounty it took. It is emitted in the **same transaction** as `PurseDeployed`, so the two are one deployment, not two. |
+| `AncestorDeployed` | The \$DOLL leg of the same call: how much \$DOLL the keeper spent (`edgeUsed`), and the bounty it took. It is emitted in the **same transaction** as `PurseDeployed`, so the two are one deployment, not two. |
 | `HopPotDeployed` | A generation's hop fees, which arrive already denominated in the parent token, locked under the same coin. |
-| `EdgeBidDeployed` | Generation 0 and 1's pots and the forfeited-bond earmark, locked as $DOLL buy support under link one. |
+| `EdgeBidDeployed` | Generation 0 and 1's pots and the forfeited-bond earmark, locked as \$DOLL buy support under link one. |
 
 To check one yourself:
 
@@ -88,6 +88,6 @@ Details, and what that costs, are on [Intentional choices](/intentional-choices)
 
 ## Where the loop closes
 
-More attention on a round → more buying of the head coin → more ETH entering through $DOLL → a bigger 1% pot → more paid to creators, to earlier coins as locked bids, and to the parent's liquidity → a deeper chain with more coins whose holders want the next round to be good.
+More attention on a round → more buying of the head coin → more ETH entering through \$DOLL → a bigger 1% pot → more paid to creators, to earlier coins as locked bids, and to the parent's liquidity → a deeper chain with more coins whose holders want the next round to be good.
 
 And where it does not close: if nobody enters a round, none of this happens. There is no subsidy, no treasury spend, and no buyback to keep it moving.

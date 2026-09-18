@@ -16,7 +16,7 @@ Nothing happens. Rounds are opened by the first person who enters a coin, so the
 </Accordion>
 
 <Accordion title="What if a round runs but nobody is good enough?">
-There is no winner. The chain does not advance, every bond in that round is forfeited into the buy support under link one, in $DOLL, and the minimum bar drops 10% for the next attempt, down to a floor of a quarter of the starting bar. It resets to full as soon as somebody wins.
+There is no winner. The chain does not advance, every bond in that round is forfeited into the buy support under link one, in \$DOLL, and the minimum bar drops 10% for the next attempt, down to a floor of a quarter of the starting bar. It resets to full as soon as somebody wins.
 </Accordion>
 
 <Accordion title="What happens to losing tokens?">
@@ -48,7 +48,7 @@ Once registration has closed and, on a long round, the late-entry window has als
 </Accordion>
 
 <Accordion title="What is the bond?">
-A refundable deposit in $DOLL that you approve and post to enter a round. It is **returned in full if you win** and forfeited if you lose.
+A refundable deposit in \$DOLL that you approve and post to enter a round. It is **returned in full if you win** and forfeited if you lose.
 
 On mainnet it is a flat amount, set at deployment to roughly twenty dollars, the same at every depth: spam resistance only, not a price. Because clearing the minimum bar gets very cheap deeper in the chain, the forfeited bond is the main deterrent against spam entries there.
 
@@ -56,7 +56,7 @@ A forfeited bond is delivered to the locked buy support under link one as part o
 </Accordion>
 
 <Accordion title="Do I have to hold every coin above the one I want?">
-No. Your wallet only holds the coin you bought. The router does the intermediate steps inside one transaction: your ETH becomes $DOLL, then #1, then #2, and so on, in a single click.
+No. Your wallet only holds the coin you bought. The router does the intermediate steps inside one transaction: your ETH becomes \$DOLL, then #1, then #2, and so on, in a single click.
 </Accordion>
 
 <Accordion title="What does 'canonical' actually get me?">
@@ -72,15 +72,17 @@ It makes being first in the block nearly worthless, but it does not stop bots. T
 </Accordion>
 
 <Accordion title="Is there a sell tax or a lock-up?">
-No additional sell tax, no lock-up, no cooldown. Buys and sells both pay the same 1% at the \$DOLL edge. 
+No additional sell tax, no lock-up, no cooldown. Buys and sells both pay the same 1% at the \$DOLL edge.
 </Accordion>
 
 <Accordion title="Is the code audited?">
-Not by a paid third-party firm. It has had an AI design audit, an AI pre-audit review and two AI final audits; all findings were fixed, and the fixed code has not been independently re-reviewed. See [Audits](/audits).
+Not by a paid third-party firm. It has had eleven rounds of manual adversarial review, ten of them by independent reviewers, plus an automated audit pass; all findings were fixed, and the fixed code has not been independently re-reviewed. See [Audits](/audits).
 </Accordion>
 
 <Accordion title="Can I add a website, X account, description or artwork to my coin?">
 Dollhouse supports social links at no cost. The fields are optional and you can set or change them any time after launch, from your coin's page, by signing with the wallet that created the coin. You can hand editing rights to another wallet, and for a community takeover of an abandoned coin, the Dollhouse account on X can reassign editing rights on request.
+
+The contents live off-chain. The only thing the contract itself stores is a single metadata pointer (`uri`) written once when the coin is registered and never changed; the link fields it resolves to are edited on Dollhouse. Nothing in there feeds the round, and any screener reading the chain sees the token, the pool, the bond and that one pointer.
 
 Social links are not on-chain and you will still have to pay for DexScreener or any other platforms to externally update them.
 </Accordion>

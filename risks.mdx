@@ -11,9 +11,9 @@ This page lists every risk our own audits told us to disclose. Nothing here is h
 
 ## Market risks
 
-**Any coin here can go to zero.** Including $DOLL. There is no floor, no backstop and no insurance.
+**Any coin here can go to zero.** Including \$DOLL. There is no floor, no backstop and no insurance.
 
-**A coin's price depends on its parent's price.** Coins are priced in the coin above them, so a fall upstream drags every coin below it down in $DOLL terms, regardless of what happens in their own markets.
+**A coin's price depends on its parent's price.** Coins are priced in the coin above them, so a fall upstream drags every coin below it down in \$DOLL terms, regardless of what happens in their own markets.
 
 **Each new link is worth much less than the one before it.** Measured at roughly **5–8% of its parent's value** in \$DOLL terms. The chain shrinks in \$DOLL terms as it grows.
 
@@ -47,11 +47,11 @@ This page lists every risk our own audits told us to disclose. Nothing here is h
 
 **Losing candidates share the parent's reinforcement pot.** Hop and snipe fees are pooled per parent coin, so the losing siblings of a round contribute to the same pot as the winner.
 
-**Ancestor payouts depend on volunteers who currently lose money.** Keepers convert entitlements into locked bids for a 1% bounty. Measured gas was about **215x the bounty** at the first generation, and the bounty was **121 wei** at the eighth. If nobody calls, an entitlement is never spent. There is also a disclosed dead zone where a deployment is so small that the bounty cap binds at 20% of the ETH consumed, still below mainnet gas.
+**Ancestor payouts depend on volunteers who currently lose money.** Keepers convert entitlements into locked bids for a 1% bounty. Measured gas was about **215x the bounty** at the first generation, and the bounty was **121 wei** at the eighth. If nobody calls, an entitlement is never spent. There is also a disclosed dead zone where a deployment is so small that the bounty cap binds at 20% of the \$DOLL consumed, still below mainnet gas.
 
-**Keeper pricing can be gamed, and after a crash keepers may be overpaid.** Two prices are involved. How much ETH a deployment spends is worked out along the chain, each step at the lowest of the current price, the 30-minute average and the 7-day average. Where the bid is placed is decided by the receiving pool alone: its current price must be within about 3% of its own 30-minute average, and the bid then sits immediately under that live price. A determined manipulator moving a thin pool and waiting out the 30-minute window can still shift what the vault pays.
+**Keeper pricing can be gamed, and after a crash keepers may be overpaid.** Two prices are involved. How much \$DOLL a deployment spends is worked out along the chain, each step at the lowest of the current price, the 30-minute average and the 7-day average. Where the bid is placed is decided by the receiving pool alone: its current price must be within about 3% of its own 30-minute average, and the bid then sits immediately under that live price. A determined manipulator moving a thin pool and waiting out the 30-minute window can still shift what the vault pays.
 
-**Genesis has no fixed floor.** $DOLL's share of the ancestor sleeve shrinks as the chain grows: 34.5% at 5 links, 0.24% at 1,000.
+**Genesis has no fixed floor.** \$DOLL's share of the ancestor sleeve shrinks as the chain grows: 34.5% at 5 links, 0.24% at 1,000.
 
 **The purse is a buy wall, and holders can sell into it.** A round's share of later fees is locked as a standing bid under the coin that won it, from just under the price down to about 6% below it, permanently. That is support, and it is also an exit: the coin's own holders can sell into it at those prices. It is deliberately slow, at most 2% of the pool's depth per deployment and at most 10% of the accrued share per 24 hours, so it cannot be used to move a price. The reinforcement share has worked this way from the start; the change makes it 40% of the fee instead of 20%.
 
@@ -89,9 +89,9 @@ This page lists every risk our own audits told us to disclose. Nothing here is h
 
 **Pons is a hard external dependency for getting in or out.** Dollhouse does not mint or price \$DOLL; it adopts a token that already exists on Pons, a separate launchpad. The chain works internally without Pons, trading, rounds, claims and locked liquidity all keep functioning, but Pons is the only door between ETH and \$DOLL. If Pons is unavailable, nothing else can substitute for it.
 
-**The whole design depends on $DOLL behaving like a plain token.** Every bond, fee and payout assumes the adopted entrance token is an ordinary ERC-20: no pause, no blacklist, no fee on transfer, no transfer hooks, and no way for anybody to upgrade its logic later. This was checked against the actual Pons launch token source, not just assumed: it mints once, overrides no transfer path, and its supply can only fall, through holder burns. Adoption itself cannot verify a token's *future* behavior on chain, and a later deployment could in principle be pointed at a different token that does not hold to this.
+**The whole design depends on \$DOLL behaving like a plain token.** Every bond, fee and payout assumes the adopted entrance token is an ordinary ERC-20: no pause, no blacklist, no fee on transfer, no transfer hooks, and no way for anybody to upgrade its logic later. This was checked against the actual Pons launch token source, not just assumed: it mints once, overrides no transfer path, and its supply can only fall, through holder burns. Adoption itself cannot verify a token's *future* behavior on chain, and a later deployment could in principle be pointed at a different token that does not hold to this.
 
-**Deploy-time constants are set against a price that is hours old, and cannot change.** The bond and the keeper-bounty floor are sized from $DOLL's graduated Pons price at deploy time. Both are immutable once deployed. If the price has moved a great deal by the time mainnet actually launches, the only fix is a continuation deployment with new constants. Nothing about a live deployment can be adjusted.
+**Deploy-time constants are set against a price that is hours old, and cannot change.** The bond and the keeper-bounty floor are sized from \$DOLL's graduated Pons price at deploy time. Both are immutable once deployed. If the price has moved a great deal by the time mainnet actually launches, the only fix is a continuation deployment with new constants. Nothing about a live deployment can be adjusted.
 
 **The vault's \$DOLL balance can be inflated by donation.** Anyone can send \$DOLL directly to the fee vault outside the normal fee path. Solvency is checked as an inequality, the vault's balance is never required to equal its ledgers exactly, only to cover them, so a donation cannot break accounting. Nothing in the vault is ever sweepable by anyone, including the developer or the steward.
 

@@ -13,11 +13,11 @@ Every candidate coin on Dollhouse has a fixed supply of **1,000,000,000 tokens**
 
 **Candidate coins: 100% into the locked pool.** No creator allocation, no team allocation, no reserve, no airdrop. Everything is liquidity from the first second.
 
-There is no pre-allocation anywhere in Dollhouse. Early buyers get $DOLL at the Pons open like everyone else, and there is no unlock contract on any coin.
+There is no pre-allocation anywhere in Dollhouse. Early buyers get \$DOLL at the Pons open like everyone else, and there is no unlock contract on any coin.
 
 ## The trading fee
 
-**1%, charged once on the $DOLL side of link one's pool, in both directions.** Once on the way in, once on the way out. It does not increase with depth and it is not charged on family-to-family pools.
+**1%, charged once on the \$DOLL side of link one's pool, in both directions.** Once on the way in, once on the way out. It does not increase with depth and it is not charged on family-to-family pools.
 
 There is no sell tax. Buys and sells pay the same 1%.
 
@@ -29,8 +29,8 @@ There is no sell tax. Buys and sells pay the same 1%.
 
 | Share | Recipient | Delivered as |
 |---|---|---|
-| 40% | Creator | $DOLL, pull-claimed |
-| 20% | Developer | $DOLL, pull-claimed |
+| 40% | Creator | \$DOLL, pull-claimed |
+| 20% | Developer | \$DOLL, pull-claimed |
 | 20% | Ancestor sleeve: every earlier coin | Locked buy-side liquidity, never cash |
 | 20% | Immediate parent reinforcement | Locked buy-side liquidity, never cash |
 
@@ -42,9 +42,9 @@ The ancestor share is divided among all earlier coins by a U-shaped weight: olde
 
 \$DOLL is always worth exactly **2x the newest link**, by construction, and never more. There is no fixed floor on \$DOLL's own share, so it shrinks as the chain grows: 34.5% of the ancestor sleeve at 5 links, 0.24% at 1,000 links.
 
-The money is never paid out as cash. It buys parent tokens and locks them as a permanent bid under the ancestor's pool, and a volunteer keeper does the conversion for a 1% bounty. Draws are capped at 10% of an entitlement per 24 hours and 2% of the active liquidity range per call. Generation 0 and 1's pots deploy as locked $DOLL buy support under link one directly; deeper generations go through the conversion above.
+The money is never paid out as cash. It buys parent tokens and locks them as a permanent bid under the ancestor's pool, and a volunteer keeper does the conversion for a 1% bounty. Draws are capped at 10% of an entitlement per 24 hours and 2% of the active liquidity range per call. Generation 0 and 1's pots deploy as locked \$DOLL buy support under link one directly; deeper generations go through the conversion above.
 
-How much $DOLL a deployment spends is worked out along the chain, each step taken at the lowest of the current price, the 30-minute average and the 7-day average. Where the bid is then placed is decided by the receiving pool itself: its current price has to be within about 3% of its own 30-minute average before anything is placed, and the bid sits immediately beneath its live price.
+How much \$DOLL a deployment spends is worked out along the chain, each step taken at the lowest of the current price, the 30-minute average and the 7-day average. Where the bid is then placed is decided by the receiving pool itself: its current price has to be within about 3% of its own 30-minute average before anything is placed, and the bid sits immediately beneath its live price.
 
 ## Where a generation's purse goes
 
@@ -62,18 +62,18 @@ Why it works this way, and what it costs, is on [Intentional choices](/intention
 
 ## The bond
 
-Entering a round requires a refundable bond, paid in $DOLL: approve the token, then register.
+Entering a round requires a refundable bond, paid in \$DOLL: approve the token, then register.
 
-On mainnet the bond is flat: the same amount at every chain depth, spam resistance only. It is set at deployment from $DOLL's graduated Pons price, to roughly twenty dollars at launch. Testnet uses a smaller, depth-scaled schedule instead, to exercise that path of the contract.
+On mainnet the bond is flat: the same amount at every chain depth, spam resistance only. It is set at deployment from \$DOLL's graduated Pons price, to roughly twenty dollars at launch. Testnet uses a smaller, depth-scaled schedule instead, to exercise that path of the contract.
 
 | | Base | Schedule |
 |---|---|---|
 | Testnet | a small amount of MockDoll | doubles every 4 links, capped at a fixed ceiling |
-| Mainnet | a flat amount in $DOLL, set at deployment to roughly twenty dollars at launch | flat: no doubling |
+| Mainnet | a flat amount in \$DOLL, set at deployment to roughly twenty dollars at launch | flat: no doubling |
 
 The round pins its bond when it opens, and every candidate stores what it paid, so the refund and the forfeit always use the actual amount posted.
 
-**Winners get the whole bond back.** Only losers forfeit, and those forfeited bonds become locked $DOLL buy support under link one.
+**Winners get the whole bond back.** Only losers forfeit, and those forfeited bonds become locked \$DOLL buy support under link one.
 
 <Note>
 The bond is refundable capital, not a price. An earlier version of our own documentation described a "non-refundable bond floor" for winners. That was false and an auditor called it out. Previously, mainnet was also planned to double with depth; that was replaced with a flat mainnet bond, since only failed and spam entries were ever meant to be priced by it, not a successful launch.
@@ -90,7 +90,7 @@ By the time a winning coin has cleared the bar, roughly 38% of its supply has be
 ## What the developer can and cannot do
 
 <Accordion title="Can">
-- Claim their own accrued 20% fee share, in $DOLL, to an address they choose.
+- Claim their own accrued 20% fee share, in \$DOLL, to an address they choose.
 - Transfer the developer fee address on a public 7-day delay.
 </Accordion>
 
@@ -112,7 +112,7 @@ One more disclosure on the developer address. The fee ledger is a single balance
 
 A separate address, the **steward**, has exactly two powers and no others: announce a sunset that names a successor deployment, and cancel that announcement before it takes effect. It cannot touch a pool, a price, a fee, a winner or a balance.
 
-On mainnet the steward is planned as a **single cold hardware-wallet signer**, not a multisig. Design decision: a multisig plus a separate cold developer address is more operational weight than a project of this size warrants. The compensation is the 7-day delayed transfer path on the role.
+On mainnet the steward is planned as a **single cold hardware-wallet signer**, not a multisig: a multisig plus a separate cold developer address would be more operational weight than the protocol needs to carry. The compensation is the 7-day delayed transfer path on the role.
 
 <Warning>
 A single signer is a single point of failure. If that key is lost, the sunset path is gone forever. If it is stolen, the thief gets 7 days of public notice before they hold the role, and the sunset switch itself is a serious power. See [Risks](/risks).

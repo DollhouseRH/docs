@@ -16,7 +16,7 @@ Anyone can enter. There is no allowlist, no approval and no signature from a tea
     Name, symbol and a metadata link. That is the whole configuration: you do not choose the supply, the curve, the fee or the pairing, because they are identical for every coin.
   </Step>
   <Step title="Post the bond">
-    A refundable deposit in $DOLL: approve it, then register. On mainnet it is a flat amount, set at deployment to roughly twenty dollars at launch, the same at every chain depth. Testnet uses a smaller, depth-scaled schedule instead. Registration checks the bond against the amount you were shown and refuses to charge more, so an approval left over from an earlier round can never be silently charged a bigger bond.
+    A refundable deposit in \$DOLL: approve it, then register. On mainnet it is a flat amount, set at deployment to roughly twenty dollars at launch, the same at every chain depth. Testnet uses a smaller, depth-scaled schedule instead. Registration checks the bond against the amount you were shown and refuses to charge more, so an approval left over from an earlier round can never be silently charged a bigger bond.
   </Step>
   <Step title="Register">
     If no round is open, your registration opens one. Registration then stays open for a window that scales with the round's length: 3 minutes on the earliest rounds, growing up to 1 hour on the longest. On a round of an hour or more you can also enter later, as a late entrant, during the first third of trading, once registration has closed. Once both windows have passed, entry into that round is shut: registering then reverts, and nothing is queued. The next coin entered after the round finalizes opens the following one instead.
@@ -31,7 +31,7 @@ Anyone can enter. There is no allowlist, no approval and no signature from a tea
     Your coin becomes the new head. Your bond is refunded in full. Every candidate in the next round is priced in your coin, and you take half of the creator share on all of that round's candidate trading.
   </Step>
   <Step title="If you lose">
-    Your bond is forfeited into the buy support under link one, in $DOLL. Your coin keeps trading forever and you keep the creator share on it, but it does not join the chain.
+    Your bond is forfeited into the buy support under link one, in \$DOLL. Your coin keeps trading forever and you keep the creator share on it, but it does not join the chain.
   </Step>
 </Steps>
 
@@ -61,7 +61,7 @@ Every coin can show a website, an X account, a description and artwork on Dollho
 
 You edit them by signing with the wallet that created the coin. You can hand editing rights to another wallet if you want someone else to manage them, or if the coin changes hands. For a community takeover of a coin whose creator has walked away, the Dollhouse account on X can reassign editing rights on request.
 
-None of this lives on-chain and none of it feeds the round: the contracts and any screener reading them see only the token, the pool and the bond. Project links are presentation on Dollhouse, not part of the mechanism.
+The contents live off-chain and none of it feeds the round. The coin itself carries one on-chain metadata pointer (`uri`), written once when it is registered and never changed; everything the pointer resolves to is edited on Dollhouse. Project links are presentation, not part of the mechanism.
 
 ## Honest expectations
 
