@@ -26,17 +26,15 @@ A coin that lost the round keeps its own pool and its own creator fees and trade
 </Accordion>
 
 <Accordion title="Why does the round end at a random time?">
-The round ends at a random time to avoid flash-loan/oracle manipulation scenarios.
-
-Every round has a public **nominal end**, and the **true end** is a random moment inside the last 3 minutes before it. Nothing after the nominal end counts. The random draw comes from **drand**, a public randomness beacon that Dollhouse does not run or control, verified on-chain after the fact, so nobody, including us, can know the true end in advance.
+So nobody can buy in with certainty at the very last second and be guaranteed to count. Every round has a public **nominal end**, and the **true end** is a random moment inside the last 3 minutes before it. Nothing after the nominal end counts. The random draw comes from **drand**, a public randomness beacon that Dollhouse does not run or control, verified on-chain after the fact, so nobody can know the true end in advance.
 
 The practical effect: buying in the final 3 minutes is a gamble, because the round may already have ended. If the beacon is not relayed in time, the round simply ends at the nominal time with no randomness that round.
 </Accordion>
 
 <Accordion title="Why do rounds get longer?">
-The first rounds are 15 minutes as a proof of concept, and to get the first working coin deployed on chain as proof of tech. Later rounds are longer because a mature chain needs quality projects with demonstrated community support. 
+So buyers everywhere, not just whoever is awake when a round opens, have a real chance to compete for the next spot as the chain grows.
 
-The schedule is fixed by round number: 15 minutes, doubling every two rounds, capped at 12 hours. Registration is a fifth of trading time, between 3 minutes and 1 hour.  
+The schedule is fixed by round number: 15 minutes, doubling every two rounds, capped at 12 hours. Registration is a fifth of trading time, between 3 minutes and 1 hour.
 </Accordion>
 
 <Accordion title="Is late entry unfair?">

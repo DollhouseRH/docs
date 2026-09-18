@@ -11,9 +11,7 @@ Dollhouse has exactly one chain.
 (ETH on Pons) → $DOLL → #1 → #2 → #3 → #4 → ...
 ```
 
-There is always one head, the newest coin in the chain, and exactly one next spot open. Every round competes for that one spot.
-
-A branching family tree was considered and rejected: branches split attention, and a branch nobody watches leaves its holders with nothing downstream.
+There is always one head, the newest coin in the chain, and exactly one next spot open. Every round competes for that one spot, so every buyer's attention lands on the same coin instead of splitting across branches.
 
 ## Every coin is paired with its parent
 
@@ -31,8 +29,6 @@ So "priced in the coin before it" is literal. #3's price is quoted in #2, and #2
 
 **Prices propagate.** When a child market moves, arbitrage pushes the change back up through the parent markets.
 
-Fee sharing alone cannot reproduce any of this. That is why coins are paired against each other instead of each holding its own plain ETH pool.
-
 ## The cost of depth
 
 Being deep in the chain has a real price, and it is not the fee.
@@ -44,7 +40,7 @@ The 1% is charged once. The per-hop pool fee is 7.5 basis points, so a ten-link 
 Each new link has also measured out at roughly **5–8% of its parent's value** in \$DOLL terms. The chain shrinks in \$DOLL terms as it grows.
 
 <Warning>
-A deployment can set a permanent depth cap at launch, so the chain stays inside the range the design was tested for. The cap is fixed at deploy and can never be raised.
+A deployment can set a permanent depth cap at launch. The cap is fixed at deploy and can never be raised.
 </Warning>
 
 ## What "canonical" means
@@ -63,10 +59,6 @@ Canonical means exactly three things:
 
 ## What canonical status costs to take
 
-This is disclosed openly because it is uncomfortable.
-
 Winning a round is a **capital-rental auction**. You can cycle money through your own candidate, win, and take the money back out. That costs a small fraction of the capital cycled and reliably captures the slot at a strong edge over the honest leader's absorption.
 
-It gets cheaper with depth: clearing the minimum bar costs roughly \$100 at generation 1, \$7 at generation 2, and under \$1 from generation 3 onward. From there, the forfeited bond is the main remaining deterrent: a flat amount on mainnet, the same at every depth.
-
-There is no fix for this that the project was willing to ship: every structural fix (a sunk cost, a sell lock, a seasoning period) was rejected as hostile to ordinary users. So it is disclosed instead.
+It gets cheaper with depth: clearing the minimum bar costs roughly \$100 at generation 1, \$7 at generation 2, and under \$1 from generation 3 onward. From there, the forfeited bond is the main remaining deterrent: a flat amount on mainnet, the same at every depth. See [Risks](/risks).

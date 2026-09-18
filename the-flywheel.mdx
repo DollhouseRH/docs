@@ -7,8 +7,6 @@ description: "How each round creates demand for the coin above it, and where the
 
 Every round forces buyers to buy the current head coin, and one percent of everything that enters or leaves is split between the creator, the developer, every earlier coin, and the parent coin's own liquidity.
 
-That is the whole engine. Nothing else in Dollhouse is trying to be clever.
-
 ## Step one: a round creates demand for the parent
 
 Candidates are priced in the head coin. To buy any candidate you must hold the head coin. To hold the head coin you must buy it with the coin above it, and so on up to ETH.
@@ -43,7 +41,7 @@ The ancestor share is not a dividend. Nobody can withdraw it as cash.
 It is spent buying parent tokens and locking them as a **bid underneath the ancestor's pool**: a standing buy order that can never be removed. \$DOLL is weighted highest: it always receives exactly **2× the newest link's share**, deployed as locked \$DOLL buy support under link one, and that ratio is fixed by the formula and never grows.
 
 <Warning>
-This support arrives slowly and is deliberately rate-limited: at most 10% of a coin's entitlement can be drawn per 24 hours, and any single call can buy at most 2% of the active liquidity range. Reinforcement arrives slowly and is not a shock absorber; it barely changes the depth of a large dump. **It is slow accretion, not a shock absorber.** It will not save a coin that is falling.
+This support arrives slowly and is rate-limited: at most 10% of a coin's entitlement can be drawn per 24 hours, and any single call can buy at most 2% of the active liquidity range. Reinforcement arrives slowly and is not a shock absorber; it barely changes the depth of a large dump. **It is slow accretion, not a shock absorber.** It will not save a coin that is falling.
 </Warning>
 
 <Warning>
@@ -70,21 +68,19 @@ To check one yourself:
 3. Read the logs on that transaction. The event name tells you which of the four above it is, `generation` tells you whose money it was, and `parentDeposited` (or `deposited` for the edge bid) is the amount that went in.
 4. The position it opened is owned by the deployer contract and has no withdraw path. Nobody, including the developer, can take it out again.
 
-Two honest limits. The site reads a window of recent blocks rather than the whole history, and says so on the page when the window does not reach the first block. And the event records the amount deposited, not the tick range it was opened at, so the support ladder drawn on a coin page places every band in the same band width below the price rather than at the exact price of the day.
+The site reads a window of recent blocks rather than the whole history, and says so on the page when the window does not reach the first block. The event records the amount deposited, not the tick range it was opened at, so the support ladder drawn on a coin page places every band in the same band width below the price rather than at the exact price of the day.
 
 ## Step four: the season cut for the head
 
 Holding the head is an income stream, not a title.
 
-For the whole of the next round, half of the creator share on every attributed candidate trade goes to the head coin's creator. That is why the trading window was extended from ten minutes to fifteen, and why rounds get longer as the chain matures, up to 12 hours. A longer round is a longer season cut.
+For the whole of the next round, half of the creator share on every attributed candidate trade goes to the head coin's creator. Rounds get longer as the chain matures, up to 12 hours, so a longer round is a longer season cut.
 
 ## Step five: the contest does not stop at the bell
 
 A generation's share of the ancestor fees is settled by the round itself. Every time it is paid out, all of it is locked as bid liquidity **under the coin that won that round**, which is the coin every later generation is priced through, so the support lands where the whole chain trades against it.
 
-So the losers of a round keep competing with the winner, permanently. Holding parent coin in a sibling's pool is how that contest is fought, which means the parent coin has a reason to be bought **between** rounds and not only during them. A dumped winner loses purse share to a sibling that kept its support.
-
-Details, and what that costs, are on [Intentional choices](/intentional-choices).
+That share stays locked under the winner permanently, whatever happens to its price afterwards, which gives the parent coin a reason to be bought **between** rounds and not only during them. See [Tokenomics](/tokenomics).
 
 ## Where the loop closes
 

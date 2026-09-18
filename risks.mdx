@@ -7,7 +7,7 @@ description: "Everything that can go wrong, in plain English. Read this page bef
 Dollhouse is an experimental meme-coin launchpad. The contracts have **not** been audited by a paid third-party firm. Prices can go to zero. Only spend what you are willing to lose entirely.
 </Warning>
 
-This page lists every risk our own audits told us to disclose. Nothing here is hidden elsewhere in the docs.
+This page lists every known risk. Nothing here is hidden elsewhere in the docs.
 
 ## Market risks
 
@@ -31,13 +31,13 @@ This page lists every risk our own audits told us to disclose. Nothing here is h
 
 **Canonical status guarantees nothing.** It is a numbered spot in the chain. It is not a safety review, an endorsement, a promise of volume or a promise of price.
 
-**A spot in the chain is cheap to buy.** Capture costs a small fraction of the capital cycled and succeeds reliably, at a strong edge over the honest leader's absorption. The capital can then be withdrawn. This was an accepted design decision: every structural fix was rejected as hostile to normal users.
+**A spot in the chain is cheap to buy.** Capture costs a small fraction of the capital cycled and succeeds reliably, at a strong edge over the honest leader's absorption. The capital can then be withdrawn. There is no current fix for this.
 
 **And it gets cheaper with depth.** Clearing the minimum bar costs roughly \$100 at the first generation, \$7 at the second, and **under \$1 from the third**. From there the forfeited bond is the main remaining deterrent: a flat amount on mainnet, not one that grows with depth.
 
 **A round can end with no winner.** If nobody clears the bar, nobody is crowned and **every** bond in the round is forfeited.
 
-**The bond is capital, not a price.** Winners get it back in full. Only losers forfeit. An earlier version of our documentation claimed a non-refundable floor for winners; that was false and was corrected after an audit.
+**The bond is capital, not a price.** Winners get it back in full. Only losers forfeit.
 
 **Scores are second-granular.** The score is measured in whole seconds, so very short-lived activity is measured coarsely.
 
@@ -47,17 +47,17 @@ This page lists every risk our own audits told us to disclose. Nothing here is h
 
 **Losing candidates share the parent's reinforcement pot.** Hop and snipe fees are pooled per parent coin, so the losing siblings of a round contribute to the same pot as the winner.
 
-**Ancestor payouts depend on volunteers who currently lose money.** Keepers convert entitlements into locked bids for a 1% bounty. Measured gas was about **215x the bounty** at the first generation, and the bounty was **121 wei** at the eighth. If nobody calls, an entitlement is never spent. There is also a disclosed dead zone where a deployment is so small that the bounty cap binds at 20% of the \$DOLL consumed, still below mainnet gas.
+**Ancestor payouts depend on volunteers who currently lose money.** Keepers convert entitlements into locked bids for a 1% bounty. Measured gas was about **215x the bounty** at the first generation, and the bounty was **121 wei** at the eighth. If nobody calls, an entitlement is never spent. There is also a dead zone where a deployment is so small that the bounty cap binds at 20% of the \$DOLL consumed, still below mainnet gas.
 
 **Keeper pricing can be gamed, and after a crash keepers may be overpaid.** Two prices are involved. How much \$DOLL a deployment spends is worked out along the chain, each step at the lowest of the current price, the 30-minute average and the 7-day average. Where the bid is placed is decided by the receiving pool alone: its current price must be within about 3% of its own 30-minute average, and the bid then sits immediately under that live price. A determined manipulator moving a thin pool and waiting out the 30-minute window can still shift what the vault pays.
 
 **Genesis has no fixed floor.** \$DOLL's share of the ancestor sleeve shrinks as the chain grows: 34.5% at 5 links, 0.24% at 1,000.
 
-**The purse is a buy wall, and holders can sell into it.** A round's share of later fees is locked as a standing bid under the coin that won it, from just under the price down to about 6% below it, permanently. That is support, and it is also an exit: the coin's own holders can sell into it at those prices. It is deliberately slow, at most 2% of the pool's depth per deployment and at most 10% of the accrued share per 24 hours, so it cannot be used to move a price. The reinforcement share has worked this way from the start; the change makes it 40% of the fee instead of 20%.
+**The purse is a buy wall, and holders can sell into it.** A round's share of later fees is locked as a standing bid under the coin that won it, from just under the price down to about 6% below it, permanently. That is support, and it is also an exit: the coin's own holders can sell into it at those prices. It is slow: at most 2% of the pool's depth per deployment and at most 10% of the accrued share per 24 hours, so it cannot be used to move a price. The reinforcement share has worked this way from the start; the change makes it 40% of the fee instead of 20%.
 
 **A coin that loses a round earns nothing from the chain's fees.** A generation's share of the ancestor fees is locked under the coin that won the round, in full. A coin that lost keeps its own pool and its own creator fees and trades forever, but it can grow far past the winner and still receive no purse. There is also no penalty on a winner that is dumped: it keeps its share whatever happens to it afterwards.
 
-**The purse is decided in the round, so the round is what people play for.** An earlier design split a generation's purse between its two best-supported coins, measured continuously after the round. That was removed: it could be gamed by parking capital to move the measurement, and it moved fee-funded liquidity off the chain's main line. The consequence of removing it is stated above: no penalty for a dumped winner, and nothing at all for a coin that lost.
+**The purse is decided once, at the end of the round, and never revisited.** There is no penalty for a winner that is dumped afterwards, and no way for a losing coin to earn a purse later no matter how much it grows.
 
 **Money that arrives late but holds can beat a leader who ran the whole round.** The winner is the highest market cap at the end. Money that arrives late but stays for the closing window counts in full. A challenger who arrives at the start of the closing window with money equal to the leader's, and holds it, tends to beat a leader who is still spreading its buys out, in short and long rounds alike. The random end does not change that; it only makes last-second spikes far less reliable. This is the rule working as designed, not a loophole: to win, be the highest at the end and hold it. On rounds of an hour or more, a coin may also enter late, during the first third of trading; its only handicap is having less time to build support before the same closing window is measured.
 
@@ -79,9 +79,9 @@ This page lists every risk our own audits told us to disclose. Nothing here is h
 
 **Attribution can be wrong across a handover.** With three live versions, a route driven by the newest router is unattributed at the oldest version's pools. And for at most one round after a sunset, a candidate fee can be credited to the wrong creator or to nobody.
 
-**The steward is a single key.** On mainnet it is planned as one cold hardware-wallet signer, not a multisig, a deliberate design decision. A lost key means the sunset path is gone forever; a stolen key gets 7 days of public notice before the role moves.
+**The steward is a single key.** On mainnet it is planned as one cold hardware-wallet signer, not a multisig. A lost key means the sunset path is gone forever; a stolen key gets 7 days of public notice before the role moves.
 
-**The steward can also be nobody.** Setting it to the zero address is a legal, deliberate choice meaning the deployment can never be sunset. That cannot be undone either.
+**The steward can also be nobody.** Setting it to the zero address means the deployment can never be sunset. That cannot be undone either.
 
 **Roles can move.** Steward and developer fee address each transfer on a public 7-day announce-and-execute delay. The developer fee ledger is a single balance, so a transfer hands over any unclaimed accrued fees along with the role.
 
@@ -89,7 +89,7 @@ This page lists every risk our own audits told us to disclose. Nothing here is h
 
 **Pons is a hard external dependency for getting in or out.** Dollhouse does not mint or price \$DOLL; it adopts a token that already exists on Pons, a separate launchpad. The chain works internally without Pons, trading, rounds, claims and locked liquidity all keep functioning, but Pons is the only door between ETH and \$DOLL. If Pons is unavailable, nothing else can substitute for it.
 
-**The whole design depends on \$DOLL behaving like a plain token.** Every bond, fee and payout assumes the adopted entrance token is an ordinary ERC-20: no pause, no blacklist, no fee on transfer, no transfer hooks, and no way for anybody to upgrade its logic later. This was checked against the actual Pons launch token source, not just assumed: it mints once, overrides no transfer path, and its supply can only fall, through holder burns. Adoption itself cannot verify a token's *future* behavior on chain, and a later deployment could in principle be pointed at a different token that does not hold to this.
+**Everything here depends on \$DOLL behaving like a plain token.** Every bond, fee and payout assumes the adopted entrance token is an ordinary ERC-20: no pause, no blacklist, no fee on transfer, no transfer hooks, and no way for anybody to upgrade its logic later. This was checked against the actual Pons launch token source, not just assumed: it mints once, overrides no transfer path, and its supply can only fall, through holder burns. Adoption itself cannot verify a token's *future* behavior on chain, and a later deployment could in principle be pointed at a different token that does not hold to this.
 
 **Deploy-time constants are set against a price that is hours old, and cannot change.** The bond and the keeper-bounty floor are sized from \$DOLL's graduated Pons price at deploy time. Both are immutable once deployed. If the price has moved a great deal by the time mainnet actually launches, the only fix is a continuation deployment with new constants. Nothing about a live deployment can be adjusted.
 
@@ -101,9 +101,11 @@ This page lists every risk our own audits told us to disclose. Nothing here is h
 
 **The code is not audited by a paid third-party firm.** It was written with AI assistance and reviewed by AI auditors. See [Audits](/audits) for exactly who reviewed what.
 
+**The fee vault's latest change has not been re-run through the prover.** Its re-denomination in \$DOLL is covered by symbolic checks and the test suite; the formal re-run is queued behind a tool fix.
+
 **Smart contracts can have bugs.** Every function is immutable once deployed. There is no admin able to patch a live contract.
 
-**Uniswap's own fee controller could add a fee.** The pools run on Uniswap v4. If its fee controller is switched on for these pools, it could add up to 0.1% on top of everything described here. That is outside our control.
+**Uniswap's own fee controller could add a fee.** The pools run on Uniswap v4. If its fee controller is switched on for these pools, it could add up to 0.1% on top of everything described here. That is outside this protocol's control.
 
 **The protocol depends on Robinhood Chain.** If the chain halts, reorgs or misbehaves, so does Dollhouse. Timestamps are assumed to move forward, as they do on this stack.
 
@@ -111,8 +113,8 @@ This page lists every risk our own audits told us to disclose. Nothing here is h
 
 **Some paths have never run on a live public chain.** The 7-day mainnet handover, the 7-day slow price average as a payout floor, deep keeper calls and third-party contention are among them. A path that has never fired should be treated as unproven.
 
-**Some risks are still unknown.** The full list of what could not be verified, and what evidence would close each gap, is in `docs/reviews/2026-09-11-contract-review-final.md` and `docs/reviews/2026-09-11-contract-review-external.md` in the repository.
+**Some risks are still unknown.** The full list of what could not be verified, and what evidence would close each gap, is in the repository's audit record. See [Audits](/audits).
 
 ## The plain summary
 
-Dollhouse does not promise returns, appreciation or income to anybody. It is a fixed set of rules for launching and trading coins, disclosed as completely as we can manage. What happens to any price is up to the market.
+Dollhouse does not promise returns, appreciation or income to anybody. It is a fixed set of rules for launching and trading coins. What happens to any price is up to the market.

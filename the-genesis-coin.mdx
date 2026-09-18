@@ -1,11 +1,11 @@
 ---
 title: "The $DOLL coin"
-description: "The honest case for the genesis coin, followed by the honest case against it."
+description: "The case for the genesis coin, and the case against it."
 ---
 
 ## What $DOLL is
 
-\$DOLL is not launched by Dollhouse. It is created on **Pons**, a separate launchpad on Robinhood Chain: a bonding curve that graduates into a Uniswap v4 pool quoted in ETH, under Pons's own hook and locked by Pons's own locker. Dollhouse **adopts** that token as its entrance coin once, as part of the one-time deployment step, with the attribution fixed at deployment, so whoever finishes deploying the contracts, the outcome is identical, and there is nothing to race for. There is no Dollhouse-run curve for \$DOLL, no insider allocation on it, and no unlock contract; early buyers get it at the Pons open like everyone else.
+\$DOLL is not launched by Dollhouse. It is created on **Pons**, a separate launchpad on Robinhood Chain: a bonding curve that graduates into a Uniswap v4 pool quoted in ETH, under Pons's own hook and locked by Pons's own locker. Dollhouse **adopts** that token as its entrance coin. There is no Dollhouse-run curve for \$DOLL, no insider allocation on it, and no unlock contract; early buyers get it at the Pons open like everyone else.
 
 Name: **Dollhouse**. Symbol: **$DOLL**. Supply: 1,000,000,000. It is the outermost nesting doll: link zero, the coin every other coin is ultimately priced against. It has no pool inside Dollhouse itself; its market is the one it graduated into on Pons.
 
@@ -15,7 +15,7 @@ The testnet deployments used a placeholder token in place of \$DOLL, called **Mo
 
 ## Why it is structurally different from the other coins
 
-**It is the door.** Every trade that brings \$DOLL into the chain, or takes it back out at link one, is where the 1% edge fee is charged, in both directions. There is no other entrance inside Dollhouse. Getting ETH into \$DOLL itself, or out of it, happens on Pons and is outside Dollhouse's accounting entirely.
+**It is the door.** Every trade that brings \$DOLL into the chain, or takes it back out at link one, is where the 1% edge fee is charged, in both directions. There is no other entrance inside Dollhouse. Getting ETH into \$DOLL itself, or out of it, happens on Pons and is outside Dollhouse's accounting entirely. That trade pays Pons's own 1% pool fee, part of which buys back \$DOLL and locks it in a vault that releases over five years.
 
 **Every round's demand flows down through it.** To buy a candidate you need the head coin. To get the head coin you need its parent. Follow that all the way up and you are buying $DOLL. A round that pulls meaningful head-coin demand pulls it through here.
 
@@ -31,7 +31,7 @@ Over 20 generations at \$250,000 of edge volume per round, the model puts a mean
 
 That is real and it is modest. It is delivered as protocol-owned buy support, not as a payout to holders.
 
-## Now the counter-case
+## What can go wrong
 
 <Warning>
 **$DOLL can go to zero.** It is a meme coin on a launchpad. Locked liquidity means the pool keeps bidding all the way down; it does not put a floor under the price. Nothing here is a promise of value, appreciation or income.
@@ -51,8 +51,6 @@ That is real and it is modest. It is delivered as protocol-owned buy support, no
 
 **The upgrade switch is a real risk to $DOLL specifically.** Link one's pool is the one that charges the 1% edge fee. If a sunset takes effect, that fee is booked by a successor deployment instead. See [Risks](/risks).
 
-## How to think about it
+## The bottom line
 
-$DOLL's case is structural, not promissory: it is the entrance, it is weighted highest in the payouts, and its liquidity cannot be removed.
-
-Whether any of that translates into price depends entirely on whether people keep launching and trading here. Nobody, including the developer, can make that happen.
+\$DOLL is the entrance to every coin in the chain, it is weighted highest in the payouts, and its liquidity cannot be removed. Whether any of that translates into price depends entirely on whether people keep launching and trading here. Nobody, including the developer, can make that happen.
