@@ -1,17 +1,12 @@
 ---
 title: "The $DOLL coin"
-description: "What \\$DOLL is, and how it works at the head of the chain."
 ---
 
 ## What $DOLL is
 
-\$DOLL is not launched by Dollhouse. It is created on **Pons**, a separate launchpad on Robinhood Chain: a bonding curve that graduates into a Uniswap v4 pool quoted in ETH, under Pons's own hook and locked by Pons's own locker. Dollhouse **adopts** that token as its entrance coin. There is no Dollhouse-run curve for \$DOLL, no insider allocation on it, and no unlock contract; early buyers get it at the Pons open like everyone else.
+\$DOLL is Dollhouse's genesis token. It is created on **Pons** under a Pons hook and locker. Dollhouse **adopts** that token as its entrance coin. There is no Dollhouse-run curve for \$DOLL, no insider allocation on it, and no unlock contract; early buyers get it at the Pons open like everyone else.
 
 Name: **Dollhouse**. Symbol: **$DOLL**. Supply: 1,000,000,000. It is the outermost nesting doll: link zero, the coin every other coin is ultimately priced against. It has no pool inside Dollhouse itself; its market is the one it graduated into on Pons.
-
-<Note>
-The testnet deployments used a placeholder token in place of \$DOLL, called **MockDoll**. Mainnet will adopt the real **\$DOLL** from Pons. Nothing is deployed on mainnet yet.
-</Note>
 
 ## Why it is structurally different from the other coins
 
@@ -25,12 +20,6 @@ The testnet deployments used a placeholder token in place of \$DOLL, called **Mo
 
 **Its liquidity can never be pulled, but Dollhouse does not control it.** \$DOLL's pool lives on Pons, locked by Pons's locker under Pons's own rules; Dollhouse has no allocation of its own on \$DOLL and no function that touches that pool.
 
-## What that adds up to, in measured terms
-
-Over 20 generations at \$250,000 of edge volume per round, the model puts a meaningful amount of ancestor sleeve plus forfeited bonds under \$DOLL as locked bid liquidity.
-
-That is real and it is modest. It is delivered as protocol-owned buy support, not as a payout to holders.
-
 ## The bottom line
 
-\$DOLL is the entrance to every coin in the chain, it is weighted highest in the payouts, and its liquidity cannot be removed. Whether any of that translates into price depends entirely on whether people keep launching and trading here. Nobody, including the developer, can make that happen.
+\$DOLL is the entrance to every coin in the chain, it is weighted highest in the payouts, and its liquidity can never be removed.
