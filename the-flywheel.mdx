@@ -1,9 +1,10 @@
 ---
 title: "The flywheel"
-description: "How each round creates demand for the coin above it, and where the 1% fee actually goes."
 ---
 
-## The one-sentence version
+## TL;DR
+
+More attention on a round → more buying of the head coin → more ETH entering through \$DOLL → a bigger 1% pot → more paid to creators, to earlier coins as locked bids, and to the parent's liquidity → a deeper chain with more coins whose holders want the next round to be good.
 
 Every round forces buyers to buy the current head coin, and one percent of everything that enters or leaves is split between the creator, the developer, every earlier coin, and the parent coin's own liquidity.
 
@@ -11,15 +12,11 @@ Every round forces buyers to buy the current head coin, and one percent of every
 
 Candidates are priced in the head coin. To buy any candidate you must hold the head coin. To hold the head coin you must buy it with the coin above it, and so on up to ETH.
 
-So a round is a buy order for the head, placed by everybody who wants in.
-
-A round of any real size absorbs a meaningful amount of the head coin, which in turn requires a larger amount of ETH to make its way into the chain, and can move the head's own valuation substantially.
-
-The striking part: that effect is nearly the same whether 5 candidates compete or 50. Interest gets split among candidates; the demand for the parent does not.
+A round of any real size absorbs a meaningful amount of the head coin, which in turn requires a larger amount of ETH to make its way into the chain, creating buy pressure on every coin in the chain.
 
 ## Step two: the fee split
 
-Traders pay **1%** on the \$DOLL side of link one's pool, in both directions: once on the way in, once on the way out. Nothing is charged on that 1% for going deeper.
+Traders pay **1%** on the \$DOLL side of link one's pool, in both directions. 
 
 That 1% is split, by a constant in the contract:
 
@@ -30,41 +27,21 @@ That 1% is split, by a constant in the contract:
 | **20%** | Every earlier coin in the chain | Locked buy-side liquidity under those coins |
 | **20%** | The immediate parent's liquidity | Locked buy-side liquidity under the parent |
 
-**During a round**, the 40% creator share splits **50/50** between the candidate's creator and the creator of the head the round is priced in. That is the season cut. After the round, a coin pays 100% of the creator share to its own creator.
+**During a round**, the 40% creator share splits **50/50** between the candidate's creator and the creator of the head the round is priced in. After the round, a coin pays 100% of the creator share to its own creator.
 
 Family-to-family hops pay a separate **7.5 basis point** pool fee, which goes into the parent's reinforcement budget. No 1% is charged there.
 
 ## Step three: ancestor payouts as permanent buy support
 
-The ancestor share is not a dividend. Nobody can withdraw it as cash.
+Payouts are spent buying parent tokens and locking them as a **bid underneath the ancestor's pool**: a standing buy order that can never be removed. \$DOLL is weighted highest: it always receives exactly **2× the newest link's share**, deployed as locked \$DOLL buy support under link one.
 
-It is spent buying parent tokens and locking them as a **bid underneath the ancestor's pool**: a standing buy order that can never be removed. \$DOLL is weighted highest: it always receives exactly **2× the newest link's share**, deployed as locked \$DOLL buy support under link one, and that ratio is fixed by the formula and never grows.
-
-This support is rate-limited: at most 10% of a coin's entitlement can be drawn per 24 hours, and any single call can buy at most 2% of the active liquidity range. It is slow accretion, arriving steadily over time.
-
-The conversion is performed by volunteer keepers, not by the protocol. Anyone can be a keeper, and a keeper is paid a 1% bounty for making the call.
+A maximum of 10% of a coin's entitlement can be drawn per 24 hours, and any single call can buy at most 2% of the active liquidity range. 
 
 ## How to verify a deployment
 
-Every lock is an event on chain, so none of this has to be taken on trust.
+Every lock is transparent and recorded onchain.
 
-The bid deployer emits four events, and the Treasury page on the app (`/treasury`) lists all of them, newest first, with a link to the transaction that produced each one.
-
-| Event | What it records |
-|---|---|
-| `PurseDeployed` | A generation's share of later trades, locked as parent tokens under the coin that won its round. Carries the destination coin, so the deployment has nothing to choose. |
-| `AncestorDeployed` | The \$DOLL leg of the same call: how much \$DOLL the keeper spent (`edgeUsed`), and the bounty it took. It is emitted in the **same transaction** as `PurseDeployed`, so the two are one deployment, not two. |
-| `HopPotDeployed` | A generation's hop fees, which arrive already denominated in the parent token, locked under the same coin. |
-| `EdgeBidDeployed` | Generation 0 and 1's pots and the forfeited-bond earmark, locked as \$DOLL buy support under link one. |
-
-To check one yourself:
-
-1. Open the Treasury page and pick a line. The amount is in the unit the bid is denominated in, which is always the parent of the coin it sits under.
-2. Follow the proof link. It opens the chain explorer at `/tx/<transaction hash>`.
-3. Read the logs on that transaction. The event name tells you which of the four above it is, `generation` tells you whose money it was, and `parentDeposited` (or `deposited` for the edge bid) is the amount that went in.
-4. The position it opened is owned by the deployer contract and has no withdraw path. Nobody, including the developer, can take it out again.
-
-The site reads a window of recent blocks rather than the whole history, and says so on the page when the window does not reach the first block. The event records the amount deposited, not the tick range it was opened at, so the support ladder drawn on a coin page places every band in the same band width below the price rather than at the exact price of the day.
+The bid deployer emits four events, and each one is listed on the Treasury page on the app lists all of them with a link to the respective transaction.
 
 ## Step four: the season cut for the head
 
@@ -77,7 +54,3 @@ For the whole of the next round, half of the creator share on every attributed c
 A generation's share of the ancestor fees is settled by the round itself. Every time it is paid out, all of it is locked as bid liquidity **under the coin that won that round**, which is the coin every later generation is priced through, so the support lands where the whole chain trades against it.
 
 That share stays locked under the winner permanently, whatever happens to its price afterwards, which gives the parent coin a reason to be bought **between** rounds and not only during them. See [Tokenomics](/tokenomics).
-
-## Where the loop closes
-
-More attention on a round → more buying of the head coin → more ETH entering through \$DOLL → a bigger 1% pot → more paid to creators, to earlier coins as locked bids, and to the parent's liquidity → a deeper chain with more coins whose holders want the next round to be good.
