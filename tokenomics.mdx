@@ -1,19 +1,19 @@
 ---
 title: "Tokenomics"
-description: "Every number: supply, the entrance coin, the fee split, the hop fee, and the bond."
+description: "Every number behind Dollhouse: supply, fees, and the bond."
 ---
 
 ## Supply
 
 Every candidate coin on Dollhouse has a fixed supply of **1,000,000,000 tokens**. It is minted once at launch. There is no mint function afterwards.
 
-\$DOLL is not launched by Dollhouse, so its supply and allocation are decided entirely by Pons, not by this protocol. Trading \$DOLL for ETH on Pons pays Pons's own 1% pool fee, part of which buys back \$DOLL and locks it in a vault that releases over five years. See [The \$DOLL coin](/the-genesis-coin).
+\$DOLL is not launched by Dollhouse, so its supply and allocation are decided entirely by Pons, not by this protocol. Trading \$DOLL for ETH on Pons pays Pons's own 1% pool fee, part of which is used for token buybacks. See [The \$DOLL coin](/the-genesis-coin).
 
 ## The full journey
 
 | Step | Fee | Where it goes |
 |---|---|---|
-| Trading \$DOLL for ETH, on Pons | Pons's 1% pool fee, plus a creator tax fixed at launch | 30% to Pons, 70% to a creator bucket: half cash to the \$DOLL creator, half spent buying back \$DOLL on its own pool, locked in a vault and released over 5 years |
+| Trading \$DOLL for ETH, on Pons | Pons's 1% pool fee, plus a creator tax fixed at launch | 30% to Pons, 70% to a creator bucket: half cash to the \$DOLL creator, half used for token buybacks |
 | Entering the chain from \$DOLL | 1% once, on the \$DOLL side of link one, in both directions | Split as below; suppressed for the first 3 seconds of a new round-one pool, while the snipe tax applies |
 | Each hop deeper in the chain | 0.075% per hop, in the parent coin | The hop's parent coin, as reinforcement |
 | The 1%'s split | 40% / 20% / 20% / 20% | Creator, developer, earlier coins, parent reinforcement |
@@ -32,7 +32,7 @@ There is no sell tax. Buys and sells pay the same 1%.
 
 **7.5 basis points (0.075%) per family-to-family hop**, paid in the parent coin, which goes into that parent's reinforcement budget.
 
-**The snipe tax:** on a candidate's first 3 seconds of trading, a tax starting at 99% and falling to 1%. Second by second in practice it works out to roughly 99%, 66%, 34%, then zero from +3 seconds. On a new round-one pool, the edge fee is suppressed for that same 3-second window and the snipe tax applies instead, so the two never stack past 100%. See [Risks](/risks).
+**The snipe tax:** on a candidate's first 3 seconds of trading, a tax starting at 99% and falling to 1%. Second by second in practice it works out to roughly 99%, 66%, 34%, then zero from +3 seconds. On a new round-one pool, the edge fee is suppressed for that same 3-second window and the snipe tax applies instead, so the two never stack past 100%.
 
 ## How the 1% is split
 
@@ -109,19 +109,13 @@ By the time a winning coin has cleared the bar, roughly 38% of its supply has be
 - Take anything from a candidate coin's supply. Candidates have no allocation at all.
 </Accordion>
 
-<Warning>
 One more disclosure on the developer address. The fee ledger is a single balance, so whatever has already accrued is claimable by whoever holds the developer role **at claim time**. Transferring the role hands over the unclaimed balance too.
-</Warning>
 
 ## The steward
 
 A separate address, the **steward**, has exactly two powers and no others: announce a sunset that names a successor deployment, and cancel that announcement before it takes effect. It cannot touch a pool, a price, a fee, a winner or a balance.
 
 On mainnet the steward is planned as a **single cold hardware-wallet signer**, not a multisig. Any transfer of the role goes through a public 7-day delay.
-
-<Warning>
-A single signer is a single point of failure. If that key is lost, the sunset path is gone forever. If it is stolen, the thief gets 7 days of public notice before they hold the role, and the sunset switch itself is a serious power. See [Risks](/risks).
-</Warning>
 
 ## Rules that protect your money
 
@@ -132,4 +126,4 @@ A single signer is a single point of failure. If that key is lost, the sunset pa
 - **The round ends at a random moment.** A public randomness beacon decides the exact closing second inside the last 3 minutes of a round, so nobody can time a guaranteed last-second buy.
 - **Nobody can change any of these rules.** There is no dial, no admin switch and no vote that can move the fee, the split, the curve, the schedule or a round's result.
 
-See [Risks](/risks) for what can still go wrong.
+See the [Disclaimer](/risks).

@@ -40,13 +40,9 @@ The ancestor share is not a dividend. Nobody can withdraw it as cash.
 
 It is spent buying parent tokens and locking them as a **bid underneath the ancestor's pool**: a standing buy order that can never be removed. \$DOLL is weighted highest: it always receives exactly **2× the newest link's share**, deployed as locked \$DOLL buy support under link one, and that ratio is fixed by the formula and never grows.
 
-<Warning>
-This support arrives slowly and is rate-limited: at most 10% of a coin's entitlement can be drawn per 24 hours, and any single call can buy at most 2% of the active liquidity range. Reinforcement arrives slowly and is not a shock absorber; it barely changes the depth of a large dump. **It is slow accretion, not a shock absorber.** It will not save a coin that is falling.
-</Warning>
+This support is rate-limited: at most 10% of a coin's entitlement can be drawn per 24 hours, and any single call can buy at most 2% of the active liquidity range. It is slow accretion, arriving steadily over time.
 
-<Warning>
-The conversion is performed by volunteer keepers, not by the protocol. At the sizes measured so far, keepers **lose money** calling it: gas was roughly 215× the bounty at the first generation. If nobody calls, an entitlement sits unspent. See [Risks](/risks).
-</Warning>
+The conversion is performed by volunteer keepers, not by the protocol. Anyone can be a keeper, and a keeper is paid a 1% bounty for making the call.
 
 ## How to verify a deployment
 

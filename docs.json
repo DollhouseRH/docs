@@ -17,7 +17,6 @@
         "group": "Start here",
         "pages": [
           "introduction",
-          "why-dollhouse",
           "how-a-round-works",
           "the-chain"
         ]
@@ -37,8 +36,7 @@
           "buying",
           "selling",
           "launching-a-coin",
-          "earnings",
-          "wallet-setup"
+          "earnings"
         ]
       },
       {
@@ -56,7 +54,7 @@
   "navbar": {
     "primary": {
       "type": "button",
-      "label": "Read the risks",
+      "label": "Disclaimer",
       "href": "/risks"
     }
   }

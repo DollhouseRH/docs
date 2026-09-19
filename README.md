@@ -55,4 +55,4 @@ These are not style preferences; they are what the content was reviewed against.
 | Plain-language answers | `../docs/spec/READINESS.md` |
 | Voice and UI copy | `../docs/DESIGN_BRIEF_UI.md` |
 
-Mainnet is not deployed. Keep `contracts.mdx` and `wallet-setup.mdx` saying so until it is.
+Mainnet is not deployed. Keep `contracts.mdx` saying so until it is.

@@ -1,35 +1,31 @@
 ---
 title: "Dollhouse"
-description: "A flywheel launchpad where every new coin is paired to the one before it"
+description: "A flywheel launchpad where every new coin is paired to the one before it, and how to get started."
 ---
 
 ## What Dollhouse is
 
-Dollhouse is a launchpad for new coins on Robinhood Chain.
+Dollhouse is a launchpad for new coins on Robinhood Chain. Every new coin here is born inside the coin before it, like nesting dolls: each coin is bought and sold with its parent coin, not with ETH directly, so the whole chain is held together by real liquidity. Anyone can enter a coin into a timed round, and the coin that attracts the most sustained buying wins the next spot in the chain. Everything else (the fees, the schedule, the locked liquidity) is fixed in the contract before a single coin exists.
 
-Every new coin here is born inside the coin before it, like nesting dolls. Each coin is bought and sold with its parent coin, not with ETH directly, so the whole chain is held together by real liquidity. Anyone can enter a coin into a timed round, and the coin that attracts the most sustained buying wins the next spot in the chain. Rounds are fifteen minutes at first, doubling every two rounds up to twelve hours, and the score is the average market cap over the closing window (the last fifteen minutes of the round). See [how a round works](/how-a-round-works). Everything else (the fees, the schedule, the locked liquidity) is fixed in the contract before a single coin exists.
+## What a trader gets
 
-<Note>
-Dollhouse is a meme-coin launchpad. Coins here can and do go to zero. Nothing on this site is a promise of profit. Read the [Risks](/risks) page before you spend anything.
-</Note>
+**You are early by design.** Every round starts new coins at the very bottom of their curve, with no private round and no team allocation. Buying a coin means buying its parent first, up to \$DOLL, so your money is a real trade on every pool in between.
 
-## The nesting-doll picture
+**One fee, at the door.** You pay 1% once, when your \$DOLL enters the chain, and 1% once when it leaves. Moving between coins inside the chain costs only a small pool fee per hop; the 1% never repeats.
 
-Picture a set of nesting dolls.
+**The liquidity cannot be pulled.** Every coin's supply goes into its pool at launch, locked forever, for anyone, including the developer.
 
-The outermost doll is **$DOLL**: the entrance coin, adopted from Pons rather than launched here. Inside it sits coin #1. Inside #1 sits #2. Inside #2 sits #3, and so on.
+## What a creator gets
 
-To reach the doll in the middle, you open every doll on the way in. That is literally how trading works here: to buy coin #3 you get \$DOLL on Pons, then \$DOLL buys #1, #1 buys #2, and #2 buys #3. Your money passes through every coin above it.
+**Permissionless.** Anyone can enter a coin. There is no listing fee, no allowlist and no approval step.
 
-That is the whole idea. A new coin does not sit next to the old ones. It sits **inside** them.
+**You keep 40% of the trading fee, forever.** The split is a constant in the contract and cannot be changed by anyone.
 
-## Who it is for
+**Your coin keeps trading either way.** A coin that loses a round keeps its pool, keeps trading, and its creator keeps earning on it. It simply does not join the chain.
 
-**Traders** who want to buy quality coins early, and who like that every coin they buy also creates real demand for the coins above it.
+**Winning earns you a season.** While your coin is the head of the chain, every candidate is priced in it, pulling real buying your way, and you take half of the creator share on that trading.
 
-**Creators** who want to launch a coin without paying a listing fee, without asking permission, and keeping 40% of the trading fee forever.
-
-## Where to go next
+## Where to start
 
 <CardGroup cols={3}>
   <Card title="Buy" icon="cart-shopping" href="/buying">
@@ -38,15 +34,7 @@ That is the whole idea. A new coin does not sit next to the old ones. It sits **
   <Card title="Launch" icon="rocket" href="/launching-a-coin">
     Enter a coin into the next round, what the bond is, and what you earn.
   </Card>
-  <Card title="The Chain" icon="link" href="/the-chain">
-    How parent and child coins are paired, and what "canonical" means.
+  <Card title="How a round works" icon="clock" href="/how-a-round-works">
+    Registration, a timed competition, and how a winner is chosen.
   </Card>
 </CardGroup>
-
-## The three sentences that matter most
-
-Traders pay **1%**, once, only when money enters or leaves the chain, not on every hop, no matter how deep the chain gets.
-
-Every coin's liquidity is **locked forever**; there is no function that can pull it out, for anyone, including the developer.
-
-Winning a spot in the chain **guarantees nothing** about a coin's price, and the price of any coin here depends on the price of its parent.

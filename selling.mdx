@@ -1,6 +1,6 @@
 ---
 title: "Selling"
-description: "How to sell, what it costs, and what the locked liquidity does on the way down."
+description: "How to sell a coin on Dollhouse, and what it costs."
 ---
 
 ## You can always sell
@@ -39,19 +39,11 @@ The pool is. Every coin's liquidity is locked permanently, so the curve keeps bi
 
 As the price falls, the pool hands back the parent coin it absorbed on the way up. That is a real bid, and it is also the only one you are guaranteed.
 
-<Warning>
-Locked liquidity is not a floor. A curve that bids all the way down still lets the price fall a long way. A dump of half the free float takes a link down hard even with reinforcement running, and the protocol has **no pause, no circuit breaker and no rescue**.
-</Warning>
-
 ## Selling a loser
 
 A coin that lost its round stays tradable forever. The router still walks the path through the coin it was paired with during its round.
 
 Its creator still collects the creator share on those trades, at 100% after the round is over.
-
-<Warning>
-After a round ends, a loser's market is thinner than a canonical coin's, and its route is only supported through the parent it was registered against. Expect worse execution than on the trunk.
-</Warning>
 
 ## One mechanical detail
 
