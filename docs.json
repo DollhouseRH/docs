@@ -42,11 +42,10 @@
       {
         "group": "Trust & safety",
         "pages": [
-          "risks",
           "audits",
           "contracts",
           "faq",
-          "glossary"
+          "risks"
         ]
       }
     ]
