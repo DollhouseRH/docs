@@ -5,8 +5,6 @@ description: "How Dollhouse's contracts have been reviewed, and what is still op
 
 The contracts are frozen at a tagged revision. The design was formally verified with Certora, an independent automated audit was run with V12, and the full mechanism ran end to end on the Robinhood testnet. Every finding was fixed before the freeze. The complete record, every review round, every tool run, and every testnet transaction, is public in the repository at [docs/ASSURANCE.md](https://github.com/DollhouseMarkets/dollhouse/blob/main/docs/ASSURANCE.md). 
 
-## What was done
-
 | Method | What was done |
 |---|---|
 | Formal verification | Certora proved 70 rules across the round manager, the hook and the fee vault: fee accounting and solvency, bond escrow, the round schedule and scoring, the random end and the seal. No rule was violated. |
