@@ -8,7 +8,7 @@ The team cannot remove liquidity. No pool has a withdrawal function, for anyone,
 
 They cannot change the fee, the split, the curve, the timings, the bond, or a round's result. They cannot pause trading, mint tokens, blacklist you or freeze your balance.
 
-What they do have: 20% of the fee, and a steward key whose only powers are to announce and cancel a sunset. Read [Tokenomics](/tokenomics) for the details, including what that sunset switch actually does.
+What they do have: 20% of the fee, and a steward key whose only powers are to announce and cancel a sunset. Read [Tokenomics](/tokenomics) and [Risks](/risks) for the details, including what that sunset switch actually does.
 </Accordion>
 
 <Accordion title="What if nobody enters a round?">
@@ -32,9 +32,11 @@ The practical effect: buying in the final 3 minutes is a gamble, because the rou
 </Accordion>
 
 <Accordion title="Why do rounds get longer?">
+The first rounds are 15 minutes as a proof of concept, and to get the first working coin deployed on chain as proof of tech. Later rounds are longer because a mature chain needs quality projects with demonstrated community support. 
+
 So buyers everywhere, not just whoever is awake when a round opens, have a real chance to compete for the next spot as the chain grows.
 
-The schedule is fixed by round number: 15 minutes, doubling every two rounds, capped at 12 hours. Registration is a fifth of trading time, between 3 minutes and 1 hour.
+The schedule is fixed by round number: 15 minutes, doubling every two rounds, capped at 12 hours. Registration is a fifth of trading time, between 3 minutes and 1 hour.  
 </Accordion>
 
 <Accordion title="Is late entry unfair?">
@@ -66,11 +68,11 @@ It does not get you a price, volume, an endorsement or a safety review.
 <Accordion title="What is the snipe tax?">
 A tax on buying a candidate in its first 3 seconds: 99% at the open, falling to 1%. Second by second it lands near 99%, 66%, 34%, then zero.
 
-It makes being first in the block nearly worthless.
+It makes being first in the block nearly worthless, but it does not stop bots. The opening sweeper still takes most of the first second's fills, and stays profitable on steep curves. Assume a bot is ahead of you at the open.
 </Accordion>
 
 <Accordion title="Is there a sell tax or a lock-up?">
-No additional sell tax, no lock-up, no cooldown. Buys and sells both pay the same 1% at the \$DOLL edge.
+No additional sell tax, no lock-up, no cooldown. Buys and sells both pay the same 1% at the \$DOLL edge. 
 </Accordion>
 
 <Accordion title="Is the code audited?">
