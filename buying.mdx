@@ -4,37 +4,33 @@ title: "Buying"
 
 ## Buying a coin
 
-Connect a wallet on Robinhood Chain, pick a coin and pay in ETH. One transaction converts your ETH to \$DOLL and buys the coin, and the coin arrives in your wallet. If you already hold \$DOLL, the trade panel's toggle lets you pay in \$DOLL instead.
+Connect a wallet on Robinhood Chain, pick a coin and pay in ETH. One transaction changes your ETH to \$DOLL and buys the coin, and the coin arrives in your wallet. If you already hold \$DOLL, the trade panel's toggle lets you pay in \$DOLL instead.
 
 <Steps>
   <Step title="Pick the coin">
-    Any coin in the chain, or any candidate in a live round. Coins that lost past rounds stay tradable too.
+    Any coin in the chain, or any candidate in a live round. Coins that lost past rounds can still be traded too.
   </Step>
   <Step title="Enter an amount in ETH">
-    The router works out the path for you: your ETH becomes \$DOLL, and \$DOLL runs down the chain to the coin you asked for. To pay in \$DOLL, switch the toggle and enter the amount in \$DOLL.
+    The app finds the path for you. Your ETH becomes \$DOLL, and the \$DOLL runs down the chain to the coin you picked. To pay in \$DOLL, switch the toggle and enter the amount in \$DOLL.
   </Step>
   <Step title="Check the quote and set slippage">
-    You see the fee and the expected amount received before you confirm. Keep a minimum amount received set: a new candidate pool's first 3 seconds carry a snipe tax that starts at 99% and drops by about a third each second, reaching zero after 3 seconds.
+    You see the fee and the amount you should receive before you confirm. Slippage is how far the price may move before your trade is refused. Set a minimum amount received, because a new pool charges a snipe tax in its first seconds; see the [FAQ](/faq).
   </Step>
   <Step title="Confirm">
-    One transaction. Your payment crosses every pool on the way to your coin.
+    One transaction. Your payment passes through every pool on the way to your coin.
   </Step>
 </Steps>
 
 ## What you pay
 
-Paying in ETH adds one step before the chain: the conversion from ETH to \$DOLL in \$DOLL's own market, which carries that market's own fees, shown in the first row below. From there both ways of paying cost the same. The route pays the 1% fee once, on the \$DOLL side of link one's pool, however deep the coin is. Each pool on the route also charges a 0.075% fee in its parent coin, so buying #3 crosses three pools and pays the 0.075% fee three times, about 0.225% in total.
+Paying in ETH adds one step first. Your ETH is changed to \$DOLL in \$DOLL's own market, which charges its own fees. After that step, paying in ETH and paying in \$DOLL cost the same.
 
-| Fee | Paying in ETH | Paying in \$DOLL |
-|---|---|---|
-| ETH to \$DOLL conversion | 1% pool fee plus 1% \$DOLL creator fee | None |
-| Link one's pool | 1% fee, once, on the \$DOLL side | 1% fee, once, on the \$DOLL side |
-| Each pool on the route | 0.075% fee in its parent coin | 0.075% fee in its parent coin |
+Your trade pays the Dollhouse fee once, on the \$DOLL side, however deep the coin sits in the chain. Each pool your trade passes through also keeps a small fee of its own. The full fee schedule is on [Tokenomics](/tokenomics).
 
-Price impact grows with the number of pools on the route and is shown in the quote, and gas on Robinhood Chain is cheap. For a coin at #2 or deeper, paying with its parent coin does not cross link one and pays only the 0.075% fee in each pool.
+The more pools your trade passes through, the more it moves the price, and the quote shows this before you confirm. If you pay for coin #2 or deeper with its parent coin, the coin before it, you skip the main fee and pay only the small pool fees.
 
-The 1% fee is divided three ways: 40% to the traded coin's creator, 40% locked in the chain as bids (20% under every earlier coin, 20% under the coin's parent), and 20% to the developer, so 80% of every fee stays in the chain. The creator and developer shares are claimable in \$DOLL; see [The flywheel](/the-flywheel). Buying a candidate during a round also counts toward its score; see [Rounds](/rounds).
+Most of every fee stays in the chain as [buy walls](/the-flywheel) under earlier coins. Buying a candidate during a round also raises its score; see [Rounds](/rounds).
 
 ## What you own
 
-An ordinary ERC-20 coin in your wallet, which you can sell at any time. There is no lock-up, no unlock schedule and no extra fee on sells of any coin. Its market is its pool against its parent coin; that pool holds the unsold part of the coin's supply plus the locked bids placed under it, and none of that liquidity can be withdrawn by anyone.
+You own an ordinary token in your wallet, and you can sell it at any time. There is no lock-up, no unlock schedule and no extra fee on sells. The coin trades in its pool against its parent coin. That pool holds the unsold part of the coin's supply plus the buy walls placed under it, and nobody can withdraw any of it.

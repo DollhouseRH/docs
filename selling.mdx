@@ -4,14 +4,14 @@ title: "Selling"
 
 ## Selling a coin
 
-Sells pay no extra fee, and there is no lock-up, no cooldown and no holding period on any coin in Dollhouse. Buys and sells pay the same 1%, and every coin, including one that lost its round, can be sold at any time. A sale returns ETH or \$DOLL, whichever you choose, in one transaction.
+You can sell any coin at any time, including one that lost its round. There is no lock-up, no waiting period and no extra fee on sells. A sale pays you in ETH or \$DOLL, whichever you choose, in one transaction.
 
 <Steps>
   <Step title="Pick the coin and the amount">
-    You can sell back to ETH or to \$DOLL with the trade panel's toggle, or stop part-way and hold a coin higher up the chain instead.
+    Use the trade panel's toggle to sell back to ETH or to \$DOLL. You can also stop part-way and hold a coin higher up the chain instead.
   </Step>
   <Step title="Check the quote and set slippage">
-    The route runs back up the chain: your coin into its parent, its parent into its parent, and finally into \$DOLL. When you receive ETH, the same transaction converts that \$DOLL to ETH.
+    Your coin is sold into its parent, the coin before it, then the parent into its parent, and so on up to \$DOLL. If you chose ETH, the same transaction changes that \$DOLL to ETH. Slippage is how far the price may move before your trade is refused.
   </Step>
   <Step title="Confirm">
     One transaction.
@@ -20,8 +20,12 @@ Sells pay no extra fee, and there is no lock-up, no cooldown and no holding peri
 
 ## What you pay
 
-The route pays the 1% fee once on the way out, on the \$DOLL side of link one's pool, and the 0.075% fee in each pool it crosses. If you stop at a coin that is still inside the chain and hold it, the route never crosses link one and pays only the 0.075% fee in each pool. Fees are charged on the amount you request, not on the amount that fills, so size a large order to the depth shown in the quote. The fee on a sale is divided into the same shares and placed exactly as on a buy: the creator share, 40%, to the coin's creator and the chain share, 40%, placed as locked bids under earlier coins. Receiving ETH adds the fees of \$DOLL's own market on the conversion back, the same ones listed on [Buying](/buying#what-you-pay).
+A sale pays the same fee as a buy, once, on the way out. Each pool it passes through also keeps its small pool fee. If you stop at a coin still inside the chain and hold it, you skip the main fee and pay only the pool fees.
+
+The fee on a sale is divided exactly like the fee on a buy, so selling also builds [buy walls](/the-flywheel) under earlier coins. Taking ETH back adds the fees of \$DOLL's own market, the same ones listed on [Buying](/buying#what-you-pay).
 
 ## Who is buying
 
-The pool is. Its curve holds the parent coin that buyers paid in and pays it back out as the price moves down, and none of it can be withdrawn. Below the price, each chain coin's pool also holds the locked bids placed from the chain share and the 0.075% fee: its part of the chain share's 20% for earlier coins, the chain share's 20% for the parent on trades of its child, and the 0.075% fee charged on its own pool. A coin that lost its round keeps trading against the coin it was paired with, and its creator collects the full creator share on those trades.
+The pool is. It holds the parent coin that buyers paid in, and it pays that coin back out as people sell. Nobody can withdraw any of it. Under the price, each chain coin's pool also holds buy walls built from fees, which take in selling as it comes.
+
+A coin that lost its round keeps trading against the coin it was paired with. Its creator keeps the full creator share, the part of each fee paid to a coin's creator, on those trades.
