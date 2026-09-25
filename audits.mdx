@@ -2,17 +2,18 @@
 title: "Audits"
 ---
 
-Contract design was formally verified with Certora, an independent automated audit was run with V12, and the full mechanism ran end to end on the Robinhood testnet. The complete record for the current revision, every method with its result and the file that holds it, is public in the repository at [docs/security/README.md](https://github.com/DollhouseMarkets/dollhouse/blob/main/docs/security/README.md) (opens once the repository is public).
+Contract design was formally verified with Certora, an independent automated audit was run with V12, and the full mechanism ran end to end on the Robinhood testnet. The complete record for the current revision, every method with its result and the file that holds it, is public in the repository at [docs/security/README.md](https://github.com/DollhouseMarkets/dollhouse/blob/main/docs/security/README.md).
 
 | Method | What was done |
 |---|---|
-| Formal verification | Certora proved 70 rules across the round manager, the hook and the fee vault: fee accounting and solvency, bond escrow, the round schedule and scoring, the random end and the seal. No rule was violated. |
+| Formal verification | Certora proved 70 rules across the round manager, the hook and the fee vault, and every finding raised during verification was fixed before deployment. |
 | Automated audit | V12 returned 8 genuine findings. All were fixed. |
 | Manual design and code reviews | 12 independent reviews. |
-| Property tests and fuzzing | 71 property tests passing, plus a fuzz and invariant run of 40,000 calls with 0 reverts. |
-| Fork tests | 37 tests against the live Uniswap v4 pool manager, all passing. |
+| Unit tests | 326 unit tests across the contracts. |
+| Property tests and fuzzing | 89 property and invariant tests, plus a fuzz and invariant run of 40,000 calls with 0 reverts. |
+| Fork tests | 38 tests against the live Uniswap v4 pool manager. |
 | Static analysis | Slither: 0 findings after triage. |
-| Symbolic checks | Halmos: 23 checks, all passing. |
+| Symbolic checks | Halmos: 32 checks, all passing. |
 | Testnet runs | 8 live runs, including automated round ends. |
 
 Additional third-party audits and a bug bounty will be deployed using the developer share at the developer's discretion.
