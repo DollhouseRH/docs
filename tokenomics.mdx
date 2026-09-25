@@ -16,25 +16,25 @@ Any rounding remainder that does not fit the curve is burned. The curve has the 
 |---|---|---|
 | Trading \$DOLL for ETH, on Pons | Pons's 1% pool fee, plus a creator fee fixed at launch | 30% to Pons; of the other 70%, half is paid in cash to the \$DOLL creator and half is used for \$DOLL buybacks |
 | Entering or leaving the chain | 1% once, on the \$DOLL side of link one, the pool between \$DOLL and coin #1 | Divided into the shares below |
-| Each pool on the route | 0.075%, in that pool's parent coin | Placed in full as a [buy wall](/the-flywheel) in the chain pool priced in that same coin |
-| A new pool's first seconds | A snipe tax that falls to zero within seconds; see the [FAQ](/faq) | Placed as a buy wall, like the 0.075% fee |
+| Each pool on the route | 0.075%, in that pool's parent coin | Placed in full as [buy-side liquidity](/the-flywheel) in the chain pool priced in that same coin |
+| A new pool's first seconds | A snipe tax that falls to zero within seconds; see the [FAQ](/faq) | Placed as buy-side liquidity, like the 0.075% fee |
 
 Sells pay no extra fee. Buys and sells pay the same 1%, and the 1% does not grow with how deep the coin sits in the chain.
 
 The 1% fee is divided into shares by fixed numbers in the contract:
 
-| Share | Recipient | Claimed, or placed as a buy wall |
+| Share | Recipient | Claimed, or placed as buy-side liquidity |
 |---|---|---|
 | 40% creator share | Creator of the traded coin | \$DOLL, claimed by the creator |
-| 20% chain share, earlier coins | Every earlier coin, shared unevenly; see [The chain](/the-chain) | Locked buy walls, never cash |
-| 20% chain share, parent | The traded coin's parent | Locked buy walls, never cash |
+| 20% chain share, earlier coins | Every earlier coin, shared unevenly; see [The chain](/the-chain) | Locked buy-side liquidity, never cash |
+| 20% chain share, parent | The traded coin's parent | Locked buy-side liquidity, never cash |
 | 20% developer share | Developer | \$DOLL, claimed by the developer |
 
 On the trades of a candidate, a coin entered in a round, during that round, the 40% creator share is split in half. 20% of the fee goes to the candidate's creator, and 20% goes to the creator of the head coin, the newest coin in the chain, which the round is priced in. After the round, the whole creator share goes to the coin's own creator.
 
 ## The bond
 
-Entering a round takes a bond, a refundable deposit in \$DOLL: approve \$DOLL, then register. The bond is the same flat amount at every chain depth, set at deployment from \$DOLL's price to roughly \$20. Each round fixes its bond when it opens, and every refund or forfeit uses the amount actually posted. The winner gets the whole bond back, and every losing candidate's bond is added to the locked \$DOLL buy wall in link one's pool.
+Entering a round takes a bond, a refundable deposit in \$DOLL: approve \$DOLL, then register. The bond is the same flat amount at every chain depth, set at deployment from \$DOLL's price to roughly \$20. Each round fixes its bond when it opens, and every refund or forfeit uses the amount actually posted. The winner gets the whole bond back, and every losing candidate's bond is added to the locked \$DOLL buy liquidity in link one's pool.
 
 ## What the developer and steward can do
 
