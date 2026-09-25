@@ -2,7 +2,7 @@
 title: "The flywheel"
 ---
 
-A fee is what a trade pays: 1% once on the \$DOLL side of link one, in both directions, and 0.075% in each pool, in that pool's parent coin. A share is a fixed fraction of the 1% fee assigned to a recipient: the creator share (40%), the developer share (20%) and the chain share (40%, of which 20% goes under every earlier coin and 20% under the traded coin's parent). A bid is locked buy-side liquidity placed in a pool from the chain share or from the 0.075% fee, which is placed in full as a bid, with no shares.
+Every trade on Dollhouse pays a 1% fee. 40% of it goes to the coin's creator, 40% is locked into the chain as bids, standing buy orders under the coins that came before, and 20% goes to the developer. Each pool a trade passes through also keeps 0.075% of it, locked as a bid in the same way. Nothing placed as a bid can ever be withdrawn, so every coin in the chain keeps earning from every coin after it.
 
 ## The loop
 
@@ -10,16 +10,16 @@ Every coin in the chain is bought and sold with the coin before it, and \$DOLL, 
 
 More attention on a round → more buying of the head coin → more ETH entering through \$DOLL → a bigger 1% fee → more paid to earlier coins as locked bids, and to the parent's liquidity → a deeper chain with more coins whose holders want the next round to be good.
 
-The same route pays the 1% fee once, in \$DOLL, and the chain share, 40% of that fee, is placed as locked bids under earlier coins. The loop runs in four steps:
+The route pays its 1% fee once, in \$DOLL. The loop runs in four steps:
 
 1. A buyer spends \$DOLL on any coin in the chain, and each pool on the route absorbs the coin above it.
-2. The route pays the 1% fee on its \$DOLL side and the 0.075% fee in each pool it crosses.
-3. The chain share, 40% of the 1% fee, is placed as locked bids under earlier coins, the creator share, 40%, goes to the traded coin's creator, and each 0.075% fee is placed in full, in the parent coin, as a bid in the chain pool paired with that parent.
+2. The route pays the 1% fee, and each pool it crosses keeps 0.075%.
+3. The chain's 40% is locked as bids under the coins before the one traded, the creator takes 40%, and each pool's 0.075% is locked as a bid in the same way.
 4. Each round adds a new coin priced in the current head, and every trade in that coin runs through steps 1 to 3 for every coin above it, permanently.
 
 ## What each trade pays into
 
-The 1% fee is divided into the shares by constants in the contract. For every \$1,000,000 of \$DOLL that crosses link one, in either direction, the fee is \$10,000, before the 1% of each bid that goes to whoever places it:
+For every \$1,000,000 of \$DOLL that crosses link one, in either direction, the fee is \$10,000, and it goes here:
 
 | Share | Of the \$10,000 fee | Claimed, or placed as a bid |
 |---|---|---|
