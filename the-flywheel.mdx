@@ -2,9 +2,9 @@
 title: "The flywheel"
 ---
 
-Every trade on Dollhouse pays a 1% fee. 40% of it goes to the coin's creator, 40% is locked into the chain as buy liquidity under the coins that came before, and 20% goes to the developer. Each pool a trade passes through also keeps 0.075% of it, locked in buy liquidity in the same way. Nothing placed in buy liquidity can ever be withdrawn, so every coin in the chain keeps earning from every coin after it.
+Every trade on Dollhouse pays a 1% fee. 40% of it goes to the coin's creator, 40% is locked into the chain as buy liquidity under the coins that came before, and 20% goes to the developer. Each pool a trade passes through also keeps 0.075% of it, locked in buy liquidity in the same way. Everything placed in buy liquidity stays in the pool for good, so every coin in the chain keeps earning from every coin after it.
 
-Buy-side liquidity is money placed as buy orders just under a coin's price that can never be withdrawn, so selling into it never empties it the way an order book does. Holders of that coin can sell into it at any time.
+Buy-side liquidity is money placed as buy orders just under a coin's price, where it stays for good. Holders of that coin can sell into it at any time, and the coins it buys from them stay in the pool too.
 
 ## The loop
 
@@ -21,9 +21,9 @@ The loop runs in four steps:
 
 The full split of every fee is on [Tokenomics](/tokenomics).
 
-## Buy-side liquidity, not cash
+## Buy-side liquidity, locked in the pool
 
-No part of the chain share, the part of each fee locked into the chain, is ever paid out as cash. It is spent on the coin a pool is priced in and placed as buy liquidity just under the price. The Locker, the contract that holds every pool, has no way to remove it. The buy liquidity in each pool stays there for the life of the chain.
+The chain share, the part of each fee locked into the chain, is spent on the coin a pool is priced in and placed as buy liquidity just under the price. The Locker, the contract that holds every pool, only adds liquidity. The buy liquidity in each pool stays there for the life of the chain.
 
 Every placement of buy liquidity appears on the Treasury page of the app. Each entry links to its transaction, so anyone can check it.
 

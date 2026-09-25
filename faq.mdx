@@ -6,9 +6,9 @@ title: "FAQ"
 
 <AccordionGroup>
 <Accordion title="Can the team rug?">
-No. A rug is when a team pulls the money out of a pool and leaves. No pool on Dollhouse has a way to withdraw anything, for anyone, and every coin's whole supply goes into its pool at launch.
+A rug is when a team pulls the money out of a pool and leaves. On Dollhouse, every pool keeps its money for good, for everyone including the team, and every coin's whole supply goes into its pool at launch.
 
-The team cannot change the fee, the shares, the price curve, the timings, the bond or a round's result. They cannot pause trading, create more coins, block your wallet or freeze your balance.
+The fee, the shares, the price curve, the timings, the bond and every round's result are fixed by the contracts. Trading runs on the contracts alone: every wallet can trade, every balance moves freely, and every coin's supply is fixed at launch.
 
 The team has two things. The developer earns the developer share, a fixed part of every fee. A separate key, the steward, can only announce or cancel a sunset, which hands new rounds and fees to a successor version while pools and balances stay as they are. See [Tokenomics](/tokenomics).
 </Accordion>
@@ -22,15 +22,15 @@ Yes. Certora proved 70 rules across the round manager, the hook and the fee vaul
 
 <AccordionGroup>
 <Accordion title="What if nobody enters a round?">
-Nothing happens. A round opens only when someone enters a coin, so the chain simply waits. Existing coins keep trading as normal.
+The chain waits. A round opens when someone enters a coin, and existing coins keep trading as normal.
 </Accordion>
 
 <Accordion title="What happens to losing coins?">
-A coin that loses its round keeps its own pool and trades forever. Its creator keeps the creator share, the part of each fee paid to a coin's creator, on its trades. It does not join the chain and gets no part of the chain share, the part of each fee locked into the chain.
+A coin that loses its round keeps its own pool and trades forever. Its creator keeps the creator share, the part of each fee paid to a coin's creator, on its trades. The chain share, the part of each fee locked into the chain, goes to the coins that won their rounds.
 </Accordion>
 
 <Accordion title="When does a round end?">
-Every round has a public planned end. The real end is a random moment shortly before it, drawn from a public source of random numbers and checked on-chain. Nothing traded after the planned end counts. See [Rounds](/rounds).
+Every round has a public planned end. The real end is a random moment shortly before it, drawn from a public source of random numbers and checked on-chain. Only trades made before the planned end count. See [Rounds](/rounds).
 </Accordion>
 
 <Accordion title="How long is a round?">
@@ -40,9 +40,9 @@ It depends on the round number. Early rounds are short, and rounds grow longer a
 <Accordion title="How does late entry work?">
 Late entry is open only on longer rounds, and only early in trading. A late entrant's pool opens when it registers, its snipe tax starts at that moment, and it posts the same bond as everyone else.
 
-There is no special scoring for late entrants. The winner is the coin whose pool holds the most of the head coin, the newest coin in the chain, on average over the closing window. That window is the end of the round, and it is the same for every coin. A late entrant simply has less time to build support before it.
+Late entrants are scored exactly like everyone else. The winner is the coin whose pool holds the most of the head coin, the newest coin in the chain, on average over the closing window. That window is the end of the round, and it is the same for every coin. A late entrant simply has less time to build support before it.
 
-Once registration and late entry have both closed, the round is shut to new coins. A registration sent after that fails, and nothing is saved for later. The next coin entered after the round ends opens the following round.
+Once registration and late entry have both closed, the round is shut to new coins. A registration sent after that fails. The next coin entered after the round ends opens the following round.
 </Accordion>
 
 <Accordion title="What is the bond?">
@@ -50,7 +50,7 @@ The bond is a refundable deposit in \$DOLL that you post to enter a round. You g
 </Accordion>
 
 <Accordion title="What does joining the chain get me?">
-Your coin gets a numbered spot in the chain, written on-chain and never changed. While it is the head coin, the next round's candidates, the coins entered in it, are priced in it. It also earns a part of the chain share on every coin launched after it, placed as buy liquidity in its pool. See [The chain](/the-chain).
+Your coin gets a numbered spot in the chain, written on-chain for good. While it is the head coin, the next round's candidates, the coins entered in it, are priced in it. It also earns a part of the chain share on every coin launched after it, placed as buy liquidity in its pool. See [The chain](/the-chain).
 </Accordion>
 </AccordionGroup>
 
@@ -58,34 +58,32 @@ Your coin gets a numbered spot in the chain, written on-chain and never changed.
 
 <AccordionGroup>
 <Accordion title="Do I need $DOLL to buy a coin?">
-No. Pay in ETH, and one transaction changes it to \$DOLL and buys the coin you picked. If you already hold \$DOLL, you can pay in \$DOLL instead.
+You can pay in ETH, and one transaction changes it to \$DOLL and buys the coin you picked. If you already hold \$DOLL, you can pay in \$DOLL directly.
 </Accordion>
 
 <Accordion title="Do I have to hold every coin above the one I want?">
-No. Your wallet holds only the coin you bought. The app does the steps in between inside one transaction: your \$DOLL becomes #1, then #2, and so on, in a single click.
+Your wallet holds only the coin you bought. The app does the steps in between inside one transaction: your \$DOLL becomes #1, then #2, and so on, in a single click.
 </Accordion>
 
 <Accordion title="Why buy liquidity rather than a burn or a buyback?">
-Because it works for the long-term holder, not the flipper. A burn removes some coins once and then does nothing when the price falls. A buyback spends the money at whatever the price is that day, so a spike hands sellers a good exit and the money is gone. Both give the most to whoever sells first.
+Because it works for the long-term holder. Buy liquidity is placed just under the price and waits there. It spends money when the price comes down to it, which is exactly when you, as a holder, want support. It is placed against the recent price, so it stays anchored to where the coin has been trading, even through a quick pump. It goes in a little at a time, so support builds steadily.
 
-Buy liquidity is placed just under the price and waits there. It spends money only when the price comes down to it, which is exactly when you, as a holder, need support. It is placed against the recent price, not a spike, so a quick pump cannot pull it up to give flippers an exit. It goes in a little at a time, so support builds steadily instead of arriving in one lump that gets sold into.
-
-While you hold, every trade by anyone adds more buying beneath your coin, the coins it buys stay locked so it can never turn into selling later, and nobody can ever withdraw it. The longer you hold and the more the coin trades, the more sits under you. See [The flywheel](/the-flywheel).
+A burn and a buyback each act once. Buy liquidity keeps working: while you hold, every trade by anyone adds more buying beneath your coin, and the coins it buys stay locked in the pool for good. The longer you hold and the more the coin trades, the more sits under you. See [The flywheel](/the-flywheel).
 </Accordion>
 
 <Accordion title="What is the snipe tax?">
-The snipe tax is a charge on buying and selling in a new pool during its first 3 seconds. It starts at 99% and drops by about a third each second. In practice it is about 99%, then 66%, then 34%, then zero. In a new link-one pool it replaces the 1% fee rather than adding to it.
+The snipe tax is a charge on buying and selling in a new pool during its first 3 seconds. It starts at 99% and drops by about a third each second. In practice it is about 99%, then 66%, then 34%, then zero. In a new link-one pool it takes the place of the 1% fee.
 
 The snipe tax is kept in the pool's parent coin and placed as buy liquidity back in the chain, like the small pool fee. Set a minimum amount received when you trade at a pool's open.
 </Accordion>
 
 <Accordion title="Do sells pay extra, or is there a lock-up?">
-No. Sells pay no extra fee, and there is no lock-up or waiting period. Buys and sells pay the same fee, once, on the \$DOLL side.
+Sells pay the same fee as buys, once, on the \$DOLL side, and you can sell at any time.
 </Accordion>
 
 <Accordion title="Can I add a website, X account, description or artwork to my coin?">
-Yes, at no cost. The fields are optional, and you can set or change them any time after launch from your coin's page, by signing with the wallet that created the coin. You can hand editing rights to another wallet. For a community takeover of an abandoned coin, the Dollhouse account on X can reassign editing rights on request.
+Yes, for free. The fields are optional, and you can set or change them any time after launch from your coin's page, by signing with the wallet that created the coin. You can hand editing rights to another wallet. For a community takeover of an abandoned coin, the Dollhouse account on X can reassign editing rights on request.
 
-These details are stored on Dollhouse, not in the contracts. The contract stores only one link to them (`uri`), written once when the coin is registered and never changed. None of it affects the round.
+These details are stored on Dollhouse. The contract stores one link to them (`uri`), written once when the coin is registered and fixed for good. The round is decided by trading alone.
 </Accordion>
 </AccordionGroup>

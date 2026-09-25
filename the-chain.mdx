@@ -10,11 +10,11 @@ Dollhouse has one chain. Every coin in it is paired with the coin before it, cal
 (ETH) → $DOLL → #1 → #2 → #3 → #4 → ...
 ```
 
-Coin #3's pool holds #2, #2's pool holds #1, and #1's pool holds \$DOLL. No pool in Dollhouse holds ETH. \$DOLL is bought with ETH in its own market outside Dollhouse. The chain starts at link one, the pool between \$DOLL and coin #1.
+Coin #3's pool holds #2, #2's pool holds #1, and #1's pool holds \$DOLL. Every Dollhouse pool is priced in \$DOLL or a chain coin, and \$DOLL is bought with ETH in its own market outside Dollhouse. The chain starts at link one, the pool between \$DOLL and coin #1.
 
 A coin's price is quoted in its parent. When a coin's price moves, traders who buy in one pool and sell in another carry that move up to every coin above it.
 
-A coin that wins its round joins the chain and gets a numbered spot. Its number and parent are written on-chain once and never changed. While it is the head, the coins entered in the next round, called candidates, are priced in it. From then on, it earns a part of the chain share, the part of each fee locked into the chain, on every coin launched after it.
+A coin that wins its round joins the chain and gets a numbered spot. Its number and parent are written on-chain once and stay fixed for good. While it is the head, the coins entered in the next round, called candidates, are priced in it. From then on, it earns a part of the chain share, the part of each fee locked into the chain, on every coin launched after it.
 
 ## Buy-side liquidity from every pool
 
@@ -22,15 +22,15 @@ Every pool keeps 0.075% of each trade, in the coin that pool is priced in. That 
 
 Candidates in a round are all priced in the head coin. Their 0.075% goes under whichever coin wins that round.
 
-Buy liquidity is placed in portions over several days, not all at once. When sellers fill it, the coins it buys stay locked in the pool too. Nothing ever leaves the pool.
+Buy liquidity is placed in portions over several days. When sellers fill it, the coins it buys stay locked in the pool too, so everything placed there stays for good.
 
 ## The chain share
 
-The chain share is 40% of the 1% fee, and it is never paid as cash. Half of it goes under every earlier coin, from \$DOLL down to the traded coin's parent. Earlier coins share it unevenly, and \$DOLL always gets about twice the newest coin's part.
+The chain share is 40% of the 1% fee, and all of it becomes buy liquidity. Half of it goes under every earlier coin, from \$DOLL down to the traded coin's parent. Earlier coins share it unevenly, and \$DOLL always gets about twice the newest coin's part.
 
 The other half goes under the traded coin's parent. During a round, every candidate's parent is the head coin. So trading candidates builds buy liquidity under the head.
 
-Each coin's part becomes buy liquidity in that coin's own pool, just under its price. A round's part always goes to the coin that won that round. The other coins from that round get none of it.
+Each coin's part becomes buy liquidity in that coin's own pool, just under its price. A round's part always goes to the coin that won that round.
 
 ## The numbers
 
@@ -46,11 +46,11 @@ These are the parameters the contracts run with. Anyone can check each one again
 | Where buy liquidity is placed | Just under the current price, in a range 10 tick spacings wide (600 ticks, about 6%); the amount is valued at the lowest of the current price, the 30-minute average and the 7-day average, and a placement needs the price within 3% of the 30-minute average (`TWAP_BAND_BPS` = 300) | BidDeployer |
 | Pacing | At most 10% of what is waiting per rolling 24 hours (`DAILY_DRAW_BPS` = 1,000); a single placement at most 2% of the pool's depth near the price (`MAX_RESERVE_BPS` = 200) | FeeVault, BidDeployer |
 | Placement reward | 1% of each placement to whoever places it (`BOUNTY_BPS` = 100), with a minimum set at deployment for coins further down the chain | BidDeployer |
-| Nothing withdrawable | The Locker only adds liquidity; it has no function that removes it | Locker |
+| Liquidity stays in the pool for good | The Locker only adds liquidity | Locker |
 | Supply and sale curve | 1,000,000,000 per coin (1e9 × 1e18 units), all placed in the pool at launch. The curve sells 20% / 25% / 35% / 20% of supply over four bands of total value, measured against the parent's supply: 0.001× to 0.01×, 0.01× to 0.1×, 0.1× to 1×, and 1× to 100× | FamilyToken, FamilyFactory, Locker |
-| Snipe tax on a new pool | 99% in the first second, then 66.3% and 33.7%, zero from the third second on (`SNIPE_START_PPM` = 990,000, `SNIPE_S` = 3); the 1% fee is not charged during those seconds | FamilyHook |
+| Snipe tax on a new pool | 99% in the first second, then 66.3% and 33.7%, zero from the third second on (`SNIPE_START_PPM` = 990,000, `SNIPE_S` = 3); during those seconds the snipe tax takes the place of the 1% fee | FamilyHook |
 | Round length | 15 minutes for rounds 1–2, doubling every two rounds, 12 hours from round 13 on. Registration is one fifth of the round, from 3 minutes to 1 hour. Once rounds are 1 hour or longer, new coins can also enter during the first third of trading | RoundManager |
-| Round end | A random moment in the last 3 minutes before the planned end (`RANDOM_END_S` = 180), drawn from the drand beacon; a 5-minute score window after it (`SUBMIT_S` = 300); if no beacon arrives within 30 minutes, the round ends at the planned end (`END_TIMEOUT` = 30 min) | RoundManager, DrandSource |
-| Winning | Highest average net buying over the closing 15 minutes (`CLOSING_WINDOW_S` = 15 min); no minimum bar in this deployment (`H_FRAC_WAD` = `H_MIN_FRAC_WAD` = 0) | RoundManager |
+| Round end | A random moment in the last 3 minutes before the planned end (`RANDOM_END_S` = 180), drawn from the drand beacon; a 5-minute score window after it (`SUBMIT_S` = 300); if the beacon takes longer than 30 minutes, the round ends at the planned end (`END_TIMEOUT` = 30 min) | RoundManager, DrandSource |
+| Winning | Highest average net buying over the closing 15 minutes (`CLOSING_WINDOW_S` = 15 min); the highest average wins in this deployment (`H_FRAC_WAD` = `H_MIN_FRAC_WAD` = 0) | RoundManager |
 | Bond | A flat amount in \$DOLL set at deployment (`BOND_BASE` = `BOND_MAX`), refunded to the winner and forfeited by the other candidates into link one's buy liquidity | RoundManager |
-| Admin | The steward can only announce a sunset (7-day delay, cancellable once) and hand its role on (7-day delay, `ROLE_TRANSFER_DELAY`); the developer address moves on the same 7-day delay. No owner, no pause, no minting after launch, no blacklist | RoundManager, FeeVault |
+| Admin | The steward's only powers are announcing a sunset (7-day delay, cancellable once) and handing its role on (7-day delay, `ROLE_TRANSFER_DELAY`); the developer address moves on the same 7-day delay. Trading runs on the contracts alone, open to every address, and every coin's supply is fixed at launch | RoundManager, FeeVault |

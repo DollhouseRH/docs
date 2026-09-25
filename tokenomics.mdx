@@ -4,11 +4,11 @@ title: "Tokenomics"
 
 ## Supply
 
-Every coin launched on Dollhouse has a fixed supply of 1,000,000,000, created once at launch. No more can ever be made. 100% of that supply goes into the coin's locked pool as its sell curve, the price path buyers climb as they buy. There is no creator allocation, no team allocation, no reserve, no airdrop and no insider tokens released over time.
+Every coin launched on Dollhouse has a fixed supply of 1,000,000,000, created once at launch, and that supply is final. 100% of that supply goes into the coin's locked pool as its sell curve, the price path buyers climb as they buy. Every coin reaches its holders through that pool.
 
-Any rounding remainder that does not fit the curve is burned. The curve has the same shape for every coin. Four ranges sell 20%, 25%, 35% and 20% of the supply, across price bands that run from one thousandth of the parent's supply value up to 100x it, with the last range as a tail.
+Any rounding remainder left over after the curve is filled is burned. The curve has the same shape for every coin. Four ranges sell 20%, 25%, 35% and 20% of the supply, across price bands that run from one thousandth of the parent's supply value up to 100x it, with the last range as a tail.
 
-\$DOLL is not launched by Dollhouse, and the Dollhouse contracts hold none of it; see [\$DOLL](/the-genesis-coin). The developer holds 3% of \$DOLL, 30,000,000 tokens, bought in the launch transaction. They are locked in a public vesting contract that releases them evenly over one year from launch, with no waiting period before the first release. The vesting contract's address and the address that bought the tokens are published on this page.
+\$DOLL is launched in its own market outside Dollhouse; see [\$DOLL](/the-genesis-coin). The developer holds 3% of \$DOLL, 30,000,000 tokens, bought in the launch transaction. They are locked in a public vesting contract that releases them evenly over one year, starting at launch. The vesting contract's address and the address that bought the tokens are published on this page.
 
 ## Fees
 
@@ -19,15 +19,15 @@ Any rounding remainder that does not fit the curve is burned. The curve has the 
 | Each pool on the route | 0.075%, in that pool's parent coin | Placed in full as [buy-side liquidity](/the-flywheel) in the chain pool priced in that same coin |
 | A new pool's first seconds | A snipe tax that falls to zero within seconds; see the [FAQ](/faq) | Placed as buy-side liquidity, like the 0.075% fee |
 
-Sells pay no extra fee. Buys and sells pay the same 1%, and the 1% does not grow with how deep the coin sits in the chain.
+Buys and sells pay the same 1%, and the 1% stays the same however deep the coin sits in the chain.
 
 The 1% fee is divided into shares by fixed numbers in the contract:
 
 | Share | Recipient | Claimed, or placed as buy-side liquidity |
 |---|---|---|
 | 40% creator share | Creator of the traded coin | \$DOLL, claimed by the creator |
-| 20% chain share, earlier coins | Every earlier coin, shared unevenly; see [The chain](/the-chain) | Locked buy-side liquidity, never cash |
-| 20% chain share, parent | The traded coin's parent | Locked buy-side liquidity, never cash |
+| 20% chain share, earlier coins | Every earlier coin, shared unevenly; see [The chain](/the-chain) | Locked buy-side liquidity |
+| 20% chain share, parent | The traded coin's parent | Locked buy-side liquidity |
 | 20% developer share | Developer | \$DOLL, claimed by the developer |
 
 On the trades of a candidate, a coin entered in a round, during that round, the 40% creator share is split in half. 20% of the fee goes to the candidate's creator, and 20% goes to the creator of the head coin, the newest coin in the chain, which the round is priced in. After the round, the whole creator share goes to the coin's own creator.
@@ -43,12 +43,12 @@ Entering a round takes a bond, a refundable deposit in \$DOLL: approve \$DOLL, t
 - Transfer the developer fee address on a public 7-day delay. The unclaimed balance moves with the role.
 </Accordion>
 
-<Accordion title="Nobody can">
-- Remove liquidity, the money and coins in a pool, from any pool. No such function exists, for anyone.
-- Change the fee, the shares, the curve, the round timings or the bond in this deployment.
-- Choose or overturn a round's winner, or rewrite the chain's history. Every link, once written, is never rewritten.
-- Pause trading, blacklist an address, freeze a balance or create more of any coin.
-- Take anything from a coin's supply. Coins have no allocation at all.
+<Accordion title="Set in the contracts">
+- Liquidity, the money and coins in a pool, stays in its pool for good. The contracts only add to it.
+- The fee, the shares, the curve, the round timings and the bond are fixed in this deployment.
+- Round winners are decided by scoring alone, and every link, once written, stays as written.
+- Trading runs on the contracts alone: every address can trade, every balance moves freely, and every coin's supply is fixed at launch.
+- Every coin's whole supply goes into its pool, for buyers.
 </Accordion>
 
-A separate address, the steward, has one power. It can announce a sunset that names a successor deployment, 7 days ahead, and it can cancel that sunset once before it takes effect. After a sunset, this deployment opens no new rounds, and the 1% charged in link one's pools is booked by the successor's fee vault. Pools, liquidity, balances and claims here stay unchanged, and the steward role moves only on a public 7-day delay.
+A separate address, the steward, has one power. It can announce a sunset that names a successor deployment, 7 days ahead, and it can cancel that sunset once before it takes effect. After a sunset, new rounds open in the successor deployment, and the 1% charged in link one's pools is booked by the successor's fee vault. Pools, liquidity, balances and claims here stay unchanged, and the steward role moves only on a public 7-day delay.
