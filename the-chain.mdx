@@ -31,3 +31,26 @@ The chain share is 40% of the 1% fee, and it is never paid as cash. Half of it g
 The other half goes under the traded coin's parent. During a round, every candidate's parent is the head coin. So trading candidates builds buy liquidity under the head.
 
 Each coin's part becomes buy liquidity in that coin's own pool, just under its price. A round's part always goes to the coin that won that round. The other coins from that round get none of it.
+
+## The numbers
+
+These are the parameters the contracts run with. Anyone can check each one against the code in the [contracts folder](https://github.com/DollhouseMarkets/dollhouse/tree/main/contracts) and the deployment record in [docs/DEPLOY_CONSTANTS.md](https://github.com/DollhouseMarkets/dollhouse/blob/main/docs/DEPLOY_CONSTANTS.md) of the [repository](https://github.com/DollhouseMarkets/dollhouse).
+
+| What | Value | Where |
+|---|---|---|
+| Fee on the \$DOLL side of link one | 1% (`PROTOCOL_FEE_PPM` = 10,000 ppm), on buys and sells, charged once per route | FamilyHook |
+| Fee each pool keeps | 0.075% (`hopFeePpm` = 750 ppm), in the coin the pool is priced in | FamilyHook |
+| How the 1% fee is divided | Creator 40% (`CREATOR_BPS` = 4,000), chain 40% (20% under earlier coins, 20% under the parent: `ANCESTOR_BPS` = `REINFORCE_BPS` = 5,000 of the chain part), developer 20% (`DEV_BPS` = 2,000) | FeeVault |
+| Creator share during and after a round | During a round, half to the candidate's creator and half to the head coin's creator; after the round, all to the coin's creator | FeeVault |
+| How the earlier-coins part is shared | By position, weight w(r) = 2 − 5r + 4r², where r runs from 0 (\$DOLL) to 1 (the newest earlier coin), so \$DOLL always gets twice the newest earlier coin's weight | FeeVault, FenwickRangeAdd |
+| Where buy liquidity is placed | Just under the current price, in a range 10 tick spacings wide (600 ticks, about 6%); the amount is valued at the lowest of the current price, the 30-minute average and the 7-day average, and a placement needs the price within 3% of the 30-minute average (`TWAP_BAND_BPS` = 300) | BidDeployer |
+| Pacing | At most 10% of what is waiting per rolling 24 hours (`DAILY_DRAW_BPS` = 1,000); a single placement at most 2% of the pool's depth near the price (`MAX_RESERVE_BPS` = 200) | FeeVault, BidDeployer |
+| Placement reward | 1% of each placement to whoever places it (`BOUNTY_BPS` = 100), with a minimum set at deployment for coins further down the chain | BidDeployer |
+| Nothing withdrawable | The Locker only adds liquidity; it has no function that removes it | Locker |
+| Supply and sale curve | 1,000,000,000 per coin (1e9 × 1e18 units), all placed in the pool at launch. The curve sells 20% / 25% / 35% / 20% of supply over four bands of total value, measured against the parent's supply: 0.001× to 0.01×, 0.01× to 0.1×, 0.1× to 1×, and 1× to 100× | FamilyToken, FamilyFactory, Locker |
+| Snipe tax on a new pool | 99% in the first second, then 66.3% and 33.7%, zero from the third second on (`SNIPE_START_PPM` = 990,000, `SNIPE_S` = 3); the 1% fee is not charged during those seconds | FamilyHook |
+| Round length | 15 minutes for rounds 1–2, doubling every two rounds, 12 hours from round 13 on. Registration is one fifth of the round, from 3 minutes to 1 hour. Once rounds are 1 hour or longer, new coins can also enter during the first third of trading | RoundManager |
+| Round end | A random moment in the last 3 minutes before the planned end (`RANDOM_END_S` = 180), drawn from the drand beacon; a 5-minute score window after it (`SUBMIT_S` = 300); if no beacon arrives within 30 minutes, the round ends at the planned end (`END_TIMEOUT` = 30 min) | RoundManager, DrandSource |
+| Winning | Highest average net buying over the closing 15 minutes (`CLOSING_WINDOW_S` = 15 min); no minimum bar in this deployment (`H_FRAC_WAD` = `H_MIN_FRAC_WAD` = 0) | RoundManager |
+| Bond | A flat amount in \$DOLL set at deployment (`BOND_BASE` = `BOND_MAX`), refunded to the winner and forfeited by the other candidates into link one's buy liquidity | RoundManager |
+| Admin | The steward can only announce a sunset (7-day delay, cancellable once) and hand its role on (7-day delay, `ROLE_TRANSFER_DELAY`); the developer address moves on the same 7-day delay. No owner, no pause, no minting after launch, no blacklist | RoundManager, FeeVault |
