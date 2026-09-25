@@ -1,0 +1,39 @@
+---
+title: "$DOLL"
+description: "The genesis coin: the entrance to the chain and the coin every other coin is priced against."
+---
+
+\$DOLL is created on Pons V2 and is the entrance to Dollhouse. The token is named Dollhouse, with the symbol \$DOLL and a supply of 1,000,000,000, and it is link zero, the coin every other coin is ultimately priced against.
+
+## Every route starts in \$DOLL
+
+Every coin in the chain is bought and sold through \$DOLL. A buy of any coin, at any depth, starts by spending \$DOLL into link one's pool, and a sale of any coin ends by taking \$DOLL back out of it. Round demand follows the same path: a candidate is bought with the head coin, the head coin with its parent, and so on up to \$DOLL. Bonds to enter a round are posted in \$DOLL as well.
+
+The 1% fee is charged on that \$DOLL side, in both directions, and is collected in \$DOLL. Only the developer share (20%) and the creator share (40%) are claimed out of the vault; the chain share (40%) stays in \$DOLL until it is placed as locked bids. Separately, half of \$DOLL's own creator fees are used for \$DOLL buybacks.
+
+## What is locked in \$DOLL
+
+Four sources are placed together as one locked \$DOLL bid in link one's pool, just below the price of #1:
+
+| Placed in the bid | From |
+|---|---|
+| \$DOLL's part of the chain share's 20% for earlier coins, the chain share's 20% for the parent on every trade of #1, and 80% of the fee on every unattributed link-one trade | 2x the newest earlier coin's weight, on every 1% fee in the chain |
+| Coin #1's part of the chain share, for earlier coins and as a parent | every 1% fee on coins after #1 |
+| Link one's 0.075% fee and snipe tax | 0.075% of every trade in a link-one pool, in \$DOLL |
+| Forfeited bonds | Every bond posted by a candidate that loses its round |
+
+A link-one trade that does not come through the Dollhouse router carries no coin attribution, so its creator share is added to the chain share: 80% of its fee joins this bid. The Locker has no function that withdraws liquidity, so this \$DOLL stays in link one's pool; it moves only when holders of #1 sell into the bid. The chain share accrued for \$DOLL and for #1 is placed at up to 10% of what is waiting per 24 hours, and each bid is capped at 2% of the pool's depth.
+
+## \$DOLL's part of every fee
+
+\$DOLL sits at the oldest end of the weighting over earlier coins and always receives exactly 2x the newest earlier coin's weight. A trade of #1 sends the whole chain share, its 20% for earlier coins and its 20% for the parent, to \$DOLL, in the same link-one bid. For deeper coins, \$DOLL's part of the chain share's 20% for earlier coins is:
+
+| Coin traded | Earlier coins | \$DOLL's part of the 20% |
+|---|---|---|
+| #2 | \$DOLL, #1 | 66.7% |
+| #3 | \$DOLL to #2 | 57.1% |
+| #6 | \$DOLL to #5 | 34.5% |
+| #11 | \$DOLL to #10 | 20.2% |
+| #21 | \$DOLL to #20 | 11.0% |
+
+\$DOLL's own market lives outside Dollhouse, locked by its own locker under its own rules, and the Dollhouse contracts hold no allocation of \$DOLL and have no function that touches that pool.

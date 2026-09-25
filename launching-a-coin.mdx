@@ -1,0 +1,47 @@
+---
+title: "Launching a coin"
+description: "Enter a coin into the next round and earn 40% of its fee."
+---
+
+## The steps
+
+Launching enters your coin into the next round for a spot in the chain. Anyone can enter: there is no allowlist, no approval and no signature from a team wallet.
+
+<Steps>
+  <Step title="Name your coin">
+    Name, symbol and a metadata link. Supply, curve, fees and parent pairing are identical for every coin.
+  </Step>
+  <Step title="Post the bond">
+    A bond in \$DOLL of roughly \$20, the same at every chain depth: approve it, then register. Registration checks the bond against the amount you were shown and refuses to charge more.
+  </Step>
+  <Step title="Register">
+    If no round is open, your registration opens one. Registration stays open for 3 minutes on the earliest rounds, up to 1 hour on the longest, and rounds of an hour or more also accept late entrants during the first third of trading. After both windows close, registering reverts, and the next coin entered after the round finalizes opens the following round.
+  </Step>
+  <Step title="Trade until the round closes">
+    All candidate pools open together, each holding its coin's entire 1,000,000,000 supply, priced in the current head coin. See [Rounds](/rounds) for timing and scoring.
+  </Step>
+  <Step title="If you win">
+    Your coin becomes the new head and your bond is refunded in full. Every candidate in the next round is priced in your coin, and you receive half of the creator share on all of that round's candidate trades.
+  </Step>
+  <Step title="If you lose">
+    Your bond is added to the locked \$DOLL bid in link one's pool. Your coin keeps trading and you keep the full creator share on it.
+  </Step>
+</Steps>
+
+## What it costs and what you earn
+
+| Item | Cost |
+|---|---|
+| Listing fee | None |
+| Your coin allocation | None: 100% of the supply goes into the locked pool |
+| Bond | Refunded on a win, added to link one's locked \$DOLL bid on a loss |
+| Seed liquidity | None. The supply is the sell side; buyers bring the parent coin |
+| Gas | Cheap on Robinhood Chain |
+
+You earn the creator share, 40% of the 1% fee on your coin, in \$DOLL, in this deployment: \$4,000 for every \$1,000,000 of \$DOLL that crosses link one on routes to or from your coin. During your own round half of it goes to the creator of the head coin your round is priced in, and after the round all of it is yours. If your coin wins, it also receives part of the chain share's 20% for earlier coins on every coin launched after it, placed as bids in its pool. You claim the creator share whenever you like, to any address, and the claim right is transferable; a transfer moves only the creator share that accrues after it, and what has already accrued stays claimable by you.
+
+## Project links
+
+Every coin can show a website, an X account, a description and artwork on Dollhouse, at no cost. The fields are optional, and you can set or change them after launch from your coin's page by signing with the wallet that created the coin. You can hand editing rights to another wallet, and for a community takeover of a coin whose creator has walked away, the Dollhouse account on X can reassign editing rights on request.
+
+The contents live off-chain and none of it feeds the round. The coin carries one on-chain metadata pointer (`uri`), written once at registration and never changed; everything the pointer resolves to is edited on Dollhouse.

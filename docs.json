@@ -1,0 +1,69 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Dollhouse",
+  "description": "Dollhouse is a launchpad where every new coin is born inside the one before it, like nesting dolls.",
+  "colors": {
+    "primary": "#8A8A8A",
+    "light": "#FFFFFF",
+    "dark": "#0A0A0A"
+  },
+  "appearance": {
+    "default": "dark"
+  },
+  "navigation": {
+    "groups": [
+      {
+        "group": "Start here",
+        "pages": [
+          "introduction",
+          "the-flywheel",
+          "the-genesis-coin"
+        ]
+      },
+      {
+        "group": "Economics",
+        "pages": [
+          "the-chain",
+          "tokenomics",
+          "earnings"
+        ]
+      },
+      {
+        "group": "Using Dollhouse",
+        "pages": [
+          "buying",
+          "selling",
+          "launching-a-coin",
+          "rounds"
+        ]
+      },
+      {
+        "group": "Trust & safety",
+        "pages": [
+          "audits",
+          "contracts",
+          "faq",
+          "risks"
+        ]
+      }
+    ]
+  },
+  "navbar": {
+    "primary": {
+      "type": "button",
+      "label": "Disclaimer",
+      "href": "/risks"
+    }
+  },
+  "redirects": [
+    {
+      "source": "/how-a-round-works",
+      "destination": "/rounds"
+    },
+    {
+      "source": "/why-competition",
+      "destination": "/rounds"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+---
+title: "Selling"
+description: "How to sell a coin on Dollhouse and what the route costs."
+---
+
+## Selling a coin
+
+Sells pay no extra fee, and there is no lock-up, no cooldown and no holding period on any coin in Dollhouse. Buys and sells pay the same 1%, and every coin, including one that lost its round, can be sold at any time. A sale returns ETH or \$DOLL, whichever you choose, in one transaction.
+
+<Steps>
+  <Step title="Pick the coin and the amount">
+    You can sell back to ETH or to \$DOLL with the trade panel's toggle, or stop part-way and hold a coin higher up the chain instead.
+  </Step>
+  <Step title="Check the quote and set slippage">
+    The route runs back up the chain: your coin into its parent, its parent into its parent, and finally into \$DOLL. When you receive ETH, the same transaction converts that \$DOLL to ETH.
+  </Step>
+  <Step title="Confirm">
+    One transaction.
+  </Step>
+</Steps>
+
+## What you pay
+
+The route pays the 1% fee once on the way out, on the \$DOLL side of link one's pool, and the 0.075% fee in each pool it crosses. If you stop at a coin that is still inside the chain and hold it, the route never crosses link one and pays only the 0.075% fee in each pool. Fees are charged on the amount you request, not on the amount that fills, so size a large order to the depth shown in the quote. The fee on a sale is divided into the same shares and placed exactly as on a buy: the creator share, 40%, to the coin's creator and the chain share, 40%, placed as locked bids under earlier coins. Receiving ETH adds the fees of \$DOLL's own market on the conversion back, the same ones listed on [Buying](/buying#what-you-pay).
+
+## Who is buying
+
+The pool is. Its curve holds the parent coin that buyers paid in and pays it back out as the price moves down, and none of it can be withdrawn. Below the price, each chain coin's pool also holds the locked bids placed from the chain share and the 0.075% fee: its part of the chain share's 20% for earlier coins, the chain share's 20% for the parent on trades of its child, and the 0.075% fee charged on its own pool. A coin that lost its round keeps trading against the coin it was paired with, and its creator collects the full creator share on those trades.

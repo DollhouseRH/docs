@@ -1,0 +1,86 @@
+---
+title: "FAQ"
+description: "Short answers to the questions people ask first."
+---
+
+## Safety
+
+<AccordionGroup>
+<Accordion title="Can the team rug?">
+The team cannot remove liquidity. No pool has a withdrawal function, for anyone, and every coin's supply goes into its pool at launch.
+
+They cannot change the fee, the shares, the curve, the timings, the bond, or a round's result in this deployment. They cannot pause trading, mint coins, blacklist you or freeze your balance.
+
+What they do have: the developer share, 20% of the fee, and a steward key whose only powers are to announce and cancel a sunset. After a sunset, link-one fees are booked by the successor deployment. Read [Tokenomics](/tokenomics) for the details.
+</Accordion>
+
+<Accordion title="Is the code audited?">
+The contracts are formally verified: Certora proved 70 rules across the round manager, the hook and the fee vault, and no rule was violated. The V12 automated audit's 8 findings were all fixed, and the code has had 12 independent reviews. See [Audits](/audits).
+</Accordion>
+</AccordionGroup>
+
+## Rounds
+
+<AccordionGroup>
+<Accordion title="What if nobody enters a round?">
+Nothing happens. Rounds are opened by the first person who enters a coin, so the chain just waits. Existing coins keep trading normally.
+</Accordion>
+
+<Accordion title="What happens to losing coins?">
+A coin that lost its round keeps its own pool and its creator share and trades forever, but it does not become canonical and receives none of the chain share.
+</Accordion>
+
+<Accordion title="When does a round end?">
+Every round has a public nominal end, and the true end is a random moment in the last 3 minutes before it, drawn from the drand beacon and verified on-chain. Nothing traded after the nominal end counts. If no beacon value is relayed within 30 minutes, the round ends at the nominal end.
+</Accordion>
+
+<Accordion title="How long is a round?">
+The schedule is fixed by round number: 15 minutes on rounds 1 and 2, doubling every two rounds, capped at 12 hours from round 13 on. Registration is a fifth of trading time, between 3 minutes and 1 hour. See [Rounds](/rounds).
+</Accordion>
+
+<Accordion title="How does late entry work?">
+Late entry only exists on rounds of an hour or more, and only during the first third of trading. A late entrant's pool opens when it registers, its own 3-second snipe tax applies from that moment, and it posts the same bond as everybody else.
+
+There is no separate scoring rule for entering late. The coin with the highest average amount of the head coin held in its pool over the closing window wins (the last fifteen minutes of the round), and that window is the same for every coin, whether it entered at the start or late. A late entrant simply has less time to build up support before that same window is measured.
+
+Once registration has closed and, on a long round, the late-entry window has also closed, entry into that round is shut. A registration sent after both windows reverts; nothing is queued for later. The next coin entered after the round finalizes opens the following round instead.
+</Accordion>
+
+<Accordion title="What is the bond?">
+A refundable deposit in \$DOLL that you approve and post to enter a round. It is returned in full if you win and forfeited if you lose. On mainnet it is a flat amount, set at deployment to roughly twenty dollars, the same at every depth.
+
+A forfeited bond is added to the locked \$DOLL bid under link one when the round closes.
+</Accordion>
+
+<Accordion title="What does 'canonical' actually get me?">
+A numbered spot in the chain, written on-chain and never rewritten; the next round's candidates priced in your coin while you are the head; and a permanent part of the chain share's 20% for earlier coins on everything launched after you, placed as bids in your coin's pool. See [The chain](/the-chain).
+</Accordion>
+</AccordionGroup>
+
+## Trading and fees
+
+<AccordionGroup>
+<Accordion title="Do I need $DOLL to buy a coin?">
+No. Pay in ETH: one transaction converts it to \$DOLL and buys the coin you picked. If you already hold \$DOLL, you can pay in \$DOLL instead.
+</Accordion>
+
+<Accordion title="Do I have to hold every coin above the one I want?">
+No. Your wallet only holds the coin you bought. Starting from \$DOLL, the router does the intermediate steps inside one transaction: your \$DOLL becomes #1, then #2, and so on, in a single click.
+</Accordion>
+
+<Accordion title="What is the snipe tax?">
+It is charged on buying and selling a candidate in its first 3 seconds: it starts at 99% and drops by about a third each second, reaching zero after 3 seconds, landing near 99%, 66%, 34%, then zero.
+
+The snipe tax is kept in the pool's parent coin and placed as a bid back into the chain, like the 0.075% fee. Keep a minimum amount received set when you trade at a pool's open.
+</Accordion>
+
+<Accordion title="Do sells pay extra, or is there a lock-up?">
+No extra fee on sells, no lock-up, no cooldown. Buys and sells both pay the same 1% fee on the \$DOLL side of link one.
+</Accordion>
+
+<Accordion title="Can I add a website, X account, description or artwork to my coin?">
+Dollhouse supports social links at no cost. The fields are optional and you can set or change them any time after launch, from your coin's page, by signing with the wallet that created the coin. You can hand editing rights to another wallet, and for a community takeover of an abandoned coin, the Dollhouse account on X can reassign editing rights on request.
+
+The contents live off-chain. The only thing the contract itself stores is a single metadata pointer (`uri`) written once when the coin is registered and never changed; the link fields it resolves to are edited on Dollhouse. Nothing in there feeds the round, and any screener reading the chain sees the coin, the pool, the bond and that one pointer.
+</Accordion>
+</AccordionGroup>

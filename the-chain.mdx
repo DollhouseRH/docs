@@ -1,0 +1,36 @@
+---
+title: "The chain"
+description: "How value moves along the chain's parent-child pairs and where each share of the fee is placed."
+---
+
+## One line of paired coins
+
+Dollhouse has exactly one chain, and every coin in it is paired with the coin before it. The newest coin is the head coin, and each round adds the next one below it.
+
+```text
+(ETH) → $DOLL → #1 → #2 → #3 → #4 → ...
+```
+
+Coin #3's pool holds #2, #2's pool holds #1, and #1's pool holds \$DOLL. No pool in Dollhouse holds ETH: \$DOLL is bought with ETH in its own market, and the chain starts at link one. A coin's price is quoted in its parent, so when a child's market moves, arbitrage carries the move up through every parent market above it. When a coin's curve sells its supply, the parent coin paid in stays in its pool, locked, and leaves only when holders sell back into it.
+
+A coin is **canonical** once it holds a numbered spot in the chain. Its number and parent are written on-chain once and never rewritten, the next round's candidates are priced in it while it is the head, and it receives part of the chain share's 20% for earlier coins on every coin launched after it, forever.
+
+## Bids under every earlier coin
+
+Half of the chain share, 20% of every 1% fee, is placed under earlier coins. It is spread over every coin from \$DOLL to the traded coin's parent by the weight w(r) = 2 − 5r + 4r², where r runs from 0 at \$DOLL to 1 at the newest earlier coin. The oldest end weighs 2, the newest 1, and the lowest point about 0.44, five-eighths of the way along, so \$DOLL always receives exactly twice the newest coin's part. A trade of #6 divides this 20% over six coins:
+
+| Coin | \$DOLL | #1 | #2 | #3 | #4 | #5 |
+|---|---|---|---|---|---|---|
+| Part of the 20% | 34.5% | 20.0% | 11.0% | 7.6% | 9.7% | 17.2% |
+
+A coin's part is placed as a bid under the coin itself. \$DOLL's and #1's parts become one locked \$DOLL bid in link one's pool. For #2 and deeper, the coin's \$DOLL is exchanged for its parent coin, priced along the chain at the lowest of the current price, the 30-minute average and the 7-day average, and the parent coin is placed as a locked bid in the coin's own pool, from just under its price down to about 6% below it. A generation's part always goes to the coin that won that round; the other coins from the same round receive none of it.
+
+## Bids under the parent
+
+The other half of the chain share, 20% of every 1% fee, goes to the traded coin's parent, and it is placed the same way: a trade of #6 funds a locked #4 bid in #5's pool, and a trade of #1 funds the \$DOLL bid in link one's pool. During a round, a candidate's parent is the head coin, so candidate trading funds bids under the head.
+
+Every pool also charges a 0.075% fee on each trade in its parent coin, and a new pool's first 3 seconds carry a snipe tax that starts at 99% and drops by about a third each second, reaching zero after 3 seconds. Both are held in that parent coin and placed as a bid in the chain pool that trades against it, so the 0.075% fee on #3's pool goes back into #3's pool as #2. Forfeited bonds are added to the \$DOLL bid in link one's pool.
+
+## How bids are placed
+
+Anyone can place a bid, and 1% of each bid goes to whoever places it. Before a bid is placed, the receiving pool's current price has to be within about 6% of its own 30-minute average. Each bid is capped at 2% of the pool's depth, and up to 10% of a coin's accrued chain share, held in \$DOLL, can be drawn per 24 hours, the allowance refilling continuously. The Locker that receives every bid has no function that removes liquidity or moves coins out, so each bid stays in its pool for the life of the chain.

@@ -1,0 +1,33 @@
+---
+title: "Earnings"
+description: "What creators and holders of earlier coins receive from every trade, and how creators claim."
+---
+
+## One trade, followed through
+
+Every earning on Dollhouse comes from the 1% fee charged when \$DOLL crosses link one, plus the 0.075% fee each pool charges. There is no emission and no unlock paying anyone. Take \$1,000,000 of \$DOLL spent on coin #3 while #3 is a canonical coin. The route pays a \$10,000 fee at link one, and the contract divides it into the shares as follows, before the 1% of each bid that goes to whoever places it:
+
+| Share and recipient | Of the \$10,000 fee | Claimed, or placed as a bid |
+|---|---|---|
+| Creator share: creator of #3 | \$4,000 | \$DOLL, claimable |
+| Chain share, earlier coins: \$DOLL (57.1% of this 20%) | \$1,143 | Locked \$DOLL bid in link one's pool |
+| Chain share, earlier coins: #1 (14.3% of this 20%) | \$286 | Locked \$DOLL bid in link one's pool |
+| Chain share, earlier coins: #2 (28.6% of this 20%) | \$571 | Locked #1 bid in #2's pool |
+| Chain share, parent: #2 | \$2,000 | Locked #1 bid in #2's pool |
+| Developer share | \$2,000 | \$DOLL, claimable |
+
+On top of that, each of the three pools on the route keeps its 0.075% fee in its parent coin and places it in full as a bid in the same pool: \$DOLL into #1's pool, #1 into #2's pool and #2 into #3's pool. Selling #3 back to \$DOLL pays the same fee again on the way out and divides it into the same shares.
+
+## Holders of earlier coins
+
+A coin in the chain receives part of the chain share's 20% for earlier coins on every 1% fee paid by every coin after it, for as long as the chain trades, and the chain share's 20% for the parent on every trade of its child. None of it is paid as cash. It is placed as a bid in the coin's own pool, just below its price, and the Locker has no function that removes it. Holders sell into those bids at any time; see [The chain](/the-chain) for the weights and the rules for placing bids.
+
+## Creators
+
+You earn the creator share, 40% of the 1% fee on your coin, in \$DOLL: \$4,000 for every \$1,000,000 of \$DOLL that crosses link one on routes to or from your coin. During your coin's own round you receive half of that, and the creator of the head coin receives the other half; in round one the head coin is \$DOLL. After the round you receive all of it, whether your coin won or not.
+
+While your coin is the head of the chain, every candidate in the round below it is priced in your coin, and you receive half of the creator share on all of that round's candidate trades. Rounds run from 15 minutes at first up to 12 hours, so the head's creator receives that half for the whole length of the round it hosts. A winner's bond is refunded in full.
+
+## Claiming
+
+The creator and developer shares are pull-based: the contract holds them under your address, and you call a claim function to move them to any address you choose. Nothing is pushed to you unasked, and nobody else can claim them. The creator claim right is transferable; a transfer moves only the creator share that accrues after it, and whatever has already accrued stays claimable by you. The developer earns the 20% developer share in \$DOLL and has no allocation of any coin.

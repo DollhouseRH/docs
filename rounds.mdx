@@ -1,0 +1,35 @@
+---
+title: "Rounds"
+description: "How a round runs, how it is scored, and what happens to the winner and the other coins."
+---
+
+## How a round runs
+
+A round adds the next coin to the chain. It opens when the first coin is entered, and every candidate in it trades against the current head coin.
+
+<Steps>
+  <Step title="Registration">
+    Anyone can enter a coin by posting the bond. Registration lasts a fifth of the round's trading time, between 3 minutes and 1 hour.
+  </Step>
+  <Step title="Trading">
+    All candidate pools open together. Trading lasts 15 minutes on rounds 1 and 2 and doubles every two rounds, up to 12 hours from round 13 on. On rounds of an hour or more, a coin can still enter during the first third of trading; its pool opens when it registers.
+  </Step>
+  <Step title="The end">
+    Each round has a public nominal end. The true end is a random moment in the last 3 minutes before it, drawn from the drand public randomness beacon after the nominal end and verified on-chain. Nothing traded after the nominal end counts. If no beacon value is relayed within 30 minutes, the round ends at the nominal end.
+  </Step>
+  <Step title="Scores and the result">
+    Anyone can submit scores during the 5 minutes after the end is settled. The highest-scoring candidate becomes the new head.
+  </Step>
+</Steps>
+
+## Scoring
+
+Buying a candidate counts toward its score, and selling takes that back. The score is the average amount of the head coin held in the candidate's pool over the closing window, the last 15 minutes before the true end, and the window is the same for every candidate whenever it entered. A new pool's first 3 seconds carry a snipe tax that starts at 99% and drops by about a third each second, reaching zero after 3 seconds.
+
+If every candidate ends the window with net selling, the round has no winner and every bond is forfeited into the locked \$DOLL bid under link one.
+
+## After the round
+
+The winner becomes the new head and gets its bond back in full. Its number and parent are written on-chain permanently, every candidate in the next round is priced in it, and its creator receives half of the creator share on that round's candidate trades. It also receives its generation's part of the chain share's 20% for earlier coins from every later coin, placed as bids in its pool.
+
+Every other candidate keeps its pool and trades forever against the coin it was paired with, and its creator keeps the full creator share on its trades after the round. Their bonds are added to the locked \$DOLL bid in link one's pool, and they receive none of the chain share's 20% for earlier coins.

@@ -1,0 +1,53 @@
+---
+title: "Tokenomics"
+description: "Every number behind Dollhouse: supply, fees, shares and the bond."
+---
+
+## Supply and curve
+
+Every coin launched on Dollhouse has a fixed supply of 1,000,000,000, minted once at launch, with no mint function afterwards. 100% of that supply is placed in the coin's locked pool as its sell curve: no creator allocation, no team allocation, no reserve, no airdrop and no vesting contract. Any rounding remainder that does not fit the curve is burned. \$DOLL is not launched by Dollhouse and the Dollhouse contracts hold no allocation of it; see [\$DOLL](/the-genesis-coin).
+
+The curve is identical in shape for every coin. Four ranges sell 20%, 25%, 35% and 20% of the supply, across valuation bands that run from one thousandth of the parent's supply value up to 100x it, with the last range as a tail.
+
+## Fees
+
+| Step | Fee | Shares or bid |
+|---|---|---|
+| Trading \$DOLL for ETH, on Pons | Pons's 1% pool fee, plus a creator fee fixed at launch | 30% to Pons; of the other 70%, half is paid in cash to the \$DOLL creator and half is used for \$DOLL buybacks |
+| Entering or leaving the chain | 1% once, on the \$DOLL side of link one, in both directions | Divided into the shares below |
+| Each pool on the route | 0.075%, in that pool's parent coin | Placed in full as a bid in the chain pool that trades against that parent |
+| A new pool's first 3 seconds | Snipe tax starting at 99%, dropping by about a third each second, reaching zero after 3 seconds | Placed as a bid, like the 0.075% fee |
+
+Sells pay no extra fee: buys and sells pay the same 1%, and the 1% does not grow with depth. During the 3-second snipe window of a new link-one pool, the 1% is not charged and the snipe tax applies instead, so the two never stack. Fees are charged on the amount a route requests, not on the amount that fills.
+
+The 1% fee is divided into the shares by constants in the contract:
+
+| Share | Recipient | Claimed, or placed as a bid |
+|---|---|---|
+| 40% creator share | Creator of the traded coin | \$DOLL, claimed by the creator |
+| 20% chain share, earlier coins | Every earlier coin, weighted w(r) = 2 − 5r + 4r² | Locked bids, never cash |
+| 20% chain share, parent | The traded coin's parent | Locked bids, never cash |
+| 20% developer share | Developer | \$DOLL, claimed by the developer |
+
+On a candidate's trades during its round, the 40% creator share is divided 50/50: 20% of the fee to the candidate's creator and 20% to the creator of the head coin the round is priced in. After the round, 100% of the creator share goes to the coin's own creator. A trade that does not come through the Dollhouse router carries no attribution; its creator share is added to the chain share, and all 80% is placed in link one's locked \$DOLL bid. How the chain share is weighted and placed as bids is on [The chain](/the-chain).
+
+## The bond
+
+Entering a round takes a bond in \$DOLL: approve \$DOLL, then register. The bond is a flat amount at every chain depth, set at deployment from \$DOLL's price to roughly \$20. Each round pins its bond when it opens, and each candidate's refund or forfeit uses the amount it actually posted. The winner gets the whole bond back, and every losing candidate's bond is added to the locked \$DOLL bid in link one's pool.
+
+## What the developer and steward can do
+
+<Accordion title="The developer can">
+- Claim their accrued 20% developer share, in \$DOLL, to an address they choose.
+- Transfer the developer fee address on a public 7-day delay. The unclaimed balance moves with the role.
+</Accordion>
+
+<Accordion title="Nobody can">
+- Remove liquidity from any pool. No such function exists, for anyone.
+- Change the fee, the shares, the curve, the round timings or the bond in this deployment.
+- Choose or overturn a round's winner, or rewrite the chain's history. Every canonical entry is write-once.
+- Pause trading, blacklist an address, freeze a balance or mint more of any coin.
+- Take anything from a coin's supply. Coins have no allocation at all.
+</Accordion>
+
+A separate address, the steward, can announce a sunset that names a successor deployment, 7 days ahead, and can cancel it once before it takes effect. After a sunset this deployment opens no new rounds, and the 1% charged in link one's pools is booked by the successor's fee vault. Pools, liquidity, balances and claims here stay unchanged. The steward role moves only on a public 7-day delay.

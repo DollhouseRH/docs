@@ -1,0 +1,42 @@
+---
+title: "The flywheel"
+description: "How every trade in the chain pays into the coins before it."
+---
+
+A fee is what a trade pays: 1% once on the \$DOLL side of link one, in both directions, and 0.075% in each pool, in that pool's parent coin. A share is a fixed fraction of the 1% fee assigned to a recipient: the creator share (40%), the developer share (20%) and the chain share (40%, of which 20% goes under every earlier coin and 20% under the traded coin's parent). A bid is locked buy-side liquidity placed in a pool from the chain share or from the 0.075% fee, which is placed in full as a bid, with no shares.
+
+## The loop
+
+Every coin in the chain is bought and sold with the coin before it, and \$DOLL, at the top, is bought with ETH. To buy coin #3 you pay in ETH or \$DOLL, and the route spends \$DOLL: it buys #1 in link one's pool, that #1 buys #2 in #2's pool, and that #2 buys #3, all in one transaction. Each pool keeps the parent coin it receives, and no pool's liquidity can be withdrawn, so a buy of a deep coin leaves \$DOLL, #1 and #2 held in the pools along its route.
+
+More attention on a round → more buying of the head coin → more ETH entering through \$DOLL → a bigger 1% fee → more paid to earlier coins as locked bids, and to the parent's liquidity → a deeper chain with more coins whose holders want the next round to be good.
+
+The same route pays the 1% fee once, in \$DOLL, and the chain share, 40% of that fee, is placed as locked bids under earlier coins. The loop runs in four steps:
+
+1. A buyer spends \$DOLL on any coin in the chain, and each pool on the route absorbs the coin above it.
+2. The route pays the 1% fee on its \$DOLL side and the 0.075% fee in each pool it crosses.
+3. The chain share, 40% of the 1% fee, is placed as locked bids under earlier coins, the creator share, 40%, goes to the traded coin's creator, and each 0.075% fee is placed in full, in the parent coin, as a bid in the chain pool paired with that parent.
+4. Each round adds a new coin priced in the current head, and every trade in that coin runs through steps 1 to 3 for every coin above it, permanently.
+
+## What each trade pays into
+
+The 1% fee is divided into the shares by constants in the contract. For every \$1,000,000 of \$DOLL that crosses link one, in either direction, the fee is \$10,000, before the 1% of each bid that goes to whoever places it:
+
+| Share | Of the \$10,000 fee | Claimed, or placed as a bid |
+|---|---|---|
+| 40% creator share | \$4,000 | \$DOLL, claimed by the traded coin's creator |
+| 20% chain share, earlier coins | \$2,000 | Locked bids under every earlier coin, weighted by position |
+| 20% chain share, parent | \$2,000 | Locked bids under the traded coin's parent |
+| 20% developer share | \$2,000 | \$DOLL, claimed by the developer |
+
+The chain share's 20% for earlier coins reaches every coin from \$DOLL down to the traded coin's parent. \$DOLL receives exactly 2x the weight of the newest earlier coin, at every depth of the chain. Every pool also charges a 0.075% fee on each trade, in its parent coin, and the first 3 seconds of a new pool carry a snipe tax that starts at 99% and drops by about a third each second, reaching zero after 3 seconds. Both are kept in the parent coin and placed as bids back into the chain. The full weighting and the rules for placing bids are on [The chain](/the-chain).
+
+## Locked bids, not cash
+
+No part of the chain share is ever paid as cash. Each earlier coin's part is spent on that coin's parent and placed as a bid in the coin's own pool, from just under its current price down to about 6% below it. \$DOLL has no pool inside Dollhouse, so its part is placed as a \$DOLL bid in link one's pool. The Locker that holds every position has no function that removes liquidity, so each bid stays in the pool for the life of the chain, and the coin's holders can sell into it at any time.
+
+Placing bids is paced. At most 10% of a coin's accrued chain share can be placed per 24 hours, the allowance refilling continuously, and a single bid is capped at 2% of the pool's depth. Every bid placed emits an event, and each one appears on the Treasury page of the app with a link to its transaction.
+
+## Rounds add coins to the loop
+
+A round adds the next coin to the chain. Every candidate in a round is priced in the current head coin, so every candidate buy routed from \$DOLL is also a buy of the head coin, and of every coin above it, through the route. During the round, the head coin's creator receives half of the creator share on every candidate trade. The winner becomes the new head and pays into every coin above it from its first trade onward. See [Rounds](/rounds).
