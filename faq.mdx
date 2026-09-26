@@ -6,9 +6,9 @@ title: "FAQ"
 
 <AccordionGroup>
 <Accordion title="Can the team rug?">
-No. Every pool keeps its money for good, every coin's whole supply goes into its pool at launch, and the contracts hold all of it with no key that can move any of it. The fee, the shares, the price curve, the timings, the bond and every round's result are fixed in the code.
+No. Every pool keeps its money for good, every coin's whole supply goes into its pool at launch, and the contracts hold all of it with no key that can move any of it. The fee, the shares, the price curve, the timings, the bond and every round's result are fixed in the code.<br /><br />The team's allocation is explicitly stated and locked, provably, on-chain to only the disclosed addresses.
 
-The team's rights are exactly two. The developer earns the developer share, a fixed part of every fee. A separate key, the steward, can announce a sunset, which hands new rounds to a successor version on a 7-day public delay while every pool and balance stays where it is. That is the whole list, and it is verified: Certora proved 70 rules across the round manager, the hook and the fee vault, and every finding raised during verification was fixed before deployment. See [Audits](/audits) and [Tokenomics](/tokenomics).
+The team's rights are limited to the steward role. This role can announce a sunset, which hands new rounds to a successor version on a 7-day public delay while every pool and balance stays where it is. This role is in place to enable protocol upgrades and critical bug fixes in the future.
 </Accordion>
 
 <Accordion title="Is the code audited?">
@@ -36,9 +36,9 @@ It depends on the round number. Early rounds are short, and rounds grow longer a
 </Accordion>
 
 <Accordion title="How does late entry work?">
-Late entry is open only on longer rounds, and only early in trading. A late entrant's pool opens when it registers, its snipe tax starts at that moment, and it posts the same bond as everyone else.
+Late entry is open only on longer rounds, in the first third of trading. A late entrant's pool opens when it registers, its snipe tax starts at that moment, and it posts the same bond as everyone else.
 
-Late entrants are scored exactly like everyone else. The winner is the coin whose pool holds the most of the head coin, the newest coin in the chain, on average over the closing window. That window is the end of the round, and it is the same for every coin. A late entrant simply has less time to build support before it.
+Late entrants are scored exactly like everyone else. The winner is the coin whose pool holds the most of the head coin, the newest coin in the chain, on average over the closing window. A late entrant will have less time to build community support and become a winner.
 
 Once registration and late entry have both closed, the round is shut to new coins. A registration sent after that fails. The next coin entered after the round ends opens the following round.
 </Accordion>
@@ -48,7 +48,7 @@ The bond is a refundable deposit in \$DOLL that you post to enter a round. You g
 </Accordion>
 
 <Accordion title="What does joining the chain get me?">
-Your coin gets a numbered spot in the chain, written on-chain for good. While it is the head coin, the next round's candidates, the coins entered in it, are priced in it. It also earns a part of the chain share on every coin launched after it, placed as buy liquidity in its pool. See [The chain](/the-chain).
+Your coin gets a numbered spot in the chain, immutably written on-chain. While it is the head coin, the next round's candidate coins are priced in it. It also earns a part of the chain share on every coin launched after it, placed as buy liquidity in its pool. See [The chain](/the-chain).
 </Accordion>
 </AccordionGroup>
 
@@ -64,9 +64,9 @@ Your wallet holds only the coin you bought. The app does the steps in between in
 </Accordion>
 
 <Accordion title="Why buy liquidity rather than a burn or a buyback?">
-Because it works for the long-term holder. Buy liquidity is placed just under the price and waits there. It spends money when the price comes down to it, which is exactly when you, as a holder, want support. It is placed against the recent price, so it stays anchored to where the coin has been trading, even through a quick pump. It goes in a little at a time, so support builds steadily.
+Buy liquidity benefits long-term holders. Buy liquidity is placed just under the price and waits there. It spends money when the price comes down to it, reducing the effect of sell pressure and dips. It is placed against the recent price, so it stays anchored to where the coin has been trading, and builds steady support.<br /><br />Buy liquidity is single-sided, so it preserves the ability to create dynamic upwards price action, while reducing volatility on the downside.
 
-A burn and a buyback each act once. Buy liquidity keeps working: while you hold, every trade by anyone adds more buying beneath your coin, and the coins it buys stay locked in the pool for good. The longer you hold and the more the coin trades, the more sits under you. See [The flywheel](/the-flywheel).
+A burn and/or buyback are a one-time catalyst that flippers sell into. Buy liquidity keeps working: while you hold, every trade by anyone adds more buy support beneath your position, and the coins it buys stay locked in the pool for good. See [The flywheel](/the-flywheel).
 </Accordion>
 
 <Accordion title="Why do the oldest and newest coins earn the most?">
@@ -82,12 +82,10 @@ The snipe tax is kept in the pool's parent coin and placed as buy liquidity back
 </Accordion>
 
 <Accordion title="Do sells pay extra, or is there a lock-up?">
-Sells pay the same fee as buys, once, on the \$DOLL side, and you can sell at any time.
+Sells pay the same 1% fee as buys, and you can sell at any time.
 </Accordion>
 
 <Accordion title="Can I add a website, X account, description or artwork to my coin?">
 Yes, for free. The fields are optional, and you can set or change them any time after launch from your coin's page, by signing with the wallet that created the coin. You can hand editing rights to another wallet. For a community takeover of an abandoned coin, the Dollhouse account on X can reassign editing rights on request.
-
-These details are stored on Dollhouse. The contract stores one link to them (`uri`), written once when the coin is registered and fixed for good. The round is decided by trading alone.
 </Accordion>
 </AccordionGroup>
