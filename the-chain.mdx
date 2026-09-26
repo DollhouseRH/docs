@@ -10,15 +10,15 @@ Dollhouse has one chain. Every coin in it is paired with the coin before it, cal
 (ETH) → $DOLL → #1 → #2 → #3 → #4 → ...
 ```
 
-Coin #3's pool holds #2, #2's pool holds #1, and #1's pool holds \$DOLL. Every Dollhouse pool is priced in \$DOLL or a chain coin, and \$DOLL is bought with ETH in its own market outside Dollhouse. The chain starts at link one, the pool between \$DOLL and coin #1.
+Coin #3's pool holds #2, #2's pool holds #1, and #1's pool holds \$DOLL. Every Dollhouse pool is priced in \$DOLL or a chain coin. The chain starts at link one, the pool between \$DOLL and coin #1.
 
-A coin's price is quoted in its parent. When a coin's price moves, traders who buy in one pool and sell in another carry that move up to every coin above it.
+A coin's price is quoted in its parent. When a coin's price moves, traders who buy in one pool carry that move up to every coin above it.
 
-A coin that wins its round joins the chain and gets a numbered spot. Its number and parent are written on-chain once and stay fixed for good. While it is the head, the coins entered in the next round, called candidates, are priced in it. From then on, it earns a part of the chain share, the part of each fee locked into the chain, on every coin launched after it.
+A coin that wins its round joins the chain and gets a numbered spot. Its number and parent are written on-chain once and stay fixed for good. While it is the head, the candidate coins entered in the next round are priced in it. From then on, it earns a part of the chain share on every coin launched after it.
 
 ## Buy-side liquidity from every pool
 
-Every pool keeps 0.075% of each trade, in the coin that pool is priced in. That money becomes [buy liquidity](/the-flywheel) just under the chain coin priced in that same coin. For a coin in the chain, that is its own pool. So the more a coin trades, the more buying sits under it.
+Every pool keeps 0.075% of each trade, in the coin that pool is priced in. That money becomes single-sided [buy liquidity](/the-flywheel) just under the chain coin priced in that same coin. For a coin in the chain, that is its own pool. So the more a coin trades, the more buying sits under it.
 
 Candidates in a round are all priced in the head coin. Their 0.075% goes under whichever coin wins that round.
 
@@ -33,8 +33,6 @@ The other half goes under the traded coin's parent. During a round, every candid
 Each coin's part becomes buy liquidity in that coin's own pool, just under its price. A round's part always goes to the coin that won that round.
 
 ## The numbers
-
-These are the parameters the contracts run with. Anyone can check each one against the code in the [contracts folder](https://github.com/DollhouseMarkets/dollhouse/tree/main/contracts) and the deployment record in [docs/DEPLOY_CONSTANTS.md](https://github.com/DollhouseMarkets/dollhouse/blob/main/docs/DEPLOY_CONSTANTS.md) of the [repository](https://github.com/DollhouseMarkets/dollhouse).
 
 | What | Value | Where |
 |---|---|---|

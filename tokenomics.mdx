@@ -8,7 +8,7 @@ Every coin launched on Dollhouse has a fixed supply of 1,000,000,000, created on
 
 Every coin's supply goes into its pool in four price bands, holding 20%, 25%, 35% and 20% of the supply, each band priced higher than the last. The first band prices the coin at one thousandth of its parent's value and the top band runs past 100 times it, so early buyers get the lowest prices and later buyers pay more as each band sells out. The shape is the same for every coin, so nobody can tune their own curve. The few token units the math cannot place are burned.
 
-\$DOLL is launched in its own market outside Dollhouse; see [\$DOLL](/the-genesis-coin). The team holds 3% of \$DOLL, 30,000,000 tokens, bought in the launch transaction. They are locked in public vesting contracts that release them evenly over one year from launch, with no cliff. The vesting contracts and the address that bought the tokens are published on this page.
+\$DOLL is launched in its own market outside Dollhouse; see [\$DOLL](/the-genesis-coin). The team holds 3% of \$DOLL, 30,000,000 tokens, bought in the launch transaction. They are locked in public vesting contracts that release them evenly over one year from launch, with no cliff. The vesting contracts and addresses are published on this page.
 
 ## Fees
 
@@ -30,7 +30,7 @@ The 1% fee is divided into shares by fixed numbers in the contract:
 | 20% chain share, parent | The traded coin's parent | Locked buy-side liquidity |
 | 20% developer share | Developer | \$DOLL, claimed by the developer |
 
-On the trades of a candidate, a coin entered in a round, during that round, the 40% creator share is split in half. 20% of the fee goes to the candidate's creator, and 20% goes to the creator of the head coin, the newest coin in the chain, which the round is priced in. After the round, the whole creator share goes to the coin's own creator.
+On the trades of candidate coins, during an active round, the 40% creator share is split in half. 20% of the fee goes to the candidate's creator, and 20% goes to the creator of the head coin which the round is priced in. After the round ends, the whole 40% creator share goes to the coin's own creator.
 
 ## The bond
 
@@ -44,9 +44,9 @@ Entering a round takes a bond, a refundable deposit in \$DOLL: approve \$DOLL, t
 </Accordion>
 
 <Accordion title="Set in the contracts">
-- Liquidity, the money and coins in a pool, stays in its pool for good. The contracts only add to it.
-- The fee, the shares, the curve, the round timings and the bond are fixed in this deployment.
-- Round winners are decided by scoring alone, and every link, once written, stays as written.
+- Liquidity, the money and coins in a pool, stays in its pool for good. The contracts can only add to it, never remove.
+- The fee, the shares, the curve, the round timings and the bond are immutably fixed.
+- Round winners are decided by scoring alone, and every link is immutable once written.
 - Trading runs on the contracts alone: every address can trade, every balance moves freely, and every coin's supply is fixed at launch.
 - Every coin's whole supply goes into its pool, for buyers.
 </Accordion>
