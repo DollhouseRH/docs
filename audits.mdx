@@ -2,9 +2,7 @@
 title: "Audits"
 ---
 
-## How the contracts were checked
-
-The contracts were checked in several independent ways. Certora formally verified them, which means it proved with math that key rules always hold. V12 ran an independent automated audit. The full system also ran end to end on the Robinhood test network.
+The contracts were checked in several independent ways. Certora formally verified them. and V12 ran an independent automated audit. The full system also ran end to end on Robinhood testnet.
 
 | Method | What was done |
 |---|---|
@@ -13,11 +11,9 @@ The contracts were checked in several independent ways. Certora formally verifie
 | Manual design and code reviews | 12 independent reviews. |
 | Unit tests | 322 tests of single contract functions. |
 | Property tests and fuzzing | 89 tests of rules that must always hold, plus a run of 40,000 random calls with 0 failures. |
-| Fork tests | 38 tests against the live Uniswap v4 pool manager, the contract that runs every pool. |
-| Static analysis | Slither, a tool that scans code for known mistakes: 0 findings after review. |
-| Symbolic checks | Halmos, a tool that checks code against whole ranges of inputs at once: 32 checks, all passing. |
+| Fork tests | 38 tests against the live Uniswap v4 pool manager. |
+| Static analysis | Slither: 0 findings after review. |
+| Symbolic checks | Halmos: 32 checks, all passing. |
 | Testnet runs | 8 live runs on the test network, including automated round ends. |
 
-## The full record
-
-The complete record for the current version is public in the repository at [docs/security/README.md](https://github.com/DollhouseMarkets/dollhouse/blob/main/docs/security/README.md). It lists every method, its result and the file that holds it. More third-party audits and a bug bounty, a reward for anyone who reports a bug, will be funded from the developer share at the developer's discretion.
+The complete record for the current version is public in the repository at [docs/security/README.md](https://github.com/DollhouseMarkets/dollhouse/blob/main/docs/security/README.md). More third-party audits and a bug bounty may be funded from the developer share at the developer's discretion.
