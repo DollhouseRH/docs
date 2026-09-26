@@ -16,7 +16,7 @@ Selling #3 back pays the same fee and divides it the same way. The full fee sche
 
 ## Holders of earlier coins
 
-A coin in the chain earns from every coin that comes after it, for as long as the chain trades. It gets a part of the chain share, the part of each fee locked into the chain, on every trade of every later coin. It gets an extra part on trades of its child, the coin directly below it.
+A coin in the chain earns from every coin that comes after it, for as long as the chain trades. It gets a part of the chain share on every trade of every later coin. It gets an extra part on trades of its child, the coin directly below it.
 
 All of it is placed as buy liquidity in the coin's own pool, just under its price. See [The chain](/the-chain).
 
@@ -24,10 +24,10 @@ All of it is placed as buy liquidity in the coin's own pool, just under its pric
 
 You earn the creator share, the part of each fee paid to a coin's creator, on every trade of your coin. It is paid in \$DOLL. During your coin's own round, you get half of it and the head coin's creator gets the other half. The head coin is the newest coin in the chain. After the round, you get all of it, whether your coin won or lost.
 
-While your coin is the head, every candidate, a coin entered in the next round, is priced in your coin. You get half of the creator share on all of that round's candidate trades.
+If your coin wins the head position, every candidate in the next round is priced in your coin. You get half of the creator share on all of that round's candidate trades.
 
 ## Claiming
 
-The creator and developer shares wait in the contract under your address. You call a claim function to move them to any address you choose. Your shares wait until you claim them, and only your address can claim them.
+The creator and developer shares wait in the contract under your address. You can call a claim function via contract or Dollhouse frontend to move them to any address you choose. 
 
-You can transfer your right to claim a creator share. A transfer moves only what is earned after it, and what has already built up stays yours to claim. The developer earns the developer share in \$DOLL.
+You can transfer your right to claim a creator share. A transfer moves only what is earned after it, and what has already built up stays yours to claim.
