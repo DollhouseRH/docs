@@ -4,17 +4,17 @@ title: "Rounds"
 
 ## How a round runs
 
-A round is a timed contest that adds the next coin to the chain. It opens when the first coin is entered. Every candidate, a coin entered in the round, trades against the head coin, the newest coin in the chain.
+A round is a timed contest that adds the next coin to the chain. It opens when the first coin is entered. Every candidate trades against the head coin, the newest coin in the chain.
 
 <Steps>
   <Step title="Registration">
-    Anyone can enter a coin by posting the bond, a refundable deposit. Registration lasts a fifth of the round's trading time. It runs from 3 minutes to 1 hour.
+    Anyone can enter a coin by posting the bond, a refundable deposit. Registration lasts 1/5 of the round's trading time. It runs from 3 minutes to 1 hour.
   </Step>
   <Step title="Trading">
     All candidate pools open together. Trading lasts 15 minutes on the first two rounds. It doubles every two rounds until it reaches 12 hours. On rounds of an hour or more, a coin can still enter during the first third of trading, and its pool opens when it enters.
   </Step>
   <Step title="The end">
-    Each round has a public planned end. The real end is a random moment in the last 3 minutes before it. That moment comes from drand, a public source of random numbers, and is checked on-chain. Only trades made before the planned end count. If the random value takes longer than 30 minutes to arrive, the round ends at the planned end.
+    Each round has a public planned end. The real end is a random moment in the last 3 minutes before it. That moment comes from drand, a public source of random numbers, and is checked on-chain. Only trades made before the planned end count. 
   </Step>
   <Step title="Scores and the result">
     Anyone can submit scores in the 5 minutes after the real end is settled. The candidate with the highest score becomes the new head coin.
@@ -24,8 +24,6 @@ A round is a timed contest that adds the next coin to the chain. It opens when t
 ## Scoring
 
 Buying a candidate raises its score, and selling lowers it. The score is the average amount of money in the candidate's pool during the closing window, shown as the market cap that money supports. That window is the last 15 minutes before the real end, and it is the same for every candidate, whenever it entered.
-
-If every candidate ends the window with more selling than buying, the head coin stays the head, and every bond is added to the locked \$DOLL [buy liquidity](/the-flywheel) in link one's pool, the pool between \$DOLL and coin #1.
 
 ## After the round
 
