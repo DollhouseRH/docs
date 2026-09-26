@@ -14,21 +14,21 @@ This is why the loop feeds itself. More interest in a round means more buying of
 
 The loop runs in four steps:
 
-1. A buyer spends \$DOLL on a coin, and the purchase passes through every pool above that coin.
-2. The trade pays the fee once, and each pool it passes through keeps a small cut.
-3. The creator claims the creator share, and the chain share becomes buy liquidity under the earlier coins.
-4. Each round adds a new coin below the head, and every trade of that coin pays into every coin above it, forever.
+1. A buyer spends \$DOLL on a coin. The purchase passes through every pool above that coin.
+2. The 1% buy/sell fee distributes a cut to each pool it passes through.
+3. The creator accrues creator share, and the chain share becomes single-sided buy liquidity under the earlier coins.
+4. Each round adds a new coin, and every trade of that coin pays into every coin above it, forever.
 
-The full split of every fee is on [Tokenomics](/tokenomics).
+The full fee split breakdown can be found in [Tokenomics](/tokenomics).
 
-## Buy-side liquidity, locked in the pool
+## Locked Liquidity Fee Mechanism
 
-The chain share, the part of each fee locked into the chain, is spent on the coin a pool is priced in and placed as buy liquidity just under the price. The Locker, the contract that holds every pool, only adds liquidity. The buy liquidity in each pool stays there for the life of the chain.
+Each coin's chain fee share is placed as single-sided buy liquidity just under the price. The buy liquidity in each pool is locked forever and cannot be removed.
 
-Every placement of buy liquidity appears on the Treasury page of the app. Each entry links to its transaction, so anyone can check it.
+Every placement of buy liquidity appears on the Treasury page of the app, with links to its onchain transaction.
 
 ## Rounds add coins to the loop
 
-A round is a timed contest that adds the next coin to the chain. Every candidate, a coin entered in the round, is priced in the head coin. So buying a candidate also buys the head coin and every coin above it. During the round, the head coin's creator gets half of the creator share on every candidate trade.
+A round is a timed contest that adds the next coin to the chain. Every candidate, a coin entered in the round, is priced in the head coin. Therefore, buying a candidate also buys the head coin and every coin above it. During the round, the head coin's creator gets half of the creator share on every candidate trade.
 
-The winner becomes the new head coin. From its first trade on, it pays into every coin above it. See [Rounds](/rounds).
+The winner becomes the new head coin, and earns the right to receive chain shares from subsequent coin launches.
