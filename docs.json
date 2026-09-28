@@ -46,6 +46,12 @@
           "faq",
           "risks"
         ]
+      },
+      {
+        "group": "Developers",
+        "pages": [
+          "integrators"
+        ]
       }
     ]
   },

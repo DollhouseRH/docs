@@ -1,0 +1,174 @@
+---
+title: "For integrators"
+---
+
+This page is for trading terminals, screeners and indexers that want Dollhouse launches in a new-pairs or discover feed. It covers the chain, the on-chain shape of a launch, the events that mark a round's lifecycle, the fees, and the metadata and supply endpoints. Everything below is read from the contracts and the public deployment record; nothing here requires an account or a key.
+
+## Chain
+
+| | |
+|---|---|
+| Name | Robinhood Chain |
+| Chain ID | 4663 |
+| RPC | `https://rpc.mainnet.chain.robinhood.com` |
+| Explorer | `https://robinhoodchain.blockscout.com` |
+| Uniswap v4 PoolManager | `0x8366a39CC670B4001A1121B8F6A443A643e40951` |
+| Uniswap v4 StateView | `0xF3334192D15450CdD385c8B70e03f9A6bD9E673b` |
+
+## Contract addresses
+
+The current deployment. The authoritative, machine-readable copy is [`deployments/4663.json`](https://github.com/DollhouseMarkets/dollhouse/blob/main/deployments/4663.json) in the public repository; read it rather than hardcoding addresses, since a future deployment would ship a new file at the same path.
+
+| Contract | Address |
+|---|---|
+| FamilyFactory | `0x9c79fD688d1091E1a2CB2a43fDd46d52c587cAb1` |
+| RoundManager | `0x946f47dDd9D115962BeC2A7a31dd85bF96D22614` |
+| FamilyHook | `0x09d36C54bF5334B25C5749297362ffD88b276Aec` |
+| FeeVault | `0x867e8E70A25b6d6A4E3a7f72B090254B2519d38F` |
+| BidDeployer | `0xd1D04Ab8237Edc4A1e31e6450C874c16210668B5` |
+| FamilyRouter | `0x1a5E9d0b67c48D7996eC886d7Fea151f239268b2` |
+| EthZap | `0x0b6483d55BAeeBE472706858DB1E630a2CaF5A08` |
+| FamilyLens | `0xFd53d61d879225b73E8a78364b23db42cCf00aaE` |
+
+## How a launch appears on-chain
+
+A new coin is created by `FamilyFactory.registerCandidate(name, symbol, uri, maxBond)`, which mints the token, initializes its pool and emits one event in the same transaction:
+
+```solidity
+event CandidateCreated(
+    uint256 indexed roundId,
+    uint256 indexed candidateId,
+    address indexed token,
+    PoolId poolId,
+    uint160 initSqrtPriceX96,
+    bool tokenIsCurrency0
+);
+```
+
+`candidateId` is a global, monotonically increasing id across every round. The event does not carry the coin's name, symbol, creator or art: read those separately.
+
+### Token metadata
+
+Every launch is an ERC-20 clone (`FamilyToken`) with a fixed supply and no owner. Read its metadata directly off the token:
+
+- `name()` and `symbol()` — set once at registration, never change.
+- `uri()` — an off-chain metadata pointer, immutable after registration. On the current deployment this is the coin's art image URL. It is not the same as the creator-editable links described below, and it cannot be updated if a URL goes stale.
+
+The coin's creator is not in `CandidateCreated`; read `RoundManager.creatorOf(token)`, or match the token address against the `RoundManager.CandidateRegistered` event in the same block, whose `creator` field carries it directly.
+
+### The pool
+
+Every coin trades against exactly one other coin, its parent, in a single Uniswap v4 pool. The pool's key is:
+
+```solidity
+PoolKey({
+    currency0: token < parent ? token : parent,
+    currency1: token < parent ? parent : token,
+    fee: 0,
+    tickSpacing: 60,
+    hooks: <FamilyHook address>
+})
+```
+
+Currencies sort by address, ascending; `tokenIsCurrency0` in `CandidateCreated` says which side the new coin landed on. The pool id is `keccak256(abi.encode(poolKey))` — the same value already emitted as `poolId`, so it never needs to be recomputed from scratch.
+
+**The parent currency.** While a coin is a candidate, its parent is the round's head coin: the coin at the top of the chain when the round opened (`RoundManager.RoundOpened.parentToken`, see below). If the coin wins its round and becomes a link in the chain, that same coin stays its parent permanently — a link's parent never changes after it is crowned.
+
+**Price.** Read `sqrtPriceX96` from the pool's `slot0` (via the PoolManager or the StateView helper above, keyed by `poolId`). The raw price is `(sqrtPriceX96 / 2^96)^2`, which is currency1 per unit of currency0. To get the coin's price in its parent:
+
+```
+price_in_parent = tokenIsCurrency0 ? raw_price : 1 / raw_price
+```
+
+## Rounds
+
+A round is a timed contest that adds the next coin to the chain. Every candidate in a round trades against the same parent, the current head coin.
+
+<Steps>
+  <Step title="Registration">
+    Anyone can register a candidate by posting a bond. `RoundManager.RoundOpened` fires once, when the first candidate of a new round registers.
+  </Step>
+  <Step title="Trading">
+    All candidate pools trade against the head coin for a fixed window.
+  </Step>
+  <Step title="End">
+    The round's real end is settled on-chain, either from a public randomness beacon (`RoundManager.EndFulfilled`) or, if the beacon was never relayed in time, deterministically at the planned end (`RoundManager.RandomEndUnavailable`).
+  </Step>
+  <Step title="Finalize">
+    `RoundManager.RoundFinalized(roundId, hasWinner, winnerCandidateId, ...)` names the winner, if any. The winning candidate is then written into the chain permanently via `RoundManager.HeadChanged(index, token, parent)`, which also carries the coin's numbered position in the chain.
+  </Step>
+</Steps>
+
+A feed can label a coin from these three events alone:
+
+- No `RoundFinalized` yet for its round → **candidate**, still in registration or trading.
+- `RoundFinalized` fired, `hasWinner` true and `winnerCandidateId` matches → **link**, permanently in the chain (its index is in the matching `HeadChanged`).
+- `RoundFinalized` fired and it did not win → **lost**, it keeps its pool and keeps trading against its parent, but it never gets a chain position.
+
+## Fees
+
+Every Dollhouse pool takes two fees on a trade, both denominated in the coin the pool is priced in:
+
+- **1%**, charged once per route, only on pools that sit on the edge of the chain (priced directly in \$DOLL): 40% to the coin's creator, 40% locked into buy liquidity up and down the chain, 20% to the developer.
+- **0.075%**, charged on every pool regardless of position, kept by that pool as buy liquidity just under its own price.
+
+## Metadata feed
+
+Two GET endpoints, both public and unauthenticated.
+
+**Creator-set links and image.** `https://dollhouse-meta-api.dollhousemarkets.workers.dev/meta/4663/<token>` — the website, X account, description and image a coin's creator has set, if any. Empty JSON if none has ever been set.
+
+```json
+{
+  "meta": {
+    "image": "https://example.com/art.png",
+    "website": "https://example.com",
+    "x": { "url": "https://x.com/example", "handle": "example" }
+  },
+  "editor": "0x...",
+  "updatedAt": 1732000000
+}
+```
+
+**New-pairs feed.** `https://dollhouse-meta-api.dollhousemarkets.workers.dev/launches?chainId=4663&limit=50` — every launch, newest first, built from the on-chain events above.
+
+```json
+{
+  "chainId": 4663,
+  "launches": [
+    {
+      "candidateId": "412",
+      "round": "97",
+      "token": "0x...",
+      "name": "Example",
+      "symbol": "EXPL",
+      "image": "https://example.com/art.png",
+      "creator": "0x...",
+      "poolId": "0x...",
+      "parentToken": "0x...",
+      "tokenIsCurrency0": true,
+      "registeredBlock": "74350000",
+      "registeredAt": 1732000000,
+      "status": "candidate",
+      "linkIndex": null,
+      "links": { "website": "https://example.com", "x": "https://x.com/example", "telegram": null }
+    }
+  ]
+}
+```
+
+`image` falls back to the token's own `uri()` when no creator link has been set, and is only ever an `https:` URL. `status` is one of `candidate`, `link` or `lost`; `linkIndex` is the coin's numbered chain position once it is a `link`, otherwise `null`.
+
+## Supply
+
+Three plain-number endpoints on the same host, for chain-listing and market-data providers:
+
+- `GET /supply/max` — the fixed total supply.
+- `GET /supply/total` — total supply minus burned tokens.
+- `GET /supply/circulating` — total less burned, the launch locker, and unvested team and artist tokens.
+
+Each responds with a bare decimal number, no JSON.
+
+## Contact
+
+X: [@DollHouseMkts](https://x.com/DollHouseMkts) · Telegram: [t.me/dollhousemarkets](https://t.me/dollhousemarkets)
