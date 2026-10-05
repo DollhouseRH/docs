@@ -19,6 +19,8 @@ The loop runs in four steps:
 3. The creator accrues creator share, and the chain share becomes single-sided buy liquidity under the earlier coins.
 4. Each round adds a new coin, and every trade of that coin pays into every coin above it, forever.
 
+Every coin trades on its own pool, where its fee is collected, and ordinary DEX pools refuse it; see [Tokenomics](/tokenomics#trading-happens-on-the-coins-own-pool). Trading stays where the fees are paid, so every trade grows the bids under the chain's coins.
+
 The full fee split breakdown can be found in [Tokenomics](/tokenomics).
 
 ## Locked Liquidity Fee Mechanism
@@ -26,6 +28,14 @@ The full fee split breakdown can be found in [Tokenomics](/tokenomics).
 Each coin's chain fee share is placed as single-sided buy liquidity just under the price. The buy liquidity in each pool is locked forever and cannot be removed.
 
 Every placement of buy liquidity appears on the Treasury page of the app, with links to its onchain transaction.
+
+## Why every coin opens at the same size
+
+A coin deep in the chain opens at the same real-money size as link one. The chain does not shrink with depth: a coin's opening market cap is not scaled down each time a new link is added, so coin fifty opens as real a coin to trade as coin one. A coin's price only falls from there if nobody buys it.
+
+## A steady reference price
+
+That real-money size comes from \$DOLL's ETH price averaged over time, not a single moment's price, fed on a regular schedule so a brief spike or dip cannot set a coin's opening size. If that average is ever unavailable, coins open on the dear side by default, so a missing feed never hands out a coin too cheap.
 
 ## Rounds add coins to the loop
 

@@ -53,6 +53,22 @@ Every launch is an ERC-20 clone (`FamilyToken`) with a fixed supply and no owner
 
 - `name()` and `symbol()` — set once at registration, never change.
 - `uri()` — an off-chain metadata pointer, immutable after registration. On the current deployment this is the coin's art image URL. It is not the same as the creator-editable links described below, and it cannot be updated if a URL goes stale.
+- `tokenURI()` and `metadataURI()` — the two getter names trading terminals actually look for. Both return the same value: a JSON metadata document URL built as `<metadata base>` + the token's own lowercase hex address (no checksum casing), where `<metadata base>` is a fixed prefix set once when the whole deployment was created. Fetching that URL returns:
+
+```json
+{
+  "name": "Example",
+  "symbol": "EXPL",
+  "description": "",
+  "image": "https://example.com/art.png",
+  "external_url": "https://dollhouse.markets",
+  "website": "https://example.com",
+  "twitter": "https://x.com/example",
+  "telegram": null
+}
+```
+
+`name` and `symbol` are read live off the token; `image` falls back to `uri()` when no creator link has been set (and is only ever an `https:` URL); `description`, `website` and `twitter` come from the creator-editable links below when set, otherwise blank or `null`. The document is served with a public CORS header and a short cache, so a terminal can poll it freely.
 
 The coin's creator is not in `CandidateCreated`; read `RoundManager.creatorOf(token)`, or match the token address against the `RoundManager.CandidateRegistered` event in the same block, whose `creator` field carries it directly.
 
@@ -105,12 +121,68 @@ A feed can label a coin from these three events alone:
 - `RoundFinalized` fired, `hasWinner` true and `winnerCandidateId` matches → **link**, permanently in the chain (its index is in the matching `HeadChanged`).
 - `RoundFinalized` fired and it did not win → **lost**, it keeps its pool and keeps trading against its parent, but it never gets a chain position.
 
+## Opening price
+
+Every coin's opening market cap is anchored in ETH terms and set once, at registration, on `FamilyFactory`.
+
+```solidity
+event StartPriced(
+    uint256 indexed roundId,
+    address indexed parent,
+    uint160 sqrtP,
+    uint256 D,
+    uint256 A,
+    uint256 B,
+    uint256 flags
+);
+```
+
+`sqrtP` is the reference price read from the oracle at that moment, `D` is the \$DOLL-denominated target it implies, `A` is the coin's opening market cap after the parent-relative clamp, and `B` is the curve basis passed into the sale curve. `flags` records which parts of the pricing path fired; the same value is readable later per round with `FamilyFactory.roundStartFlags(roundId)`.
+
+| Bit | Meaning |
+|---|---|
+| 1 | Fallback price used |
+| 2 | Young link (short price history) |
+| 4 | Lower clamp applied |
+| 8 | Upper clamp applied |
+| 16 | Walk capped |
+| 32 | Limiter engaged |
+| 64 | Anchor missing |
+| 128 | Stale average used |
+
+The high byte of `flags` carries the oracle's own status at read time:
+
+| Bit (high byte) | Meaning |
+|---|---|
+| 1 | No data |
+| 2 | Stale |
+| 4 | Fast average short |
+| 8 | Slow average short |
+| 16 | No read |
+
+`FamilyFactory.curveBasisOf(token)` returns the stored curve basis `B` for a launched coin; `BidDeployer` reads it to size bids so a chain-coin burn never drifts a pool's curve. `FamilyFactory.startFdvOf(token)` returns the coin's opening market cap.
+
+`FamilyFactory.bindVenueOracle(oracle)` binds the price oracle once. It is permissionless, but only succeeds when the given address's code hash, venue pool id and pool manager all match the values fixed at deployment, so a look-alike contract can never be bound. Before it is bound, and whenever a read fails, every coin opens on the constant fallback described above, flagged in `StartPriced`.
+
+The oracle itself exposes two read-only views:
+
+```solidity
+function startPrice() external view returns (uint160 sqrtP, uint8 status);
+function latest() external view returns (uint160 stored, uint64 t, uint32 clampedStreak);
+```
+
+`startPrice()` returns the price used to anchor new coins and a status byte (0 means every average was available and fresh); `latest()` returns the most recently stored, step-limited price and how long it has been running in the same direction.
+
 ## Fees
 
 Every Dollhouse pool takes two fees on a trade, both denominated in the coin the pool is priced in:
 
 - **1%**, charged once per route, only on pools that sit on the edge of the chain (priced directly in \$DOLL): 40% to the coin's creator, 40% locked into buy liquidity up and down the chain, 20% to the developer.
 - **0.075%**, charged on every pool regardless of position, kept by that pool as buy liquidity just under its own price.
+
+### Trading chain coins
+
+A chain coin trades on its canonical pool, where its fee is collected; ordinary DEX pools (v2, v3 and hookless v4) refuse it. A router should trade the canonical pool through `FamilyHook`, and settle after the swap: the hook credits the coin's canonical allowance during the swap itself, separately for each direction, so a transfer into the `PoolManager` spends only the inbound allowance and a transfer out of it only the outbound one. A router that pays the coin in before swapping finds no allowance yet and is refused. A transfer its direction's allowance does not fully cover is refused whole with `NonCanonicalVenue(from, to, reason, available)`, where `reason` is 1 for a transfer into the `PoolManager` beyond the inbound allowance, 2 for a transfer out of it beyond the outbound allowance, and 3 for a transfer to or from another pool of the coin (a contract answering `token0()` or `token1()` with the coin's address), and `available` is the allowance left in that direction (zero for reason 3). `canonicalAllowance()` returns both allowances for the current transaction. A refused `take` surfaces inside the `PoolManager`'s `WrappedError`. Nothing is charged on the coin. Wallet-to-wallet transfers, including smart wallets, are free and are not refused.
 
 ## Metadata feed
 

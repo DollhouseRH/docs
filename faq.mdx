@@ -6,11 +6,11 @@ title: "FAQ"
 
 <AccordionGroup>
 <Accordion title="Do I need to hold or lock anything to buy?">
-No. Any wallet can buy or sell any coin, with no minimum and no lock-up. The only deposit in Dollhouse is the bond a creator posts to enter a coin in a round, and it comes back in full when the coin wins.
+No. Any wallet can buy or sell any coin, with no minimum and no lock-up.
 </Accordion>
 
 <Accordion title="Can the team rug?">
-No. Every pool keeps its money for good, every coin's whole supply goes into its pool at launch, and the contracts hold all of it with no key that can move any of it. The fee, the shares, the price curve, the timings, the bond and every round's result are fixed in the code.<br /><br />The team's allocation is explicitly stated and locked, provably, on-chain to only the disclosed addresses.
+No. Every pool keeps its money for good, every coin's whole supply goes into its pool at launch, and the contracts hold all of it with no key that can move any of it. The fee, the shares, the price curve, the timings and every round's result are fixed in the code.<br /><br />The team's allocation is explicitly stated and locked, provably, on-chain to only the disclosed addresses.
 
 The team's rights are limited to the steward role. This role can announce a sunset, which hands new rounds to a successor version on a one-hour public delay while every pool and balance stays where it is. This role is in place to enable protocol upgrades and critical bug fixes in the future.
 </Accordion>
@@ -40,19 +40,35 @@ It depends on the round number. Early rounds are short, and rounds grow longer a
 </Accordion>
 
 <Accordion title="How does late entry work?">
-Late entry is open only on longer rounds, in the first third of trading. A late entrant's pool opens when it registers, its snipe tax starts at that moment, and it posts the same bond as everyone else.
+Late entry is open only on longer rounds, in the first third of trading. A late entrant's pool opens when it registers, and its snipe tax starts at that moment.
 
 Late entrants are scored exactly like everyone else. The winner is the coin whose pool holds the most of the head coin, the newest coin in the chain, on average over the closing window. A late entrant will have less time to build community support and become a winner.
 
 Once registration and late entry have both closed, the round is shut to new coins. A registration sent after that fails. The next coin entered after the round ends opens the following round.
 </Accordion>
 
-<Accordion title="What is the bond?">
-The bond is a refundable deposit in \$DOLL that you post to enter a round. You get it back in full if you win. If you lose, it is added to the locked \$DOLL buy liquidity in link one's pool, the pool between \$DOLL and coin #1. It is a small flat amount, the same at every depth; see [Tokenomics](/tokenomics).
+<Accordion title="Does it cost anything to create a coin?">
+No. Creating a coin costs only gas.
 </Accordion>
 
 <Accordion title="What does joining the chain get me?">
 Your coin gets a numbered spot in the chain, immutably written on-chain. While it is the head coin, the next round's candidate coins are priced in it. It also earns a part of the chain share on every coin launched after it, placed as buy liquidity in its pool. See [The chain](/the-chain).
+</Accordion>
+</AccordionGroup>
+
+## Launching a coin
+
+<AccordionGroup>
+<Accordion title="Why does every coin open at the same size?">
+Every coin opens at a market cap set in ETH terms, using \$DOLL's averaged ETH price, so a coin does not get smaller and easier to sweep just because it sits deep in the chain. See [Tokenomics](/tokenomics).
+</Accordion>
+
+<Accordion title="What happens if the price feed is down?">
+Coins keep launching. If the averaged price feed is ever unavailable, a coin opens on the dear side by default, so buyers are never handed a coin priced too cheap by a missing feed.
+</Accordion>
+
+<Accordion title="Do I still need a bond to create a coin?">
+No. Creating a coin costs only gas.
 </Accordion>
 </AccordionGroup>
 
@@ -87,6 +103,14 @@ The snipe tax is kept in the pool's parent coin and placed as buy liquidity back
 
 <Accordion title="Do sells pay extra, or is there a lock-up?">
 Sells pay the same 1% fee as buys, and you can sell at any time.
+</Accordion>
+
+<Accordion title="Can I trade a Dollhouse coin on another DEX?">
+Not on an ordinary DEX pool: v2, v3 and hookless v4 pools refuse it. The coin's own Dollhouse pool is where it trades and where the fee is collected. Trade on dollhouse.markets, or through any router that uses the coin's own pool. Sending coins between wallets is free. See [Tokenomics](/tokenomics#trading-happens-on-the-coins-own-pool).
+</Accordion>
+
+<Accordion title="Why did a scanner say a coin has a transfer tax?">
+There is no transfer tax. Ordinary DEX pools (v2, v3 and hookless v4) refuse a Dollhouse coin, and some scanners report a refused test trade as a tax. A scanner that tests the coin's own pool, where it trades and where the fee is collected, shows none, and wallet-to-wallet transfers are free.
 </Accordion>
 
 <Accordion title="Can I add a website, X account, description or artwork to my coin?">

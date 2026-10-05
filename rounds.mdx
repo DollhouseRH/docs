@@ -8,10 +8,10 @@ A round is a timed contest that adds the next coin to the chain. It opens when t
 
 <Steps>
   <Step title="Registration">
-    Anyone can enter a coin by posting the bond, a refundable deposit. Registration lasts 1/5 of the round's trading time. It runs from 3 minutes to 1 hour.
+    Anyone can enter a coin, at no cost beyond gas. Its pool opens the moment it is created. Registration lasts 1/5 of the round's trading time. It runs from 3 minutes to 1 hour.
   </Step>
   <Step title="Trading">
-    All candidate pools open together. Trading lasts 15 minutes on the first two rounds. It doubles every two rounds until it reaches 12 hours. On rounds of an hour or more, a coin can still enter during the first third of trading, and its pool opens when it enters.
+    The round clock starts when registration closes. Trading lasts 15 minutes on the first two rounds. It doubles every two rounds until it reaches 12 hours. On rounds of an hour or more, a coin can still enter during the first third of trading, and its pool opens when it enters.
   </Step>
   <Step title="The end">
     Each round has a public planned end. The real end is a random moment in the last 3 minutes before it. That moment comes from drand, a public source of random numbers, and is checked on-chain. Only trades made before the planned end count. 
@@ -21,12 +21,14 @@ A round is a timed contest that adds the next coin to the chain. It opens when t
   </Step>
 </Steps>
 
+A coin trades from the moment it is created, so it can gather holders while registration is still open. The round still decides which coin joins the chain, and every candidate is scored over the same minutes. Trading before the round clock starts is not scored, but money that stays in a pool from then on counts like money added at the start.
+
 ## Scoring
 
-Buying a candidate raises its score, and selling lowers it. The score is the average amount of money in the candidate's pool during the closing window, shown as the market cap that money supports. That window is the last 15 minutes before the real end, and it is the same for every candidate, whenever it entered.
+Buying a candidate raises its score, and selling lowers it. The score is the average amount of money in the candidate's pool during the closing window, shown as the market cap that money supports. That window is the last 15 minutes before the real end, starting no earlier than the round clock, and it is the same for every candidate, whenever it entered. Either edge of that window lands to within a few seconds, not the exact instant, when trades on both sides of it happen close together.
 
 ## After the round
 
-The winner becomes the new head coin and gets its bond back in full. Its number and parent are written on-chain. Every candidate in the next round is priced in it, and its creator gets half of the creator share on that round's candidate trades. From then on, it earns its part of the chain share, the part of each fee locked into the chain, from every later coin.
+The winner becomes the new head coin. Its number and parent are written on-chain. Every candidate in the next round is priced in it, and its creator gets half of the creator share on that round's candidate trades. From then on, it earns its part of the chain share, the part of each fee locked into the chain, from every later coin.
 
-Every other candidate keeps its pool and trades forever against the coin it was paired with. Its creator keeps the full creator share on its trades after the round. Their bonds go to the locked \$DOLL buy liquidity in link one's pool.
+Every other candidate keeps its pool and trades forever against the coin it was paired with. Its creator keeps the full creator share on its trades after the round.
