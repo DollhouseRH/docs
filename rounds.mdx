@@ -8,16 +8,16 @@ A round is a timed contest that adds the next coin to the chain. It opens when t
 
 <Steps>
   <Step title="Registration">
-    Anyone can enter a coin, at no cost beyond gas. Its pool opens the moment it is created. Registration lasts 1/5 of the round's trading time. It runs from 3 minutes to 1 hour.
+    Anyone can enter a coin, at no cost beyond gas. Its pool opens the moment it is created. Registration takes the first fifth of the round, from 3 minutes to 1 hour.
   </Step>
   <Step title="Trading">
-    The round clock starts when registration closes. Trading lasts 15 minutes on the first two rounds. It doubles every two rounds until it reaches 12 hours. On rounds of an hour or more, a coin can still enter during the first third of trading, and its pool opens when it enters.
+    The first two rounds last ten minutes from the first entry: 3 minutes of registration, then 7 minutes of trading on the round clock. The round length doubles every two rounds until it reaches 12 hours. The round clock starts when registration closes. When trading lasts an hour or more, from round 7, a coin can still enter during the first third of trading, and its pool opens when it enters.
   </Step>
   <Step title="The end">
-    Each round has a public planned end. The real end is a random moment in the last 3 minutes before it. That moment comes from drand, a public source of random numbers, and is checked on-chain. Only trades made before the planned end count. 
+    Each round has a public planned end. The real end is a random moment in the last 3 minutes before it, or in the last quarter of trading on the two ten-minute rounds. That moment comes from drand, a public source of random numbers, and is checked on-chain. Only trades made before the planned end count. 
   </Step>
   <Step title="Scores and the result">
-    Once the real end is settled, scores are tallied over the next 5 minutes, and the candidate with the highest score becomes the new head coin.
+    Once the real end is settled, each candidate's score is submitted on-chain. The winner is announced as soon as every score is in, and at most 5 minutes after the end is settled. The candidate with the highest score becomes the new head coin.
   </Step>
 </Steps>
 
@@ -25,7 +25,7 @@ A coin trades from the moment it is created, so it can gather holders while regi
 
 ## Scoring
 
-Buying a candidate raises its score, and selling lowers it. The score is the average amount of money in the candidate's pool during the closing window, shown as the market cap that money supports. That window is the last 15 minutes before the real end, starting no earlier than the round clock, and it is the same for every candidate, whenever it entered. Either edge of that window lands to within a few seconds, not the exact instant, when trades on both sides of it happen close together.
+Buying a candidate raises its score, and selling lowers it. The score is the average amount of money in the candidate's pool during the closing window, shown as the market cap that money supports. That window is the last 15 minutes before the real end, starting no earlier than the round clock, so on the ten-minute rounds it covers the whole of trading. It is the same for every candidate, whenever it entered. Either edge of that window lands to within a few seconds, not the exact instant, when trades on both sides of it happen close together.
 
 ## After the round
 
