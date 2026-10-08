@@ -6,34 +6,50 @@ title: "Dollhouse V2"
 
 Dollhouse contracts have no owner, no upgrade path and no switch. That protects every holder from a rule being changed under them, and it also means a rule cannot be fixed in place. The first version proved the idea: real trading, real support for the first coins, and a chain that started growing. Two of its rules held the chain back, and both were fixed in stone.
 
+- **The buyback burned \$DOLL directly.** A burn removes \$DOLL, but it puts nothing under the coins already on the chain, so the chain earned fees and its coins never felt them. This is the main thing V2 changes.
 - **Creating a coin required a bond priced in \$DOLL.** As \$DOLL rose, the bond rose with it, and the coins that should have become the second and third links were priced out before they were made.
-- **The buyback burned \$DOLL directly.** A burn puts nothing under the coins already on the chain, so holding a chain coin did not benefit from the fees the chain earned.
 
 Changing those rules needed a new set of contracts, and a new set of contracts needs a new genesis coin. V2 is that: a fresh \$DOLL and a chain that starts from zero on the rules below. The first version's token keeps trading on its own pool and is not part of V2.
 
-## What changed
+## The main improvement: the buyback flows through the chain
+
+The same share of fees is removed from circulation in both versions. Where it ends up is what changed.
+
+```text
+First version:   fees → buy $DOLL → burn
+                 the $DOLL is gone, and nothing changes under #1, #2 or the head
+
+V2:              fees → $DOLL → #1 → #2 → ... → head → burn
+                 every pool on the path keeps what was paid through it
+```
+
+In V2 the buyback buys the head coin, and the only route to the head coin runs through every link above it. The \$DOLL buys coin #1, and that \$DOLL stays in coin #1's pool as its reserve. The #1 buys coin #2, and stays in coin #2's pool. Every link down the chain gains reserve on the way. The head coins bought at the end are burned, so they can never be sold back, and the reserve they pulled in stays where it landed.
+
+<Tip>
+The same amount of \$DOLL leaves circulation as a direct burn would remove. The difference is that it now sits inside the chain as buy-side depth under every coin, instead of disappearing.
+</Tip>
+
+What that means for a holder:
+
+- **Every coin on the chain gets deeper with every fee claim**, not just the genesis coin. A holder of coin #3 sees the buy pass through #3 on its way to the head.
+- **Round winners are bought first.** Winning a round means your coin is next in the path of every buyback.
+- **The chain compounds.** More trading means more fees, more fees mean deeper pools under every link, and deeper pools make the next coin easier to build on. In the first version that loop stopped at \$DOLL. In V2 it runs the length of the chain.
+
+The full mechanism, including how the buy is split and sized, is on [The flywheel](/the-flywheel).
+
+## Everything else that changed
 
 | Area | First version | V2 |
 |---|---|---|
+| Buyback | Bought and burned \$DOLL | Buys the head coin through every link and burns it; round winners first |
 | Creating a coin | A bond in \$DOLL, returned or forfeited by the round | Free. Gas only, no bond |
 | When a coin trades | At the round's synchronized start | The moment it is created |
 | Round length | Fixed, hours long | Ten minutes from the first entry, growing with depth; the winner is final the moment the last score is in |
 | Opening price | A fixed share of the parent's supply, so coins deep in the chain opened tiny | Set in ETH terms from \$DOLL's averaged price, never above half the parent |
 | Where a coin trades | Any pool | Its own pool only, so no copy pool can undercut the fee |
-| Buyback | Bought and burned \$DOLL | Buys the head coin through every link on the chain and burns it; round winners first |
 | Art | Terminals often showed a blank avatar | Every coin's art resolves from its first trade |
 
 Each of these has its own page: [Launching a coin](/launching-a-coin), [Rounds](/rounds), [Tokenomics](/tokenomics), [The chain](/the-chain), [The flywheel](/the-flywheel).
-
-## The buyback now flows through the chain
-
-The largest change is where the buyback's \$DOLL ends up.
-
-In the first version, a share of fees bought \$DOLL and burned it. The \$DOLL left circulation, but it left the chain too: nothing was added under coin #1, #2 or the head, so a holder of a chain coin saw no effect.
-
-In V2 the same share of fees buys the head coin, and the only way to buy the head coin is through every link above it. The \$DOLL buys coin #1, that #1 buys coin #2, and so on down to the head. Each hop leaves what it paid in the pool it bought from: the \$DOLL stays in coin #1's pool as its reserve, the #1 stays in coin #2's pool, and every link down the chain gains reserve on the way. The head coins bought at the end are burned, so they can never be sold back and the reserve they pulled in stays.
-
-The same amount of \$DOLL leaves circulation as before. The difference is that it now sits inside the chain as buy-side depth under every coin, instead of disappearing. Every holder on the path sees the buy, round winners are bought first, and each fee claim strengthens the whole chain rather than one token.
 
 ## What first-version holders receive
 
