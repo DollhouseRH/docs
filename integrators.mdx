@@ -160,10 +160,10 @@ The high byte of `flags` carries the oracle's own status at read time:
 | 8 | Slow average short |
 | 16 | No read |
 
-After one clean hour of samples (no seed and no step-limited sample in the last hour) the oracle
-also prices with status 8 alone (slow average short): it uses the last hour's average, and the
-24-hour average joins once it exists. Before that clean hour, and after any step-limited sample
-within the last hour, a coin opens on the fallback instead.
+After ten clean minutes of samples (no seed and no step-limited sample in the last ten minutes) the
+oracle also prices with status 8 alone (slow average short): it uses the last ten minutes' average,
+and the 24-hour average joins once it exists. Before those ten clean minutes, and after any
+step-limited sample within the last ten minutes, a coin opens on the fallback instead.
 
 `FamilyFactory.curveBasisOf(token)` returns the stored curve basis `B` for a launched coin; `BidDeployer` reads it to size bids so a chain-coin burn never drifts a pool's curve. `FamilyFactory.startFdvOf(token)` returns the coin's opening market cap.
 
