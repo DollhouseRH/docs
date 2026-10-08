@@ -25,6 +25,16 @@ Changing those rules needed a new set of contracts, and a new set of contracts n
 
 Each of these has its own page: [Launching a coin](/launching-a-coin), [Rounds](/rounds), [Tokenomics](/tokenomics), [The chain](/the-chain), [The flywheel](/the-flywheel).
 
+## The buyback now flows through the chain
+
+The largest change is where the buyback's \$DOLL ends up.
+
+In the first version, a share of fees bought \$DOLL and burned it. The \$DOLL left circulation, but it left the chain too: nothing was added under coin #1, #2 or the head, so a holder of a chain coin saw no effect.
+
+In V2 the same share of fees buys the head coin, and the only way to buy the head coin is through every link above it. The \$DOLL buys coin #1, that #1 buys coin #2, and so on down to the head. Each hop leaves what it paid in the pool it bought from: the \$DOLL stays in coin #1's pool as its reserve, the #1 stays in coin #2's pool, and every link down the chain gains reserve on the way. The head coins bought at the end are burned, so they can never be sold back and the reserve they pulled in stays.
+
+The same amount of \$DOLL leaves circulation as before. The difference is that it now sits inside the chain as buy-side depth under every coin, instead of disappearing. Every holder on the path sees the buy, round winners are bought first, and each fee claim strengthens the whole chain rather than one token.
+
 ## What first-version holders receive
 
 A tenth of the V2 supply was bought in the transaction that created the V2 token and sent to every wallet that held the first version's \$DOLL at the snapshot, in proportion to its holding, with a cap per wallet so no single holder dominates. The full allocation went out in a single transfer per wallet. Wallets can check their allocation at [dollhouse.markets/airdrop](https://dollhouse.markets/airdrop).
